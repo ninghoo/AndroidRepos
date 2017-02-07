@@ -17,6 +17,7 @@
         </activity>
 
         <activity android:name=".HelloActivity" />
+        <activity android:name=".DrawSqrActivity" />
     </application>
 
 </manifest>
