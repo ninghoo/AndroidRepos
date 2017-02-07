@@ -25,14 +25,6 @@ public class MainActivity extends AppCompatActivity
     {
         mRecyMusiclist = (RecyclerView) findViewById(R.id.recycl_musiclist);
 
-        mRecyMusiclist.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-
-            }
-        });
     }
 
     private void hideActionBar()

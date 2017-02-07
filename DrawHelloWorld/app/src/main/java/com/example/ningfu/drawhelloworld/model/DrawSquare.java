@@ -29,9 +29,6 @@ public class DrawSquare extends View
     {
         super(context);
 
-        mFrontSize = 16 * getResources().getDisplayMetrics().density;
-
-
     }
 
     @Override

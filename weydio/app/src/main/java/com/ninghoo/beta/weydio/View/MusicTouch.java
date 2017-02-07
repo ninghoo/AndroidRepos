@@ -1,4 +1,4 @@
-package com.ninghoo.beta.weydio.model;
+package com.ninghoo.beta.weydio.View;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -13,7 +13,7 @@ import android.view.View;
 
 public class MusicTouch extends View
 {
-    private float mFrontSize;
+    private Paint mPaint;
 
     private float fx = 0;
     private float fy = 0;
@@ -25,8 +25,7 @@ public class MusicTouch extends View
     {
         super(context);
 
-        mFrontSize = 16 * getResources().getDisplayMetrics().density;
-
+        mPaint.setAntiAlias(true);
     }
 
     @Override
@@ -37,26 +36,7 @@ public class MusicTouch extends View
         // 当前不进行画图，所以为空。
     }
 
-    private void drawsquare(Canvas canvas, float[] pts, Paint paint)
-    {
-        float[] points = new float[pts.length * 2 - 4];
 
-        for(int i = 0, j = 0; i < pts.length; i = i +2)
-        {
-            points[j++] = pts[i];
-            points[j++] = pts[i + 1];
-
-            if(i > 1 && i < pts.length - 2)
-            {
-                points[j++] = pts[i];
-                points[j++] = pts[i + 1];
-            }
-        }
-
-        canvas.drawLines(points, paint);
-    }
-
-    //  按照秋阳的描述，由于是动态地去更新视图，所以应该是在onTouchEvent方法里面去实现，而不是在要开始就初始化。
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {

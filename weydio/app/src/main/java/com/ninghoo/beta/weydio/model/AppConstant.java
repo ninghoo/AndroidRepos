@@ -1,0 +1,21 @@
+package com.ninghoo.beta.weydio.model;
+
+/**
+ * Created by ningfu on 17-2-8.
+ */
+
+public class AppConstant {
+    public class PlayerMsg {
+        public static final int PLAY_MSG = 1;		//����
+        public static final int PAUSE_MSG = 2;		//��ͣ
+        public static final int STOP_MSG = 3;		//ֹͣ
+        public static final int CONTINUE_MSG = 4;	//����
+        public static final int PRIVIOUS_MSG = 5;	//��һ��
+        public static final int NEXT_MSG = 6;		//��һ��
+        public static final int PROGRESS_CHANGE = 7;//���ȸı�
+        public static final int PLAYING_MSG = 8;	//���ڲ���
+        public static final int REPEAT_MSG = 9;	//���ڲ���
+        public static final int ROUND_MSG = 10;	//���ڲ���
+        public static final int RANDOM_MSG = 11;	//���ڲ���
+    }
+}
