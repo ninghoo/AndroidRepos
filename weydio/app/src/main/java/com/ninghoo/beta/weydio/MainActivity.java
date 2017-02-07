@@ -3,9 +3,12 @@ package com.ninghoo.beta.weydio;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity
 {
+    private RecyclerView mRecyMusiclist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -15,7 +18,21 @@ public class MainActivity extends AppCompatActivity
 
         hideActionBar();
 
+        initRecyMusicList();
+    }
 
+    private void initRecyMusicList()
+    {
+        mRecyMusiclist = (RecyclerView) findViewById(R.id.recycl_musiclist);
+
+        mRecyMusiclist.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
     }
 
     private void hideActionBar()
