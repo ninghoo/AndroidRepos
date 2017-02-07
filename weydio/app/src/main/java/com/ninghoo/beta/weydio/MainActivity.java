@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.ninghoo.beta.weydio.Adapter.MusicListAdapter;
+import com.ninghoo.beta.weydio.Service.MusicPlayService;
 import com.ninghoo.beta.weydio.model.Audio;
 import com.ninghoo.beta.weydio.model.MediaDetails;
 
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity
 
     private ArrayList<Audio> la;
 
+    private View mClickBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -30,6 +33,24 @@ public class MainActivity extends AppCompatActivity
         hideActionBar();
 
         initRecyMusicList();
+
+        initClickBar();
+    }
+
+    private void initClickBar()
+    {
+        mClickBar = (View) findViewById(R.id.view_singleBar);
+
+        mClickBar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                MusicPlayService mps = new MusicPlayService();
+
+                mps.pause();
+            }
+        });
     }
 
     private void initRecyMusicList()

@@ -128,7 +128,7 @@ public class MusicPlayService extends Service
         }
     }
 
-    private void pause()
+    public void pause()
     {
         if(mediaPlayer != null && mediaPlayer.isPlaying())
         {
