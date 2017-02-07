@@ -1,8 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_slide">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycl_musiclist"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
+    <View
+        android:id="@+id/view_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#c8595454"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="100dp"
+        android:background="#c8f5f2e9">
+
+        <ImageView
+            android:id="@+id/item_iv_musicCover"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:paddingTop="5sp"
+            android:paddingLeft="5sp"
+            android:src="@drawable/oafront"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="15sp"
+            android:paddingLeft="15sp">
+
+            <TextView
+                android:id="@+id/item_tv_musicName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Parades"/>
+
+            <TextView
+                android:id="@+id/item_tv_musicArtist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:paddingTop="5sp"
+                android:text="Kevin Morty"/>
+
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="#000"/>-->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </FrameLayout>

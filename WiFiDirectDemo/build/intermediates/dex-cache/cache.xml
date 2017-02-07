@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="D:\AndroidStudio\AndroidStudioWorkSpace\WiFiDirectDemo\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="328a285c46f0428cc816987c34f046cf505e378a">
+        <dex dex="D:\AndroidStudio\AndroidStudioWorkSpace\WiFiDirectDemo\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_a6ad0a082749970b7ac2991d3f4ac408052d06a9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\AndroidStudio\AndroidStudioWorkSpace\WiFiDirectDemo\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="a565a0661e9e7971a1736a5f0f95aaa859f49aa5">
+        <dex dex="D:\AndroidStudio\AndroidStudioWorkSpace\WiFiDirectDemo\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_4856b36acc66b1a280fa975a54cebe1ac4adff70\classes.dex" />
+    </item>
+
+</items>
