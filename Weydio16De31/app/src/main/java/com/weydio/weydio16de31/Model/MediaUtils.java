@@ -23,6 +23,8 @@ public class MediaUtils
 {
     private static final Uri albumArtUri = Uri.parse("content://media/external/audio/albumart");
 
+    public static Uri uri;
+
     /**
      * 获取默认专辑图片
      * @param context
@@ -54,7 +56,7 @@ public class MediaUtils
             BitmapFactory.Options options = new BitmapFactory.Options();
             FileDescriptor fd = null;
             if(albumid < 0){
-                Uri uri = Uri.parse("content://media/external/audio/media/"
+                uri = Uri.parse("content://media/external/audio/media/"
                         + songid + "/albumart");
                 ParcelFileDescriptor pfd = context.getContentResolver().openFileDescriptor(uri, "r");
                 if(pfd != null) {
@@ -62,7 +64,7 @@ public class MediaUtils
                 }
             } else {
 
-                Uri uri = ContentUris.withAppendedId(albumArtUri, albumid);
+                uri = ContentUris.withAppendedId(albumArtUri, albumid);
                 ParcelFileDescriptor pfd = context.getContentResolver().openFileDescriptor(uri, "r");
                 if(pfd != null) {
                     fd = pfd.getFileDescriptor();

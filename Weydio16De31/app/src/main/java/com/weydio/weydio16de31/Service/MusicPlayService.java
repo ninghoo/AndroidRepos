@@ -38,6 +38,7 @@ public class MusicPlayService extends Service
     private Intent mInent;
 
 
+
     // onBind方法，用于与Activity沟通。
     @Override
     public IBinder onBind(Intent intent)

@@ -2,6 +2,7 @@ package com.weydio.weydio16de31.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.weydio.weydio16de31.MainActivity;
 import com.weydio.weydio16de31.Model.AppConstant;
 import com.weydio.weydio16de31.Model.Audio;
@@ -34,6 +38,8 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     public Intent intent;
 
     public int position;
+
+    private Audio audio;
 
     public MusicListAdapter(Context context, ArrayList<Audio> data)
     {
@@ -117,9 +123,9 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     // 该方法会传入holder和position对象，通过position，可以获取单个音乐文件。
     // onBindViewHolder方法与视图绑定。
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position)
+    public void onBindViewHolder(final ViewHolder holder, int position)
     {
-        Audio audio = mData.get(position);
+        audio = mData.get(position);
 
         holder.AlbumFront.setImageBitmap(MediaUtils.getArtwork(mContext, audio.getmId(),audio.getmAlbumId(), true, true));
         holder.MusicName.setText(audio.getmTitle());

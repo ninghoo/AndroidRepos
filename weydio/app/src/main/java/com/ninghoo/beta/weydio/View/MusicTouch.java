@@ -25,6 +25,7 @@ public class MusicTouch extends View
     {
         super(context);
 
+        // 该方法是开启抗锯齿功能。
         mPaint.setAntiAlias(true);
     }
 
