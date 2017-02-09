@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.weydio.weydio16de31.MainActivity">
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/first_layout"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/music_recyclerView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="6"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentStart="true"/>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_next"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="6"-->
+            <!--android:text="next"/>-->
+
+    <!--</LinearLayout>-->
+
+
+    <LinearLayout
+        android:id="@+id/layout_title"
+        android:layout_width="fill_parent"
+        android:layout_height="55sp"
+        android:orientation="vertical">
+
+        <!--<fragment-->
+            <!--android:id="@+id/id_fragment_title"-->
+            <!--android:name="com.weydio.test1612.Fragment.TitleFragment"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="55sp"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentRight="true"/>-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/layout_title"
+        android:layout_above="@+id/layout_bottom" >
+
+        <android.support.v7.widget.RecyclerView
+        android:id="@+id/music_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="60sp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <!--<fragment-->
+            <!--android:id="@+id/id_fragment_bottomPlay"-->
+            <!--android:name="com.weydio.test1612.Fragment.BottomPlayFragment"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="60sp"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentRight="true"/>-->
+
+        <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="6"
+        android:text="next"/>
+    </LinearLayout>
+
+</RelativeLayout>
