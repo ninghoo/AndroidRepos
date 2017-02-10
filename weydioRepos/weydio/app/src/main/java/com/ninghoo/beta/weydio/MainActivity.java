@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity
         mRecyMusiclist = (AutoLoadRecyclerView) findViewById(R.id.recycl_musiclist);
         mRecyMusiclist.setLayoutManager(new LinearLayoutManager(this));
 
+        mRecyMusiclist.setOnPauseListenerParams(ImageLoader.getInstance(), false, true);
+
         mLoadFinisCallBack = mRecyMusiclist;
 
         // 由于getAudioList是static方法，所以可以直接通过类名调用。

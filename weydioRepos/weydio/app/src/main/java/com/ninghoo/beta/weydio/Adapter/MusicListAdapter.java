@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     private Intent intent;
 
     private int position;
-    private int lastPosition = -1;
+//    private int lastPosition = -1;
 
 
     public MusicListAdapter(Context context, ArrayList<Audio> data)
@@ -128,9 +129,11 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 
         final Uri albumArtUri = Uri.parse("content://media/external/audio/albumart");
 
-        Uri uri = ContentUris.withAppendedId(albumArtUri, audio.getmId());
+        Uri uri = ContentUris.withAppendedId(albumArtUri, audio.getmAlbumId());
 
         String url = uri.toString();
+
+        Log.i("URL" , ":"+url);
 
         ImageLoader.getInstance().displayImage(url, holder.AlbumFront, WeydioApplication.mOptions);
         setAnimation(holder.itemView, position);
@@ -148,13 +151,11 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 
     private void setAnimation(View viewToAnimate, int position)
     {
-        if (position > lastPosition)
-        {
             Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(),
                     R.anim.item_bottom_in);
             viewToAnimate.startAnimation(animation);
-            lastPosition = position;
-        }
+//            lastPosition = position;
+
     }
 
 }
