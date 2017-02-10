@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.ninghoo.beta.weydio.Adapter.MusicListAdapter;
@@ -18,7 +19,7 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_DRAGGING;
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_SETTLING;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements MusicListAdapter.roadAlbumFront
 {
     private RecyclerView mRecyMusiclist;
 
@@ -78,17 +79,20 @@ public class MainActivity extends AppCompatActivity
                 switch(newState)
                 {
                     case SCROLL_STATE_IDLE:
-                        MusicListAdapter.ROAD_PIC = -1;
+                        roadAlbumFront();
+                        Log.i("Road_Pic", "=" + MusicListAdapter.ROAD_PIC);
 
                         break;
 
                     case SCROLL_STATE_DRAGGING:
                         MusicListAdapter.ROAD_PIC = 1;
+                        Log.i("Road_Pic", "=" + MusicListAdapter.ROAD_PIC);
 
                         break;
 
                     case SCROLL_STATE_SETTLING:
                         MusicListAdapter.ROAD_PIC = 2;
+                        Log.i("Road_Pic", "=" + MusicListAdapter.ROAD_PIC);
 
                         break;
                 }
@@ -111,5 +115,12 @@ public class MainActivity extends AppCompatActivity
         {
             actionBar.hide();
         }
+    }
+
+    @Override
+    public void roadAlbumFront()
+    {
+        MusicListAdapter.ROAD_PIC = -1;
+
     }
 }

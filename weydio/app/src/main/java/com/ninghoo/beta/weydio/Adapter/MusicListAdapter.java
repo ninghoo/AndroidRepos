@@ -123,13 +123,30 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     {
         Audio audio = mData.get(position);
 
-        if(ROAD_PIC > 0)
+        switch (ROAD_PIC)
         {
+            case -1:
+                holder.AlbumFront.setImageBitmap(MediaUtils.getArtwork(mContext, audio.getmId(),audio.getmAlbumId(), true, true));
+                break;
 
-        }
-        else
-        {
-            holder.AlbumFront.setImageBitmap(MediaUtils.getArtwork(mContext, audio.getmId(),audio.getmAlbumId(), true, true));
+            case 1:
+                if(holder.AlbumFront == null)
+                {
+                    holder.AlbumFront.setImageBitmap(MediaUtils.getDefaultArtwork(mContext, true));
+                }
+                else {
+                    break;
+                }
+
+
+            case 2:
+                if(holder.AlbumFront == null)
+                {
+                    holder.AlbumFront.setImageBitmap(MediaUtils.getDefaultArtwork(mContext, true));
+                }
+                else {
+                    break;
+                }
         }
 
         holder.MusicName.setText(audio.getmTitle());
@@ -140,6 +157,11 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     public int getItemCount()
     {
         return mData.size();
+    }
+
+    public interface roadAlbumFront
+    {
+        void roadAlbumFront();
     }
 
 }
