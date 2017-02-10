@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:id="@+id/layout_slide">
 
-    <android.support.v7.widget.RecyclerView
+    <com.ninghoo.beta.weydio.View.AutoLoadRecyclerView
         android:id="@+id/recycl_musiclist"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

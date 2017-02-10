@@ -11,7 +11,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * Created by ningfu on 17-2-10.
  */
 
-public class AutoLoadRecyclerView extends RecyclerView implements LoadFinishCallBack {
+public class AutoLoadRecyclerView extends RecyclerView implements LoadFinishCallBack
+{
 
     private onLoadMoreListener loadMoreListener;
     private boolean isLoadingMore;

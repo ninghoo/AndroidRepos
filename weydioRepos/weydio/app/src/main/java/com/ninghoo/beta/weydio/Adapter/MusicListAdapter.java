@@ -1,14 +1,19 @@
 package com.ninghoo.beta.weydio.Adapter;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ninghoo.beta.weydio.Application.WeydioApplication;
 import com.ninghoo.beta.weydio.R;
 import com.ninghoo.beta.weydio.Service.MusicPlayService;
 import com.ninghoo.beta.weydio.model.AppConstant;
@@ -27,9 +32,10 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     private ArrayList<Audio> mData;
     private Context mContext;
 
-    public Intent intent;
+    private Intent intent;
 
-    public int position;
+    private int position;
+    private int lastPosition = -1;
 
 
     public MusicListAdapter(Context context, ArrayList<Audio> data)
@@ -94,10 +100,11 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
                      */
 //                    intent.putExtra("la", (Parcelable) mData);
 
+                    // 以下是曾经传输成功的Parcleable对象。
 //                    intent.putParcelableArrayListExtra("Audio", mData);
 
                     intent.putExtra("position", position);
-                    intent.putExtra("url", audio.getmPath());
+//                    intent.putExtra("url", audio.getmPath());
                     intent.putExtra("MSG", AppConstant.PlayerMsg.PLAY_MSG);
                     intent.setClass(context, MusicPlayService.class);
                     // 在这里设置Intent去跳转制定的Sevice。
@@ -107,7 +114,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
             }
         });
 
-//        imageLoader.getInstance().displayImage(null, holder.AlbumFront);
 
         return holder;
     }
@@ -120,8 +126,16 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     {
         Audio audio = mData.get(position);
 
+        final Uri albumArtUri = Uri.parse("content://media/external/audio/albumart");
 
-        holder.AlbumFront.setImageBitmap(MediaUtils.getArtwork(mContext, audio.getmId(),audio.getmAlbumId(), true, true));
+        Uri uri = ContentUris.withAppendedId(albumArtUri, audio.getmId());
+
+        String url = uri.toString();
+
+        ImageLoader.getInstance().displayImage(url, holder.AlbumFront, WeydioApplication.mOptions);
+        setAnimation(holder.itemView, position);
+
+//        holder.AlbumFront.setImageBitmap(MediaUtils.getArtwork(mContext, audio.getmId(),audio.getmAlbumId(), true, true));
         holder.MusicName.setText(audio.getmTitle());
         holder.MusicArtist.setText(audio.getmArtist());
     }
@@ -130,6 +144,17 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     public int getItemCount()
     {
         return mData.size();
+    }
+
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(),
+                    R.anim.item_bottom_in);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 
 }

@@ -12,8 +12,10 @@ import com.ninghoo.beta.weydio.Adapter.MusicListAdapter;
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
 import com.ninghoo.beta.weydio.Service.MusicPlayService;
 import com.ninghoo.beta.weydio.View.AutoLoadRecyclerView;
+import com.ninghoo.beta.weydio.View.LoadFinishCallBack;
 import com.ninghoo.beta.weydio.model.Audio;
 import com.ninghoo.beta.weydio.model.MediaDetails;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -23,13 +25,13 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_SETTLING;
 
 public class MainActivity extends AppCompatActivity
 {
-    private RecyclerView mRecyMusiclist;
+    private AutoLoadRecyclerView mRecyMusiclist;
 
     private MusicListAdapter adapter;
 
     private ArrayList<Audio> la;
 
-    private View mClickBar;
+    private LoadFinishCallBack mLoadFinisCallBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,67 +48,23 @@ public class MainActivity extends AppCompatActivity
 
     private void initRecyMusicList()
     {
-        mRecyMusiclist = (RecyclerView) findViewById(R.id.recycl_musiclist);
+        mRecyMusiclist = (AutoLoadRecyclerView) findViewById(R.id.recycl_musiclist);
         mRecyMusiclist.setLayoutManager(new LinearLayoutManager(this));
+
+        mLoadFinisCallBack = mRecyMusiclist;
 
         // 由于getAudioList是static方法，所以可以直接通过类名调用。
         la =  MediaDetails.getAudioList(WeydioApplication.getContext());
 
         WeydioApplication.setMla(la);
 
+        mRecyMusiclist.setOnPauseListenerParams(ImageLoader.getInstance(), false, true);
+
         adapter = new MusicListAdapter(this, WeydioApplication.getMla());
 
         mRecyMusiclist.setAdapter(adapter);
     }
 
-//    private void initRecyMusicList()
-//    {
-//        mRecyMusiclist = (RecyclerView) findViewById(R.id.recycl_musiclist);
-//        mRecyMusiclist.setLayoutManager(new LinearLayoutManager(this));
-//
-//        // 由于getAudioList是static方法，所以可以直接通过类名调用。
-//        la =  MediaDetails.getAudioList(MainActivity.this);
-//
-//        adapter = new MusicListAdapter(this, la);
-//
-//        mRecyMusiclist.setAdapter(adapter);
-//
-//        mRecyMusiclist.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState)
-//            {
-//                super.onScrollStateChanged(recyclerView, newState);
-//
-//                switch(newState)
-//                {
-//                    case SCROLL_STATE_IDLE:
-//                        roadAlbumFront();
-//                        Log.i("Road_Pic", "=" + MusicListAdapter.ROAD_PIC);
-//
-//                        break;
-//
-//                    case SCROLL_STATE_DRAGGING:
-//                        MusicListAdapter.ROAD_PIC = 1;
-//                        Log.i("Road_Pic", "=" + MusicListAdapter.ROAD_PIC);
-//
-//                        break;
-//
-//                    case SCROLL_STATE_SETTLING:
-//                        MusicListAdapter.ROAD_PIC = 2;
-//                        Log.i("Road_Pic", "=" + MusicListAdapter.ROAD_PIC);
-//
-//                        break;
-//                }
-//            }
-//
-//            // 当滑动的时候可以监听滑动情况。
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//            }
-//
-//        });
-//    }
 
     private void hideActionBar()
     {
