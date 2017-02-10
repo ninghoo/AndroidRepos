@@ -116,8 +116,7 @@ public class MainActivity extends AppCompatActivity implements MusicListAdapter.
             actionBar.hide();
         }
     }
-
-    // road.
+    
     @Override
     public void roadAlbumFront()
     {
