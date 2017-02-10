@@ -13,8 +13,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class AutoLoadRecyclerView extends RecyclerView implements LoadFinishCallBack {
 
-    private onLoadMoreListener loadMoreListener;	//���ظ���ص�
-    private boolean isLoadingMore;					//�Ƿ���ظ���
+    private onLoadMoreListener loadMoreListener;
+    private boolean isLoadingMore;
 
     public AutoLoadRecyclerView(Context context) {
         this(context, null);
@@ -27,20 +27,20 @@ public class AutoLoadRecyclerView extends RecyclerView implements LoadFinishCall
     public AutoLoadRecyclerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        isLoadingMore = false;	//Ĭ��������ظ���
-        setOnScrollListener(new AutoLoadScrollListener(null, true, true));
+        isLoadingMore = false;
+        addOnScrollListener(new AutoLoadScrollListener(null, true, true));
     }
 
     /**
-     * ������ʾͼƬ����Ҫ�����⼸�����������ٻ���ʱ����ͣͼƬ����
      *
-     * @param imageLoader	ImageLoaderʵ������
+     * @param imageLoader	ImageLoader
      * @param pauseOnScroll
      * @param pauseOnFling
      */
-    public void setOnPauseListenerParams(ImageLoader imageLoader, boolean pauseOnScroll, boolean pauseOnFling) {
+    public void setOnPauseListenerParams(ImageLoader imageLoader, boolean pauseOnScroll
+            , boolean pauseOnFling) {
 
-        setOnScrollListener(new AutoLoadScrollListener(imageLoader, pauseOnScroll, pauseOnFling));
+        addOnScrollListener(new AutoLoadScrollListener(imageLoader, pauseOnScroll, pauseOnFling));
 
     }
 
@@ -54,22 +54,24 @@ public class AutoLoadRecyclerView extends RecyclerView implements LoadFinishCall
     }
 
 
-    //���ظ���Ļص��ӿ�
     public interface onLoadMoreListener {
         void loadMore();
     }
 
 
     /**
-     * �����Զ����ؼ�����
+     *
      */
-    private class AutoLoadScrollListener extends OnScrollListener {
+    private class AutoLoadScrollListener extends OnScrollListener
+    {
 
         private ImageLoader imageLoader;
         private final boolean pauseOnScroll;
         private final boolean pauseOnFling;
 
-        public AutoLoadScrollListener(ImageLoader imageLoader, boolean pauseOnScroll, boolean pauseOnFling) {
+        public AutoLoadScrollListener(ImageLoader imageLoader, boolean pauseOnScroll
+                , boolean pauseOnFling)
+        {
             super();
             this.pauseOnScroll = pauseOnScroll;
             this.pauseOnFling = pauseOnFling;
@@ -80,12 +82,13 @@ public class AutoLoadRecyclerView extends RecyclerView implements LoadFinishCall
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
 
-            //����GridLayoutManager��LinearLayoutManager���࣬����Ҳ����
+
             if (getLayoutManager() instanceof LinearLayoutManager) {
-                int lastVisibleItem = ((LinearLayoutManager) getLayoutManager()).findLastVisibleItemPosition();
+                int lastVisibleItem = ((LinearLayoutManager) getLayoutManager())
+                        .findLastVisibleItemPosition();
                 int totalItemCount = AutoLoadRecyclerView.this.getAdapter().getItemCount();
 
-                //�лص��ӿڣ��Ҳ��Ǽ���״̬���Ҽ����ʣ��2��item���Ҵ������»��������Զ�����
+
                 if (loadMoreListener != null && !isLoadingMore && lastVisibleItem >= totalItemCount -
                         2 && dy > 0) {
                     loadMoreListener.loadMore();

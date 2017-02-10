@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.ninghoo.beta.weydio.Application.WeydioApplication;
 import com.ninghoo.beta.weydio.model.AppConstant;
 import com.ninghoo.beta.weydio.model.Audio;
 
@@ -23,6 +24,7 @@ public class MusicPlayService extends Service
 
     private boolean isPause;
 
+    // audio是单个的item数据。
     private Audio audio;
 
     int msg;
@@ -46,8 +48,8 @@ public class MusicPlayService extends Service
     @Override
     public void onCreate()
     {
-
         super.onCreate();
+
     }
 
     // 这是属于Service类里的内部方法。
@@ -56,6 +58,8 @@ public class MusicPlayService extends Service
     {
         this.mInent = intent;
 
+        la = WeydioApplication.getMla();
+
         currentIndex = intent.getIntExtra("position", 0);
 
         if(mediaPlayer.isPlaying())
@@ -63,7 +67,7 @@ public class MusicPlayService extends Service
             stop();
         }
 
-        path = intent.getStringExtra("url");
+        path = la.get(currentIndex).getmPath();
 
         Log.i("PATH", path);
 
@@ -92,12 +96,8 @@ public class MusicPlayService extends Service
             @Override
             public void onCompletion(MediaPlayer mp)
             {
-                la = mInent.getParcelableArrayListExtra("Audio");
-
-                Log.i("Intent", mInent+"");
-                Log.i("LA", la+"");
-
                 currentIndex++;
+
                 audio = la.get(currentIndex+1);
 
                 path = audio.getmPath();

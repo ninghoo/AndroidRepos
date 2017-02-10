@@ -31,9 +31,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 
     public int position;
 
-    public static int ROAD_PIC = -1;
-
-//    private ImageLoader imageLoader;
 
     public MusicListAdapter(Context context, ArrayList<Audio> data)
     {
@@ -97,7 +94,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
                      */
 //                    intent.putExtra("la", (Parcelable) mData);
 
-                    intent.putParcelableArrayListExtra("Audio", mData);
+//                    intent.putParcelableArrayListExtra("Audio", mData);
 
                     intent.putExtra("position", position);
                     intent.putExtra("url", audio.getmPath());
@@ -123,32 +120,8 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     {
         Audio audio = mData.get(position);
 
-        switch (ROAD_PIC)
-        {
-            case -1:
-                holder.AlbumFront.setImageBitmap(MediaUtils.getArtwork(mContext, audio.getmId(),audio.getmAlbumId(), true, true));
-                break;
 
-            case 1:
-                if(holder.AlbumFront == null)
-                {
-                    holder.AlbumFront.setImageBitmap(MediaUtils.getDefaultArtwork(mContext, true));
-                }
-                else {
-                    break;
-                }
-
-
-            case 2:
-                if(holder.AlbumFront == null)
-                {
-                    holder.AlbumFront.setImageBitmap(MediaUtils.getDefaultArtwork(mContext, true));
-                }
-                else {
-                    break;
-                }
-        }
-
+        holder.AlbumFront.setImageBitmap(MediaUtils.getArtwork(mContext, audio.getmId(),audio.getmAlbumId(), true, true));
         holder.MusicName.setText(audio.getmTitle());
         holder.MusicArtist.setText(audio.getmArtist());
     }
@@ -157,11 +130,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     public int getItemCount()
     {
         return mData.size();
-    }
-
-    public interface roadAlbumFront
-    {
-        void roadAlbumFront();
     }
 
 }
