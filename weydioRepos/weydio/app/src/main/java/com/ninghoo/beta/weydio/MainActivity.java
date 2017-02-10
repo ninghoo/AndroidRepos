@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.ninghoo.beta.weydio.Adapter.MusicListAdapter;
 import com.ninghoo.beta.weydio.Service.MusicPlayService;
+import com.ninghoo.beta.weydio.View.AutoRoadRecyclerView;
 import com.ninghoo.beta.weydio.model.Audio;
 import com.ninghoo.beta.weydio.model.MediaDetails;
 
@@ -21,7 +22,7 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_SETTLING;
 
 public class MainActivity extends AppCompatActivity implements MusicListAdapter.roadAlbumFront
 {
-    private RecyclerView mRecyMusiclist;
+    private AutoRoadRecyclerView mRecyMusiclist;
 
     private MusicListAdapter adapter;
 
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements MusicListAdapter.
             actionBar.hide();
         }
     }
-    
+
     @Override
     public void roadAlbumFront()
     {
