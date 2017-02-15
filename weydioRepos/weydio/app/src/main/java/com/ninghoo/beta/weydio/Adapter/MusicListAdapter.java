@@ -135,6 +135,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 
         Log.i("URL" , ":"+url);
 
+        // 这里的ImageLoader，并没有用MediaUtils去获取专辑图片，而是直接获取歌曲专辑的地址。
         ImageLoader.getInstance().displayImage(url, holder.AlbumFront, WeydioApplication.mOptions);
         setAnimation(holder.itemView, position);
 

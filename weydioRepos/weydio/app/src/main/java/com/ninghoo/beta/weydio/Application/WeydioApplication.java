@@ -36,6 +36,7 @@ public class WeydioApplication extends Application
         // 在onCreate中获取全局的context对象，并在getContext方法中返回。
         mContext = getApplicationContext();
 
+        // 初始化ImageLoader：
         initImageLoader(this);
     }
 
@@ -59,12 +60,12 @@ public class WeydioApplication extends Application
     private void initImageLoader(Context context)
     {
 
-        // 第一步是
+        // 第一步是初始化ImageLoaderConfiguration。
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())
-                .diskCacheSize(200 * 1024 * 1024) // 200 Mb
+                .diskCacheSize(10 * 1024 * 1024) // 10 Mb
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 //.writeDebugLogs() // Remove for release app
                 .build();

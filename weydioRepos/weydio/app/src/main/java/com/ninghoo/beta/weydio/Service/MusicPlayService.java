@@ -31,11 +31,7 @@ public class MusicPlayService extends Service
 
     private int currentIndex;
 
-    private int maxIndex;
-
     private ArrayList<Audio> la;
-
-    private Intent mInent;
 
 
     // onBind方法，用于与Activity沟通。
@@ -56,8 +52,6 @@ public class MusicPlayService extends Service
     @Override
     public int onStartCommand(final Intent intent, int flags, int startId)
     {
-        this.mInent = intent;
-
         la = WeydioApplication.getMla();
 
         currentIndex = intent.getIntExtra("position", 0);
@@ -90,6 +84,7 @@ public class MusicPlayService extends Service
             // none.
         }
 
+        // 自动下一首。
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
         {
 
