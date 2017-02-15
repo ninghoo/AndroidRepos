@@ -29,7 +29,7 @@ public class MusicPlayService extends Service
 
     int msg;
 
-    private int currentIndex;
+    private static int currentIndex;
 
     private ArrayList<Audio> la;
 
@@ -93,7 +93,7 @@ public class MusicPlayService extends Service
             {
                 currentIndex++;
 
-                audio = la.get(currentIndex+1);
+                audio = la.get(currentIndex);
 
                 path = audio.getmPath();
 

@@ -1,37 +1,28 @@
 package com.ninghoo.beta.weydio;
 
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
+import android.view.WindowManager;
 
 import com.ninghoo.beta.weydio.Adapter.MusicListAdapter;
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
-import com.ninghoo.beta.weydio.Service.MusicPlayService;
-import com.ninghoo.beta.weydio.View.AutoLoadRecyclerView;
-import com.ninghoo.beta.weydio.View.LoadFinishCallBack;
 import com.ninghoo.beta.weydio.model.Audio;
 import com.ninghoo.beta.weydio.model.MediaDetails;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
-import static android.support.v7.widget.RecyclerView.SCROLL_STATE_DRAGGING;
-import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
-import static android.support.v7.widget.RecyclerView.SCROLL_STATE_SETTLING;
-
 public class MainActivity extends AppCompatActivity
 {
-    private AutoLoadRecyclerView mRecyMusiclist;
+    private RecyclerView mRecyMusiclist;
 
     private MusicListAdapter adapter;
 
     private ArrayList<Audio> la;
 
-    private LoadFinishCallBack mLoadFinisCallBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,6 +32,8 @@ public class MainActivity extends AppCompatActivity
 
         hideActionBar();
 
+        initState();
+
         initRecyMusicList();
 
     }
@@ -48,19 +41,13 @@ public class MainActivity extends AppCompatActivity
 
     private void initRecyMusicList()
     {
-        mRecyMusiclist = (AutoLoadRecyclerView) findViewById(R.id.recycl_musiclist);
+        mRecyMusiclist = (RecyclerView) findViewById(R.id.recycl_musiclist);
         mRecyMusiclist.setLayoutManager(new LinearLayoutManager(this));
-
-        mRecyMusiclist.setOnPauseListenerParams(ImageLoader.getInstance(), false, true);
-
-        mLoadFinisCallBack = mRecyMusiclist;
 
         // 由于getAudioList是static方法，所以可以直接通过类名调用。
         la =  MediaDetails.getAudioList(WeydioApplication.getContext());
 
         WeydioApplication.setMla(la);
-
-        mRecyMusiclist.setOnPauseListenerParams(ImageLoader.getInstance(), false, true);
 
         adapter = new MusicListAdapter(this, WeydioApplication.getMla());
 
@@ -75,6 +62,18 @@ public class MainActivity extends AppCompatActivity
         if(actionBar != null)
         {
             actionBar.hide();
+        }
+    }
+
+    /**
+     * 沉浸式状态栏
+     */
+    private void initState() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
     }
 }

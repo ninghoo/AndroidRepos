@@ -36,7 +36,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     private Intent intent;
 
     private int position;
-//    private int lastPosition = -1;
 
 
     public MusicListAdapter(Context context, ArrayList<Audio> data)
@@ -137,7 +136,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 
         // 这里的ImageLoader，并没有用MediaUtils去获取专辑图片，而是直接获取歌曲专辑的地址。
         ImageLoader.getInstance().displayImage(url, holder.AlbumFront, WeydioApplication.mOptions);
-        setAnimation(holder.itemView, position);
+        setAnimation(holder.AlbumFront, position);
 
 //        holder.AlbumFront.setImageBitmap(MediaUtils.getArtwork(mContext, audio.getmId(),audio.getmAlbumId(), true, true));
         holder.MusicName.setText(audio.getmTitle());
@@ -155,7 +154,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
             Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(),
                     R.anim.item_bottom_in);
             viewToAnimate.startAnimation(animation);
-//            lastPosition = position;
 
     }
 
