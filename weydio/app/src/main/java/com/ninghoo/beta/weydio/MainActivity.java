@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity
 
     private ArrayList<Audio> la;
 
+    private Context mContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -86,7 +88,15 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDrawerClosed(View drawerView)
             {
+                Intent intent = new Intent();
 
+                mContext = WeydioApplication.getContext();
+
+                intent.putExtra("MSG", AppConstant.PlayerMsg.NEXT_MSG);
+                intent.setClass(mContext, MusicPlayService.class);
+                // 在这里设置Intent去跳转制定的Sevice。
+
+                mContext.startService(intent);
             }
 
             @Override

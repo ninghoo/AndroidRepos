@@ -29,7 +29,7 @@ public class MusicPlayService extends Service
 
     int msg;
 
-    private static int currentIndex;
+    private static int currentIndex = 0;
 
     private ArrayList<Audio> la;
 
@@ -54,7 +54,10 @@ public class MusicPlayService extends Service
     {
         la = WeydioApplication.getMla();
 
-        currentIndex = intent.getIntExtra("position", 0);
+        if(currentIndex == 0)
+        {
+            currentIndex = intent.getIntExtra("position", 0);
+        }
 
         if(mediaPlayer.isPlaying())
         {
@@ -81,7 +84,7 @@ public class MusicPlayService extends Service
         }
         else if(msg == AppConstant.PlayerMsg.NEXT_MSG)
         {
-            // none.
+            nextSong();
         }
 
         // 自动下一首。
@@ -91,19 +94,14 @@ public class MusicPlayService extends Service
             @Override
             public void onCompletion(MediaPlayer mp)
             {
-                currentIndex++;
-
-                audio = la.get(currentIndex);
-
-                path = audio.getmPath();
-
-                play(0);
+                nextSong();
             }
         });
 
 
         return super.onStartCommand(intent, flags, startId);
     }
+
 
     private void play(int position)
     {
@@ -120,6 +118,17 @@ public class MusicPlayService extends Service
         {
             e.printStackTrace();
         }
+    }
+
+    private void nextSong()
+    {
+        currentIndex++;
+
+        audio = la.get(currentIndex);
+
+        path = audio.getmPath();
+
+        play(0);
     }
 
 
