@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity
 
     private TextView mShadow;
 
+    private boolean isShow;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -124,6 +126,7 @@ public class MainActivity extends AppCompatActivity
         mRecyMusiclist.setLayoutManager(new LinearLayoutManager(this));
 
         mShadow = (TextView) findViewById(R.id.tv_shadow);
+        isShow = false;
 
         // 由于getAudioList是static方法，所以可以直接通过类名调用。
         la =  MediaDetails.getAudioList(WeydioApplication.getContext());
@@ -137,7 +140,16 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemLongClick(View view, int position)
             {
-                mShadow.setVisibility(View.VISIBLE);
+                if(isShow)
+                {
+                    mShadow.setVisibility(View.INVISIBLE);
+                    isShow = false;
+                }
+                else
+                {
+                    mShadow.setVisibility(View.VISIBLE);
+                    isShow = true;
+                }
 
                 Toast.makeText(MainActivity.this,"long click "+la.get(position),Toast.LENGTH_SHORT).show();
             }
