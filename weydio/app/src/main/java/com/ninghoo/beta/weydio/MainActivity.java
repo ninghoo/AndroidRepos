@@ -13,8 +13,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ninghoo.beta.weydio.Adapter.MusicListAdapter;
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Audio> la;
 
     private Context mContext;
+
+    private TextView mShadow;
 
 
     @Override
@@ -88,15 +93,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDrawerClosed(View drawerView)
             {
-                Intent intent = new Intent();
-
-                mContext = WeydioApplication.getContext();
-
-                intent.putExtra("MSG", AppConstant.PlayerMsg.NEXT_MSG);
-                intent.setClass(mContext, MusicPlayService.class);
-                // 在这里设置Intent去跳转制定的Sevice。
-
-                mContext.startService(intent);
+//                activityNextSong();
             }
 
             @Override
@@ -107,11 +104,26 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    private void activityNextSong()
+    {
+        Intent intent = new Intent();
+
+        mContext = WeydioApplication.getContext();
+
+        intent.putExtra("MSG", AppConstant.PlayerMsg.NEXT_MSG);
+        intent.setClass(mContext, MusicPlayService.class);
+        // 在这里设置Intent去跳转制定的Sevice。
+
+        mContext.startService(intent);
+    }
+
 
     private void initRecyMusicList()
     {
         mRecyMusiclist = (RecyclerView) findViewById(R.id.recycl_musiclist);
         mRecyMusiclist.setLayoutManager(new LinearLayoutManager(this));
+
+        mShadow = (TextView) findViewById(R.id.tv_shadow);
 
         // 由于getAudioList是static方法，所以可以直接通过类名调用。
         la =  MediaDetails.getAudioList(WeydioApplication.getContext());
@@ -119,6 +131,17 @@ public class MainActivity extends AppCompatActivity
         WeydioApplication.setMla(la);
 
         adapter = new MusicListAdapter(this, WeydioApplication.getMla());
+
+        adapter.setOnItemLongClickListener(new MusicListAdapter.OnItemLongClickListener()
+        {
+            @Override
+            public void onItemLongClick(View view, int position)
+            {
+                mShadow.setVisibility(View.VISIBLE);
+
+                Toast.makeText(MainActivity.this,"long click "+la.get(position),Toast.LENGTH_SHORT).show();
+            }
+        });
 
         mRecyMusiclist.setAdapter(adapter);
     }

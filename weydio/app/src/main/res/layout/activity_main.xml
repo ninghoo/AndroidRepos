@@ -27,6 +27,15 @@
             android:background="#ffffff" >
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tv_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="#6a000000" >
+        </TextView>
+
+
         </FrameLayout>
 
     <ListView android:id="@+id/left_drawer"

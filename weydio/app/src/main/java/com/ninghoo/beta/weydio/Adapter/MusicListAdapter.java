@@ -1,5 +1,6 @@
 package com.ninghoo.beta.weydio.Adapter;
 
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
+import com.ninghoo.beta.weydio.MainActivity;
 import com.ninghoo.beta.weydio.R;
 import com.ninghoo.beta.weydio.Service.MusicPlayService;
 import com.ninghoo.beta.weydio.model.AppConstant;
@@ -31,11 +33,15 @@ import java.util.ArrayList;
 public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.ViewHolder>
 {
     private ArrayList<Audio> mData;
+
     private Context mContext;
 
     private Intent intent;
 
     private int position;
+
+    private OnItemClickListener mOnItemClickListener;
+    private OnItemLongClickListener mOnItemLongClickListener;
 
 
     public MusicListAdapter(Context context, ArrayList<Audio> data)
@@ -114,6 +120,17 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
             }
         });
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                int position = holder.getLayoutPosition();
+                mOnItemLongClickListener.onItemLongClick(holder.itemView,position);
+
+                return true;
+            }
+        });
 
         return holder;
     }
@@ -155,6 +172,22 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
                     R.anim.item_bottom_in);
             viewToAnimate.startAnimation(animation);
 
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(View view,int position);
+    }
+
+    public interface OnItemLongClickListener{
+        void onItemLongClick(View view,int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener){
+        this.mOnItemClickListener = mOnItemClickListener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener mOnItemLongClickListener) {
+        this.mOnItemLongClickListener = mOnItemLongClickListener;
     }
 
 }
