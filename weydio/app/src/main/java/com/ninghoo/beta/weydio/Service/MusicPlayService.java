@@ -22,7 +22,7 @@ public class MusicPlayService extends Service
 
     private String path;
 
-    private boolean isPause;
+    public static boolean isPause;
 
     // audio是单个的item数据。
     private Audio audio;
@@ -58,7 +58,7 @@ public class MusicPlayService extends Service
 
         if(mediaPlayer.isPlaying())
         {
-            stop();
+            //
         }
 
         path = la.get(currentIndex).getmPath();
@@ -73,11 +73,11 @@ public class MusicPlayService extends Service
         }
         else if(msg == AppConstant.PlayerMsg.PAUSE_MSG)
         {
-            pause();
+            //
         }
         else if(msg == AppConstant.PlayerMsg.STOP_MSG)
         {
-            stop();
+            //
         }
         else if(msg == AppConstant.PlayerMsg.NEXT_MSG)
         {
@@ -103,33 +103,6 @@ public class MusicPlayService extends Service
 
 
         return super.onStartCommand(intent, flags, startId);
-    }
-
-
-    private void stop()
-    {
-        if(mediaPlayer != null)
-        {
-            mediaPlayer.stop();
-
-            try
-            {
-                mediaPlayer.prepare();
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void pause()
-    {
-        if(mediaPlayer != null && mediaPlayer.isPlaying())
-        {
-            mediaPlayer.pause();
-            isPause = true;
-        }
     }
 
     private void play(int position)
@@ -175,6 +148,7 @@ public class MusicPlayService extends Service
         public void onPrepared(MediaPlayer mp)
         {
             mp.start();
+            isPause = false;
 
             if(position > 0)
             {

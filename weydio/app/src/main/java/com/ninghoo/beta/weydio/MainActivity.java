@@ -70,20 +70,23 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDrawerOpened(View drawerView)
             {
-//                Intent intent = new Intent();
-//
-//                intent.putExtra("MSG", AppConstant.PlayerMsg.STOP_MSG);
-//                intent.setClass(mContext, MusicPlayService.class);
-//
-//                mContext.startService(intent);
+                if(MusicPlayService.isPause)
+                {
+                    MusicPlayService.mediaPlayer.start();
+                    MusicPlayService.isPause = false;
+                }
+                else
+                {
+                    MusicPlayService.mediaPlayer.pause();
+                    MusicPlayService.isPause = true;
+                }
 
-                MusicPlayService.mediaPlayer.pause();
             }
 
             @Override
             public void onDrawerClosed(View drawerView)
             {
-                MusicPlayService.mediaPlayer.start();
+
             }
 
             @Override
