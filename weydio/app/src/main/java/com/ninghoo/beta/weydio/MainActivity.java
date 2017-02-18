@@ -1,6 +1,8 @@
 package com.ninghoo.beta.weydio;
 
+import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,9 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
-import com.ninghoo.beta.weydio.Adapter.ListviewAdapter;
 import com.ninghoo.beta.weydio.Adapter.MusicListAdapter;
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
 import com.ninghoo.beta.weydio.model.Audio;
@@ -23,6 +23,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
 {
+    private DrawerLayout mDrawLayout;
+
     private RecyclerView mRecyMusiclist;
 
     private MusicListAdapter adapter;
@@ -36,12 +38,21 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        InitDrawerLayout();
+
         hideActionBar();
 
         initState();
 
         initRecyMusicList();
 
+    }
+
+    private void InitDrawerLayout()
+    {
+        mDrawLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        mDrawLayout.setScrimColor(Color.TRANSPARENT);
     }
 
 

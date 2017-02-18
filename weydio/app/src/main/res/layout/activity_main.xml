@@ -1,77 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/layout_slide" >
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                        android:id="@+id/drawer_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycl_musiclist"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycl_musiclist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@android:color/darker_gray"
+            android:scrollbarSize="2dp"
+            />
 
-    <!--<View-->
-        <!--android:id="@+id/view_shadow"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="#c8595454"-->
-        <!--android:layout_centerHorizontal="true" />-->
+        <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
+        <LinearLayout
+            android:id="@+id/visable_bar"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="right"
+            android:orientation="vertical"
+            android:background="#ffffff" >
+        </LinearLayout>
 
-    <!--<LinearLayout-->
-        <!--android:id="@+id/view_singleBar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="180dp"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_marginTop="100dp"-->
-        <!--android:background="#c8f5f2e9">-->
+        </FrameLayout>
 
-        <!--<ImageView-->
-            <!--android:id="@+id/item_iv_musicCover"-->
-            <!--android:layout_width="60sp"-->
-            <!--android:layout_height="60sp"-->
-            <!--android:paddingTop="5sp"-->
-            <!--android:paddingLeft="5sp"-->
-            <!--android:src="@drawable/oafront"/>-->
+    <ListView android:id="@+id/left_drawer"
+              android:layout_width="265dp"
+              android:layout_height="match_parent"
+              android:layout_gravity="start"
+              android:background="#fff"/>
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="vertical"-->
-            <!--android:paddingTop="15sp"-->
-            <!--android:paddingLeft="15sp">-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/item_tv_musicName"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Parades"/>-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/item_tv_musicArtist"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:singleLine="true"-->
-                <!--android:ellipsize="end"-->
-                <!--android:paddingTop="5sp"-->
-                <!--android:text="Kevin Morty"/>-->
-
-            <!--&lt;!&ndash;<View&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="1dp"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:background="#000"/>&ndash;&gt;-->
-
-        <!--</LinearLayout>-->
-
-    <!--</LinearLayout>-->
-
-    <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
-    <LinearLayout
-        android:id="@+id/visable_bar"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="right"
-        android:orientation="vertical"
-        android:background="#ffffff" >
-    </LinearLayout>
-
-</FrameLayout>
+</android.support.v4.widget.DrawerLayout>

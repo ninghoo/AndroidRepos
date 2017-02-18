@@ -122,9 +122,9 @@ public class MediaUtils
                 /** 我们的目标是在你N pixel的画面上显示。 所以需要调用computeSampleSize得到图片缩放的比例 **/
                 /** 这里的target为800是根据默认专辑图片大小决定的，800只是测试数字但是试验后发现完美的结合 **/
                 if(small){
-                    options.inSampleSize = computeSampleSize(options, 120);
+                    options.inSampleSize = computeSampleSize(options, 20);
                 } else{
-                    options.inSampleSize = computeSampleSize(options, 600);
+                    options.inSampleSize = computeSampleSize(options, 20);
                 }
                 // 我们得到了缩放比例，现在开始正式读入Bitmap数据
                 options.inJustDecodeBounds = false;
