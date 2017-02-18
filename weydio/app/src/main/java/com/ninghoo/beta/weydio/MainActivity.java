@@ -1,5 +1,7 @@
 package com.ninghoo.beta.weydio;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
@@ -10,11 +12,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.ninghoo.beta.weydio.Adapter.MusicListAdapter;
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
+import com.ninghoo.beta.weydio.Service.MusicPlayService;
+import com.ninghoo.beta.weydio.model.AppConstant;
 import com.ninghoo.beta.weydio.model.Audio;
 import com.ninghoo.beta.weydio.model.MediaDetails;
 
@@ -53,6 +58,40 @@ public class MainActivity extends AppCompatActivity
         mDrawLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         mDrawLayout.setScrimColor(Color.TRANSPARENT);
+
+        mDrawLayout.setDrawerListener(new DrawerLayout.DrawerListener()
+        {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset)
+            {
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView)
+            {
+//                Intent intent = new Intent();
+//
+//                intent.putExtra("MSG", AppConstant.PlayerMsg.STOP_MSG);
+//                intent.setClass(mContext, MusicPlayService.class);
+//
+//                mContext.startService(intent);
+
+                MusicPlayService.mediaPlayer.pause();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView)
+            {
+                MusicPlayService.mediaPlayer.start();
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState)
+            {
+
+            }
+        });
     }
 
 

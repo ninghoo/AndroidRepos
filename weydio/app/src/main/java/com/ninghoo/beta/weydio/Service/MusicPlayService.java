@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class MusicPlayService extends Service
 {
-    private MediaPlayer mediaPlayer = new MediaPlayer();
+    public   static MediaPlayer mediaPlayer = new MediaPlayer();
 
     private String path;
 
@@ -123,7 +123,7 @@ public class MusicPlayService extends Service
         }
     }
 
-    public void pause()
+    private void pause()
     {
         if(mediaPlayer != null && mediaPlayer.isPlaying())
         {
