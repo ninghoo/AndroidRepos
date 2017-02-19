@@ -40,6 +40,8 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 
     private int position;
 
+    private int mMaxPosition;
+
 //    private OnItemClickListener mOnItemClickListener;
     private OnItemLongClickListener mOnItemLongClickListener;
 
@@ -79,6 +81,8 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
+        mMaxPosition = getItemCount();
+
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_musiclist, parent, false);
 
@@ -110,6 +114,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 //                    intent.putParcelableArrayListExtra("Audio", mData);
 
                     intent.putExtra("position", position);
+                    intent.putExtra("MaxPosition", mMaxPosition);
 //                    intent.putExtra("url", audio.getmPath());
                     intent.putExtra("MSG", AppConstant.PlayerMsg.PLAY_MSG);
                     intent.setClass(context, MusicPlayService.class);

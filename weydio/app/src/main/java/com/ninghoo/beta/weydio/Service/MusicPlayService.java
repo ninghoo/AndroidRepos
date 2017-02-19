@@ -31,6 +31,8 @@ public class MusicPlayService extends Service
 
     private static int currentIndex;
 
+    private int mMaxPosition;
+
     private ArrayList<Audio> la;
 
 
@@ -54,6 +56,8 @@ public class MusicPlayService extends Service
     {
         la = WeydioApplication.getMla();
 
+        mMaxPosition = intent.getIntExtra("MaxPosition", 0);
+
         currentIndex = intent.getIntExtra("position", 0);
 
         if(mediaPlayer.isPlaying())
@@ -63,7 +67,8 @@ public class MusicPlayService extends Service
 
         path = la.get(currentIndex).getmPath();
 
-        Log.i("PATH", path);
+        Log.i("PATH", "position:" + currentIndex +path);
+        Log.i("MAX", ":" + mMaxPosition);
 
         msg = intent.getIntExtra("MSG", 0);
 
@@ -120,6 +125,11 @@ public class MusicPlayService extends Service
     private void nextSong()
     {
         currentIndex++;
+
+        if(currentIndex == mMaxPosition)
+        {
+            currentIndex = 0;
+        }
 
         audio = la.get(currentIndex);
 
