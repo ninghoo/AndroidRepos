@@ -40,7 +40,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 
     private int position;
 
-    private OnItemClickListener mOnItemClickListener;
+//    private OnItemClickListener mOnItemClickListener;
     private OnItemLongClickListener mOnItemLongClickListener;
 
 
@@ -174,17 +174,17 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 
     }
 
-    public interface OnItemClickListener{
-        void onItemClick(View view,int position);
-    }
+//    public interface OnItemClickListener{
+//        void onItemClick(View view,int position);
+//    }
 
     public interface OnItemLongClickListener{
         void onItemLongClick(View view,int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener){
-        this.mOnItemClickListener = mOnItemClickListener;
-    }
+//    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener){
+//        this.mOnItemClickListener = mOnItemClickListener;
+//    }
 
     public void setOnItemLongClickListener(OnItemLongClickListener mOnItemLongClickListener) {
         this.mOnItemLongClickListener = mOnItemLongClickListener;

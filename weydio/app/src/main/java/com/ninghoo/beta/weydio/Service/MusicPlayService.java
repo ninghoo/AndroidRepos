@@ -29,7 +29,7 @@ public class MusicPlayService extends Service
 
     int msg;
 
-    private static int currentIndex = 0;
+    private static int currentIndex;
 
     private ArrayList<Audio> la;
 
@@ -54,10 +54,7 @@ public class MusicPlayService extends Service
     {
         la = WeydioApplication.getMla();
 
-        if(currentIndex == 0)
-        {
-            currentIndex = intent.getIntExtra("position", 0);
-        }
+        currentIndex = intent.getIntExtra("position", 0);
 
         if(mediaPlayer.isPlaying())
         {
