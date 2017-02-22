@@ -162,7 +162,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 
 //        holder.AlbumFront.setImageBitmap(MediaUtils.getArtwork(mContext, audio.getmId(),audio.getmAlbumId(), true, true));
         holder.MusicName.setText(audio.getmTitle());
-        holder.MusicArtist.setText("." + audio.getmArtist() + " .《" +audio.getmAlbum() + "》");
+        holder.MusicArtist.setText(audio.getmArtist() + " .《" +audio.getmAlbum() + "》");
     }
 
     @Override

@@ -26,9 +26,9 @@
                 android:id="@+id/item_tv_musicName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="17dp"
                 android:textStyle="bold"
-                android:textColor="#000000"
+                android:textColor="#ad000000"
                 android:singleLine="true"
                 android:text="Parades"/>
 
