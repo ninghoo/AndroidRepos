@@ -24,8 +24,9 @@
 
             <TextView
                 android:id="@+id/item_tv_musicName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#ad000000"
                 android:singleLine="true"
                 android:text="Parades"/>
 
@@ -34,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:ellipsize="end"
+                android:textSize="10dp"
                 android:paddingTop="5dp"
                 android:text="Kevin Morty"/>
 

@@ -3,7 +3,6 @@ package com.ninghoo.beta.weydio.Application;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.widget.ArrayAdapter;
 
 import com.ninghoo.beta.weydio.R;
 import com.ninghoo.beta.weydio.model.Audio;

@@ -43,7 +43,9 @@ public class MainActivity extends AppCompatActivity
 
     private TextView mShadow;
 
-    private boolean isShow;
+//    private Button mBtnClsDrw;
+
+    public static boolean isShow;
 
 
     @Override
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity
                     MusicPlayService.isPause = true;
                 }
 
+                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
             }
 
             @Override
@@ -101,6 +104,17 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDrawerStateChanged(int newState)
             {
+
+            }
+        });
+
+        findViewById(R.id.btn_closeDrawer).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
             }
         });
@@ -151,7 +165,7 @@ public class MainActivity extends AppCompatActivity
                     isShow = true;
                 }
 
-                Toast.makeText(MainActivity.this,"long click "+la.get(position),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this,"long click "+la.get(position),Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -125,17 +125,17 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
             }
         });
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener()
-        {
-            @Override
-            public boolean onLongClick(View v)
-            {
-                int position = holder.getLayoutPosition();
-                mOnItemLongClickListener.onItemLongClick(holder.itemView,position);
-
-                return true;
-            }
-        });
+//        holder.itemView.setOnLongClickListener(new View.OnLongClickListener()
+//        {
+//            @Override
+//            public boolean onLongClick(View v)
+//            {
+//                int position = holder.getLayoutPosition();
+//                mOnItemLongClickListener.onItemLongClick(holder.itemView,position);
+//
+//                return true;
+//            }
+//        });
 
         return holder;
     }
@@ -162,7 +162,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 
 //        holder.AlbumFront.setImageBitmap(MediaUtils.getArtwork(mContext, audio.getmId(),audio.getmAlbumId(), true, true));
         holder.MusicName.setText(audio.getmTitle());
-        holder.MusicArtist.setText(audio.getmArtist());
+        holder.MusicArtist.setText("." + audio.getmArtist() + " .《" +audio.getmAlbum() + "》");
     }
 
     @Override

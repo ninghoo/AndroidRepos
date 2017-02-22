@@ -30,6 +30,10 @@ public class MusicShrAdapter extends RecyclerView.Adapter<MusicShrAdapter.ViewHo
         this.mContext = context;
     }
 
+    public MusicShrAdapter(Context context, int item_musicshrlst, List<WifiP2pDevice> peers)
+    {
+
+    }
 
 
     static class ViewHolder extends RecyclerView.ViewHolder

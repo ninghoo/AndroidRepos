@@ -2,6 +2,7 @@ package com.example.ningfu.musicsharedemo;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,6 +31,10 @@ public class MainActivity extends AppCompatActivity implements WifiP2pManager.Pe
     private boolean isWifiP2pEnable = false;
     private RecyclerView mDeviceList;
     private List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
+
+    private Button mBtnSecondAct;
+    private Button mBtnThirdAct;
+    private Button mBtnFourAct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,16 +58,19 @@ public class MainActivity extends AppCompatActivity implements WifiP2pManager.Pe
             @Override
             public void onSuccess()
             {
-                Toast.makeText(MainActivity.this, "Discover Initiated", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this, "Discover Initiated", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(int reason)
             {
-                Toast.makeText(MainActivity.this, "Discover Failed", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this, "Discover Failed", Toast.LENGTH_LONG).show();
             }
         });
 
+        initBtnSecondActivity();
+        initBtnThirdActivity();
+        initBtnFourthActivity();
     }
 
     @Override
@@ -89,13 +98,13 @@ public class MainActivity extends AppCompatActivity implements WifiP2pManager.Pe
             @Override
             public void onSuccess()
             {
-                Toast.makeText(MainActivity.this, "Discover Initiated", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this, "Discover Initiated", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(int reason)
             {
-                Toast.makeText(MainActivity.this, "Discover Failed", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this, "Discover Failed", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -107,11 +116,11 @@ public class MainActivity extends AppCompatActivity implements WifiP2pManager.Pe
 
         if(isWifiP2pEnable)
         {
-            Toast.makeText(this, "Wifi true", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Wifi true", Toast.LENGTH_SHORT).show();
         }
         else
         {
-            Toast.makeText(this, "Wifi false", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Wifi false", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -125,4 +134,56 @@ public class MainActivity extends AppCompatActivity implements WifiP2pManager.Pe
 
         mDeviceList.setAdapter(mdata);
     }
+
+    private void initBtnSecondActivity()
+    {
+        mBtnSecondAct = (Button) findViewById(R.id.btn_secondActivity);
+        mBtnSecondAct.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent();
+
+                intent.setClass(MainActivity.this, SecondActivity.class);
+
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initBtnThirdActivity()
+    {
+        mBtnThirdAct = (Button) findViewById(R.id.btn_thirdActivity);
+        mBtnThirdAct.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent();
+
+                intent.setClass(MainActivity.this, ThirdActivity.class);
+
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initBtnFourthActivity()
+    {
+        mBtnFourAct = (Button) findViewById(R.id.btn_fourthActivity);
+        mBtnFourAct.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent();
+
+                intent.setClass(MainActivity.this, FourthActivity.class);
+
+                startActivity(intent);
+            }
+        });
+    }
+
 }

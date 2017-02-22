@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--这里只要定义了格式化类型，下面就可以不用重复编写？-->
+    <attr name="titleText" format="string" />
+    <attr name="mediaNumb" format="string" />
+
+    <attr name="titleTextColor" format="color" />
+    <attr name="backgroudColor" format="color" />
+
+    <attr name="titleTextSize" format="dimension" />
+    <attr name="mediaNumbSize" format="dimension" />
+
+    <attr name="visiblity" format="boolean" />
+
+    <declare-styleable name="DrawNum">
+        <attr name="titleText" />
+        <attr name="titleTextColor" />
+        <attr name="titleTextSize" />
+    </declare-styleable>
+
+    <declare-styleable name="DrawSquare">
+        <attr name="titleText" />
+        <attr name="titleTextColor" />
+        <attr name="titleTextSize" />
+    </declare-styleable>
+
+    <declare-styleable name="DrawScroll">
+        <attr name="mediaNumb" />
+        <attr name="backgroudColor" />
+        <attr name="mediaNumbSize" />
+    </declare-styleable>
+
+    <declare-styleable name="ScrollRecyView">
+        <attr name="mediaNumb" />
+        <attr name="backgroudColor" />
+        <attr name="mediaNumbSize" />
+    </declare-styleable>
+
+</resources>

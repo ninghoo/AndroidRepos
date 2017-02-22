@@ -40,7 +40,9 @@ public class MediaDetails
                     MediaStore.Audio.Media.IS_PODCAST,
                     MediaStore.Audio.Media.IS_ALARM,
                     MediaStore.Audio.Media.IS_MUSIC,
-                    MediaStore.Audio.Media.IS_NOTIFICATION
+                    MediaStore.Audio.Media.IS_NOTIFICATION,
+
+                    MediaStore.Audio.Media.DATE_ADDED
             };
 
     // 由于是static方法，所以可以直接使用类名直接调用该方法。
@@ -52,7 +54,7 @@ public class MediaDetails
         ContentResolver resolver = context.getContentResolver();
 
         Cursor cursor = resolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                AUDIO_KEYS, null, null, null);
+                AUDIO_KEYS, null, null, MediaStore.Audio.Media.DATE_MODIFIED + " DESC");
 
         for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
         {
