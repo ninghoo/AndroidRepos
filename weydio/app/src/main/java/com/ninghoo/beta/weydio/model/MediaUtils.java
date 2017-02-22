@@ -24,23 +24,6 @@ public class MediaUtils
     private static final Uri albumArtUri = Uri.parse("content://media/external/audio/albumart");
 
     /**
-     * 获取默认专辑图片
-     * @param context
-     * @return
-     */
-    public static Bitmap getDefaultArtwork(Context context,boolean small) {
-        BitmapFactory.Options opts = new BitmapFactory.Options();
-        opts.inPreferredConfig = Bitmap.Config.RGB_565;
-        if(small){	//返回小图片
-            return BitmapFactory.decodeResource(context.getResources(),R.drawable.oafront);
-            // 原来的方法如下：
-            // BitmapFactory.decodeStream(context.getResources().openRawResource(R.drawable.oafront), null, opts);
-        }
-        return BitmapFactory.decodeResource(context.getResources(),R.drawable.oafront);
-    }
-
-
-    /**
      * 从文件当中获取专辑封面位图
      * @param context
      * @param songid
@@ -56,8 +39,7 @@ public class MediaUtils
             BitmapFactory.Options options = new BitmapFactory.Options();
             FileDescriptor fd = null;
             if(albumid < 0){
-                Uri uri = Uri.parse("content://media/external/audio/media/"
-                        + songid + "/albumart");
+                Uri uri = Uri.parse("content://media/external/audio/media/albumart");
                 ParcelFileDescriptor pfd = context.getContentResolver().openFileDescriptor(uri, "r");
                 if(pfd != null) {
                     fd = pfd.getFileDescriptor();
@@ -122,9 +104,9 @@ public class MediaUtils
                 /** 我们的目标是在你N pixel的画面上显示。 所以需要调用computeSampleSize得到图片缩放的比例 **/
                 /** 这里的target为800是根据默认专辑图片大小决定的，800只是测试数字但是试验后发现完美的结合 **/
                 if(small){
-                    options.inSampleSize = computeSampleSize(options, 20);
+                    options.inSampleSize = computeSampleSize(options, 1);
                 } else{
-                    options.inSampleSize = computeSampleSize(options, 20);
+                    options.inSampleSize = computeSampleSize(options, 1);
                 }
                 // 我们得到了缩放比例，现在开始正式读入Bitmap数据
                 options.inJustDecodeBounds = false;
@@ -156,6 +138,22 @@ public class MediaUtils
             }
         }
         return null;
+    }
+
+    /**
+     * 获取默认专辑图片
+     * @param context
+     * @return
+     */
+    public static Bitmap getDefaultArtwork(Context context,boolean small) {
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        opts.inPreferredConfig = Bitmap.Config.RGB_565;
+        if(small){	//返回小图片
+            return BitmapFactory.decodeResource(context.getResources(),R.drawable.oafront);
+            // 原来的方法如下：
+            // BitmapFactory.decodeStream(context.getResources().openRawResource(R.drawable.oafront), null, opts);
+        }
+        return BitmapFactory.decodeResource(context.getResources(),R.drawable.oafront);
     }
 
     /**

@@ -43,16 +43,16 @@
 
 
     <FrameLayout
-        android:layout_width="310dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start" >
 
-        <com.ninghoo.beta.weydio.View.DrawSquare
-            android:id="@+id/left_drawer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="#fff"/>
+        <!--<com.ninghoo.beta.weydio.View.DrawSquare-->
+            <!--android:id="@+id/left_drawer"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="start"-->
+            <!--android:background="#fff"/>-->
 
        <Button
            android:id="@+id/btn_closeDrawer"

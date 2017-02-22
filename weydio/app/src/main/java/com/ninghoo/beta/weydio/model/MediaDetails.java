@@ -54,7 +54,7 @@ public class MediaDetails
         ContentResolver resolver = context.getContentResolver();
 
         Cursor cursor = resolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                AUDIO_KEYS, null, null, MediaStore.Audio.Media.DATE_MODIFIED + " DESC");
+                AUDIO_KEYS, null, null, MediaStore.Audio.Media._ID + " DESC");
 
         for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
         {
