@@ -12,15 +12,12 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.ningfu.musicsharedemo.Adapter.MusicShrAdapter;
 import com.example.ningfu.musicsharedemo.Broadcastreceiver.MusicShrBroadcastReceiver;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 
 public class MainActivity extends AppCompatActivity implements WifiP2pManager.PeerListListener
 {
@@ -35,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements WifiP2pManager.Pe
     private Button mBtnSecondAct;
     private Button mBtnThirdAct;
     private Button mBtnFourAct;
+    private Button mBtnFifAct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -71,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements WifiP2pManager.Pe
         initBtnSecondActivity();
         initBtnThirdActivity();
         initBtnFourthActivity();
+        initBtnFifthActivity();
     }
 
     @Override
@@ -180,6 +179,24 @@ public class MainActivity extends AppCompatActivity implements WifiP2pManager.Pe
                 Intent intent = new Intent();
 
                 intent.setClass(MainActivity.this, FourthActivity.class);
+
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    private void initBtnFifthActivity()
+    {
+        mBtnFifAct = (Button) findViewById(R.id.btn_fifthActivity);
+        mBtnFifAct.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent();
+
+                intent.setClass(MainActivity.this, FifthActivity.class);
 
                 startActivity(intent);
             }

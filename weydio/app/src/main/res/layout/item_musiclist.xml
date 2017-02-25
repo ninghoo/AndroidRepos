@@ -7,7 +7,7 @@
     android:paddingBottom="0dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:background="#ffffff">
+    android:background="#ffffff" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:textStyle="bold"
                 android:textColor="#ad000000"
                 android:singleLine="true"
-                android:text="Parades"/>
+                android:text="Parades" />
 
             <TextView
                 android:id="@+id/item_tv_musicArtist"
@@ -49,6 +49,7 @@
             android:layout_height="60dp"
             android:paddingTop="5dp"
             android:paddingLeft="5dp"
+            android:transitionName="shareNames"
             android:src="@drawable/oafront"/>
 
     </LinearLayout>

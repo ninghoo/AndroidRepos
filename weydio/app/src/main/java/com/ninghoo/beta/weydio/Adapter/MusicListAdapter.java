@@ -1,6 +1,5 @@
 package com.ninghoo.beta.weydio.Adapter;
 
-import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -16,12 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
-import com.ninghoo.beta.weydio.MainActivity;
 import com.ninghoo.beta.weydio.R;
 import com.ninghoo.beta.weydio.Service.MusicPlayService;
 import com.ninghoo.beta.weydio.model.AppConstant;
 import com.ninghoo.beta.weydio.model.Audio;
-import com.ninghoo.beta.weydio.model.MediaUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -125,17 +122,17 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
             }
         });
 
-//        holder.itemView.setOnLongClickListener(new View.OnLongClickListener()
-//        {
-//            @Override
-//            public boolean onLongClick(View v)
-//            {
-//                int position = holder.getLayoutPosition();
-//                mOnItemLongClickListener.onItemLongClick(holder.itemView,position);
-//
-//                return true;
-//            }
-//        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                int position = holder.getLayoutPosition();
+                mOnItemLongClickListener.onItemLongClick(holder.itemView,position);
+
+                return true;
+            }
+        });
 
         return holder;
     }

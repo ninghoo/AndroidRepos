@@ -3,13 +3,12 @@ package com.ninghoo.beta.weydio.View;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
-import com.ninghoo.beta.weydio.MainActivity;
+import com.ninghoo.beta.weydio.Activity.MainActivity;
 import com.ninghoo.beta.weydio.R;
 
 /**
