@@ -49,6 +49,7 @@ public class Utils {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static boolean isRtl(Resources res) {
         return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) &&
-                (res.getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL);
+                (res.getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_LTR);
+        // 最后以参数控制fastscroll的左右位置。
     }
 }

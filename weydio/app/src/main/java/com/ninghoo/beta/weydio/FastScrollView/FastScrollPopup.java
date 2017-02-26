@@ -69,7 +69,7 @@ public class FastScrollPopup {
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setAlpha(0);
 
-        setTextSize(Utils.toScreenPixels(mRes, 56));
+        setTextSize(Utils.toScreenPixels(mRes, 49));
         setBackgroundSize(Utils.toPixels(mRes, 88));
     }
 
@@ -109,7 +109,7 @@ public class FastScrollPopup {
                 mAlphaAnimator.cancel();
             }
             mAlphaAnimator = ObjectAnimator.ofFloat(this, "alpha", visible ? 1f : 0f);
-            mAlphaAnimator.setDuration(visible ? 200 : 150);
+            mAlphaAnimator.setDuration(visible ? 2000 : 1500);
             mAlphaAnimator.start();
         }
     }
@@ -130,7 +130,8 @@ public class FastScrollPopup {
             int restoreCount = canvas.save(Canvas.MATRIX_SAVE_FLAG);
             canvas.translate(mBgBounds.left, mBgBounds.top);
             mTmpRect.set(mBgBounds);
-            mTmpRect.offsetTo(0, 0);
+            // section背景初始位置。
+            mTmpRect.offsetTo(30, 70);
 
             mBackgroundPath.reset();
             mBackgroundRect.set(mTmpRect);
@@ -149,8 +150,9 @@ public class FastScrollPopup {
             mBackgroundPaint.setAlpha((int) (mAlpha * 255));
             mTextPaint.setAlpha((int) (mAlpha * 255));
             canvas.drawPath(mBackgroundPath, mBackgroundPaint);
-            canvas.drawText(mSectionName, (mBgBounds.width() - mTextBounds.width()) / 2,
-                    mBgBounds.height() - (mBgBounds.height() - mTextBounds.height()) / 2,
+            // 加的70，控制section的Text位置。
+            canvas.drawText(mSectionName, (mBgBounds.width() - mTextBounds.width()) / 2 + 30,
+                    mBgBounds.height() - (mBgBounds.height() - mTextBounds.height()) / 2 + 70,
                     mTextPaint);
             canvas.restoreToCount(restoreCount);
         }

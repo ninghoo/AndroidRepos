@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ninghoo.beta.weydio.Adapter.MusicListAdapter;
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
@@ -63,6 +64,7 @@ public class MusicRecyclerActivity extends AppCompatActivity
 
     }
 
+
     private void InitDrawerLayout()
     {
         mDrawLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -107,16 +109,16 @@ public class MusicRecyclerActivity extends AppCompatActivity
             }
         });
 
-        findViewById(R.id.btn_closeDrawer).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-
-            }
-        });
+//        findViewById(R.id.btn_closeDrawer).setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+//                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+//
+//            }
+//        });
     }
 
     private void activityNextSong()

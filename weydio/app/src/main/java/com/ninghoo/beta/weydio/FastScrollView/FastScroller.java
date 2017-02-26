@@ -64,6 +64,8 @@ public class FastScroller {
     private int mTouchOffset;
 
     public Point mThumbPosition = new Point(-1, -1);
+
+    // 第2参数的值控制触摸矩形的初始y值位置。
     public Point mOffset = new Point(0, 0);
 
     private boolean mIsDragging;
@@ -81,9 +83,11 @@ public class FastScroller {
         mRecyclerView = recyclerView;
         mPopup = new FastScrollPopup(resources, recyclerView);
 
-        mThumbHeight = Utils.toPixels(resources, 30);
+        // fast触摸板的高宽。
+        mThumbHeight = Utils.toPixels(resources, 310);
         mWidth = Utils.toPixels(resources, 5);
 
+        // 第2参数的值越大，可触发fastscroll范围越大。
         mTouchInset = Utils.toPixels(resources, -24);
 
         mThumb = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -121,6 +125,7 @@ public class FastScroller {
                     }
                     mAutoHideAnimator = ObjectAnimator.ofInt(FastScroller.this, "offsetX", (Utils.isRtl(mRecyclerView.getResources()) ? -1 : 1) * mWidth);
                     mAutoHideAnimator.setInterpolator(new FastOutLinearInInterpolator());
+                    // 设置闲置多久消失。
                     mAutoHideAnimator.setDuration(200);
                     mAutoHideAnimator.start();
                 }
