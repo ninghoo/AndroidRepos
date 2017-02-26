@@ -7,8 +7,8 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
-import com.ninghoo.beta.weydio.model.AppConstant;
-import com.ninghoo.beta.weydio.model.Audio;
+import com.ninghoo.beta.weydio.Model.AppConstant;
+import com.ninghoo.beta.weydio.Model.Audio;
 
 import java.util.ArrayList;
 

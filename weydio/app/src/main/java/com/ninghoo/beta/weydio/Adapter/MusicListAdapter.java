@@ -4,6 +4,7 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,10 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
+import com.ninghoo.beta.weydio.FastScrollView.FastScrollRecyclerView;
 import com.ninghoo.beta.weydio.R;
 import com.ninghoo.beta.weydio.Service.MusicPlayService;
-import com.ninghoo.beta.weydio.model.AppConstant;
-import com.ninghoo.beta.weydio.model.Audio;
+import com.ninghoo.beta.weydio.Model.AppConstant;
+import com.ninghoo.beta.weydio.Model.Audio;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
  * Created by ningfu on 17-2-8.
  */
 
-public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.ViewHolder>
+public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.ViewHolder> implements FastScrollRecyclerView.SectionedAdapter
 {
     private ArrayList<Audio> mData;
 
@@ -47,6 +49,15 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     {
         this.mData = data;
         this.mContext = context;
+    }
+
+    @NonNull
+    @Override
+    public String getSectionName(int position)
+    {
+        Audio audio = mData.get(position);
+
+        return audio.getmArtist();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder
@@ -122,17 +133,17 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
             }
         });
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener()
-        {
-            @Override
-            public boolean onLongClick(View v)
-            {
-                int position = holder.getLayoutPosition();
-                mOnItemLongClickListener.onItemLongClick(holder.itemView,position);
-
-                return true;
-            }
-        });
+//        holder.itemView.setOnLongClickListener(new View.OnLongClickListener()
+//        {
+//            @Override
+//            public boolean onLongClick(View v)
+//            {
+//                int position = holder.getLayoutPosition();
+//                mOnItemLongClickListener.onItemLongClick(holder.itemView,position);
+//
+//                return true;
+//            }
+//        });
 
         return holder;
     }
@@ -151,15 +162,16 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 
         String url = uri.toString();
 
-        Log.i("URL" , ":"+url);
+//        Log.i("URL" , ":"+url);
 
         // 这里的ImageLoader，并没有用MediaUtils去获取专辑图片，而是直接获取歌曲专辑的地址。
         ImageLoader.getInstance().displayImage(url, holder.AlbumFront, WeydioApplication.mOptions);
         setAnimation(holder.AlbumFront, position);
 
+        // 旧的获取专辑方法
 //        holder.AlbumFront.setImageBitmap(MediaUtils.getArtwork(mContext, audio.getmId(),audio.getmAlbumId(), true, true));
         holder.MusicName.setText(audio.getmTitle());
-        holder.MusicArtist.setText(audio.getmArtist() + " .《" +audio.getmAlbum() + "》");
+        holder.MusicArtist.setText("." + audio.getmArtist() + " .《" +audio.getmAlbum() + "》");
     }
 
     @Override

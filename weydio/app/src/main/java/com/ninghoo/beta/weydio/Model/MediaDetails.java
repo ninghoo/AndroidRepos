@@ -1,4 +1,4 @@
-package com.ninghoo.beta.weydio.model;
+package com.ninghoo.beta.weydio.Model;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -53,8 +53,10 @@ public class MediaDetails
 
         ContentResolver resolver = context.getContentResolver();
 
+        // query方法最后一个参数可实现排序。
         Cursor cursor = resolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                AUDIO_KEYS, null, null, MediaStore.Audio.Media._ID + " DESC");
+                AUDIO_KEYS, null, null, MediaStore.Audio.Media._ID  + " DESC");
+        // + " DESC"可实现倒序。
 
         for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
         {

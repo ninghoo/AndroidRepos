@@ -5,7 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.ninghoo.beta.weydio.R;
-import com.ninghoo.beta.weydio.model.Audio;
+import com.ninghoo.beta.weydio.Model.Audio;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;

@@ -1,4 +1,4 @@
-package com.ninghoo.beta.weydio.model;
+package com.ninghoo.beta.weydio.Model;
 
 import android.os.Bundle;
 import android.os.Parcel;

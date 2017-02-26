@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.widget.TextView;
 
 import com.ninghoo.beta.weydio.Activity.MainActivity;
+import com.ninghoo.beta.weydio.Activity.MusicRecyclerActivity;
 import com.ninghoo.beta.weydio.R;
 
 /**
@@ -98,7 +99,7 @@ public class ScrollTextView extends TextView
 //
 //
             setVisibility(INVISIBLE);
-            MainActivity.isShow = false;
+            MusicRecyclerActivity.isShow = false;
         }
 
         return onTouchEvent(ev);

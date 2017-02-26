@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="40dp"
+    android:paddingTop="45dp"
     android:paddingBottom="0dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:background="#ffffff" >
+    android:background="#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,8 +19,8 @@
             android:layout_height="match_parent"
             android:layout_weight="0.9"
             android:orientation="vertical"
-            android:paddingTop="15dp"
-            android:paddingLeft="15dp">
+            android:paddingTop="11.5dp"
+            android:paddingLeft="15dp" >
 
             <TextView
                 android:id="@+id/item_tv_musicName"
@@ -28,28 +28,26 @@
                 android:layout_height="wrap_content"
                 android:textSize="17dp"
                 android:textStyle="bold"
-                android:textColor="#ad000000"
+                android:textColor="@color/musicname"
+                android:maxEms="11"
                 android:singleLine="true"
-                android:text="Parades" />
+                android:text="Parades"/>
 
             <TextView
                 android:id="@+id/item_tv_musicArtist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:textSize="10dp"
                 android:paddingTop="5dp"
+                android:textSize="10dp"
                 android:text="Kevin Morty"/>
 
         </LinearLayout>
 
         <ImageView
             android:id="@+id/item_iv_musicCover"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:paddingTop="5dp"
-            android:paddingLeft="5dp"
-            android:transitionName="shareNames"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:src="@drawable/oafront"/>
 
     </LinearLayout>
@@ -57,6 +55,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#230a0a0a"/>
+        android:background="@color/line"/>
 
 </LinearLayout>

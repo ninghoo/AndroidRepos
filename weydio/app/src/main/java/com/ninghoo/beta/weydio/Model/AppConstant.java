@@ -1,4 +1,4 @@
-package com.ninghoo.beta.weydio.model;
+package com.ninghoo.beta.weydio.Model;
 
 /**
  * Created by ningfu on 17-2-8.

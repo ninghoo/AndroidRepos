@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        android:id="@+id/drawer_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="#000">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_corner">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.ninghoo.beta.weydio.FastScrollView.FastScrollRecyclerView
+                android:id="@+id/recycl_musiclist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                app:fastScrollAutoHide="true"
+                app:fastScrollAutoHideDelay="1000"
+                app:fastScrollPopupBgColor="@color/itemImageBg"
+                app:fastScrollPopupTextColor="@android:color/primary_text_dark"
+                app:fastScrollPopupTextSize="45sp"
+                app:fastScrollPopupBackgroundSize="88dp"
+                app:fastScrollThumbColor="#51000000"
+                app:fastScrollTrackColor="#00000000"
+                />
+
+        </LinearLayout>
+
+        <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
+        <LinearLayout
+            android:id="@+id/visable_bar"
+            android:layout_width="350dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/status_corner"
+            android:orientation="vertical" >
+        </LinearLayout>
+
+        <com.ninghoo.beta.weydio.View.ScrollTextView
+            android:id="@+id/tv_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="#6affffff" >
+        </com.ninghoo.beta.weydio.View.ScrollTextView>
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start" >
+
+        <!--<com.ninghoo.beta.weydio.View.DrawSquare-->
+            <!--android:id="@+id/left_drawer"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="start"-->
+            <!--android:background="#fff"/>-->
+
+       <Button
+           android:id="@+id/btn_closeDrawer"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="bottom"
+           android:text="close" />
+
+    </FrameLayout>
+
+</android.support.v4.widget.DrawerLayout>
