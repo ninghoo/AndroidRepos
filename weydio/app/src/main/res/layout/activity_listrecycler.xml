@@ -12,7 +12,7 @@
         android:background="@drawable/shape_corner">
 
         <LinearLayout
-            android:layout_width="30dp"
+            android:layout_width="4dp"
             android:layout_height="match_parent"
             android:background="#40000000" />
 
@@ -30,11 +30,11 @@
                 android:paddingRight="5dp"
                 app:fastScrollAutoHide="true"
                 app:fastScrollAutoHideDelay="1000"
-                app:fastScrollPopupBgColor="@color/itemImageBg"
+                app:fastScrollPopupBgColor="@color/midnight_blue"
                 app:fastScrollPopupTextColor="@android:color/primary_text_dark"
-                app:fastScrollPopupTextSize="45sp"
+                app:fastScrollPopupTextSize="49sp"
                 app:fastScrollPopupBackgroundSize="88dp"
-                app:fastScrollThumbColor="#51000000"
+                app:fastScrollThumbColor="#3c000000"
                 app:fastScrollTrackColor="#00000000"
                 />
 
@@ -47,8 +47,7 @@
             android:layout_height="1dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/status_corner"
-            android:orientation="vertical" >
-        </LinearLayout>
+            android:orientation="vertical" />
 
         <com.ninghoo.beta.weydio.View.ScrollTextView
             android:id="@+id/tv_shadow"

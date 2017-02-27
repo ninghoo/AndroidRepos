@@ -85,7 +85,7 @@ public class FastScroller {
 
         // fast触摸板的高宽。
         mThumbHeight = Utils.toPixels(resources, 310);
-        mWidth = Utils.toPixels(resources, 5);
+        mWidth = Utils.toPixels(resources, 4);
 
         // 第2参数的值越大，可触发fastscroll范围越大。
         mTouchInset = Utils.toPixels(resources, -24);
