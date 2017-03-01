@@ -43,7 +43,7 @@
         <!--这个是隐藏的布局，然后通过动态的设置高度达到效果-->
         <LinearLayout
             android:id="@+id/visable_bar"
-            android:layout_width="350dp"
+            android:layout_width="1dp"
             android:layout_height="1dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/status_corner"

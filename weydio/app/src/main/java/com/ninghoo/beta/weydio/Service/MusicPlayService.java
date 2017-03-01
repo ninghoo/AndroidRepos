@@ -2,10 +2,12 @@ package com.ninghoo.beta.weydio.Service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.ninghoo.beta.weydio.Activity.NowPlayActivity;
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
 import com.ninghoo.beta.weydio.Model.AppConstant;
 import com.ninghoo.beta.weydio.Model.Audio;
@@ -29,11 +31,13 @@ public class MusicPlayService extends Service
 
     int msg;
 
-    private static int currentIndex = 0;
+    public static int currentIndex = 0;
 
     private int mMaxPosition;
 
     private ArrayList<Audio> la;
+
+    public static int firstPlay = 0;
 
 
     // onBind方法，用于与Activity沟通。
@@ -103,6 +107,10 @@ public class MusicPlayService extends Service
         {
             previousSong();
         }
+        else if(msg == AppConstant.PlayerMsg.START_MSG)
+        {
+            play(intent.getIntExtra("randomPlay", 0));
+        }
 
         // 自动下一首。
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
@@ -131,6 +139,7 @@ public class MusicPlayService extends Service
             mediaPlayer.setOnPreparedListener(new PreparedListener(position));
 
             WeydioApplication.setIsPlay(true);
+            sendBroadCastToNowPlay();
         }
         catch(Exception e)
         {
@@ -174,14 +183,14 @@ public class MusicPlayService extends Service
     @Override
     public void onDestroy()
     {
+        super.onDestroy();
+
         if(mediaPlayer != null)
         {
             mediaPlayer.stop();
             mediaPlayer.release();
             WeydioApplication.setIsPlay(false);
         }
-
-        super.onDestroy();
     }
 
     private class PreparedListener implements MediaPlayer.OnPreparedListener
@@ -198,6 +207,7 @@ public class MusicPlayService extends Service
         {
             mp.start();
             isPause = false;
+            firstPlay++;
             WeydioApplication.setIsPlay(true);
 
             if(position > 0)
@@ -208,4 +218,11 @@ public class MusicPlayService extends Service
         }
     }
 
+    private void sendBroadCastToNowPlay()
+    {
+        Intent intent = new Intent();//创建Intent对象
+        intent.setAction("serviceChangAlbumArt");
+        intent.putExtra("changAlbum", currentIndex);
+        sendBroadcast(intent);//发送广播
+    }
 }

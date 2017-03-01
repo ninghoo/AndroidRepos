@@ -1,8 +1,10 @@
 package com.ninghoo.beta.weydio.Activity;
 
+import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
@@ -13,6 +15,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.john.waveview.WaveView;
@@ -24,9 +27,12 @@ import com.ninghoo.beta.weydio.Service.MusicPlayService;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xw.repo.BubbleSeekBar;
 
+import java.util.Random;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.R.attr.gravity;
+import static com.ninghoo.beta.weydio.Service.MusicPlayService.firstPlay;
 import static com.ninghoo.beta.weydio.Service.MusicPlayService.mediaPlayer;
 
 /**
@@ -38,7 +44,19 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
     WaveView mWaveView;
     BubbleSeekBar mBubbleSeekBar;
 
-    private static int currentPosition = 46;
+    private IntentFilter intentFilter;
+    private WeydioReceiver mWeydioReceiver;
+
+    ImageView mBtnPlayPause;
+    ImageView mBtnPrevious;
+    ImageView mBtnNext;
+    ImageView mBtnRoundTyp;
+    ImageView mBtnMusicStack;
+
+    TextView mArtistName;
+    TextView mSongName;
+
+    Audio audio;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -56,11 +74,41 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
         initMusicCtrl();
 
         initWaveDuration();
+
+        initNamenArtist();
+
+        initBroadCast();
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        unregisterReceiver(mWeydioReceiver);
+    }
+
+    private void initNamenArtist()
+    {
+        mArtistName = (TextView) findViewById(R.id.tv_nowArtistName);
+        mSongName = (TextView) findViewById(R.id.tv_nowSongName);
+
+        mArtistName.setText(audio.getmArtist());
+        mSongName.setText(audio.getmTitle());
+    }
+
+    private void initBroadCast()
+    {
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("serviceChangAlbumArt");
+
+        mWeydioReceiver = new WeydioReceiver();
+        registerReceiver(mWeydioReceiver, intentFilter);
     }
 
     private void initAlbumImage()
     {
-        Audio audio = WeydioApplication.getMla().get(currentPosition);
+        audio = WeydioApplication.getMla().get(MusicPlayService.currentIndex);
 
         final Uri albumArtUri = Uri.parse("content://media/external/audio/albumart");
 
@@ -79,15 +127,19 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
 
     private void initMusicCtrl()
     {
-        ImageView mBtnPlayPause = (ImageView) findViewById(R.id.im_playPause);
-        ImageView mBtnPrevious = (ImageView) findViewById(R.id.ib_previous);
-        ImageView mBtnNext = (ImageView) findViewById(R.id.ib_next);
-        ImageView mBtnRoundTyp = (ImageView) findViewById(R.id.ib_replay);
+        mBtnPlayPause = (ImageView) findViewById(R.id.im_playPause);
+        mBtnPrevious = (ImageView) findViewById(R.id.ib_previous);
+        mBtnNext = (ImageView) findViewById(R.id.ib_next);
+        mBtnRoundTyp = (ImageView) findViewById(R.id.ib_replay);
+        mBtnMusicStack = (ImageView) findViewById(R.id.ib_mustack);
 
         mBtnPlayPause.setOnClickListener(this);
         mBtnPrevious.setOnClickListener(this);
         mBtnNext.setOnClickListener(this);
         mBtnRoundTyp.setOnClickListener(this);
+        mBtnMusicStack.setOnClickListener(this);
+
+        mBtnPlayPause.setImageResource(R.drawable.ic_play_circle_filled_white_48dp);
     }
 
     @Override
@@ -96,7 +148,31 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
         switch (v.getId())
         {
             case R.id.im_playPause:
-                mediaPlayer.start();
+                if(!MusicPlayService.mediaPlayer.isPlaying())
+                {
+                    int i = MusicPlayService.firstPlay;
+                    if(i == 0)
+                    {
+                        Intent intent = new Intent();
+//                    intent.putExtra("randomPlay", new Random().nextInt(WeydioApplication.getMla().size()));
+                        intent.putExtra("MSG", AppConstant.PlayerMsg.PLAY_MSG);
+                        intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+
+                        i++;
+                        startService(intent);
+                        mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+                    }
+                    else
+                    {
+                        MusicPlayService.mediaPlayer.start();
+                        mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+                    }
+                }
+                else if(MusicPlayService.mediaPlayer.isPlaying())
+                {
+                    mediaPlayer.pause();
+                    mBtnPlayPause.setImageResource(R.drawable.ic_play_circle_filled_white_48dp);
+                }
                 break;
 
             case R.id.ib_previous:
@@ -108,6 +184,14 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
                 break;
 
             case R.id.ib_replay:
+
+                break;
+
+            case R.id.ib_mustack:
+                Intent intent = new Intent();
+                intent.setClass(WeydioApplication.getContext(), MusicRecyclerActivity.class);
+
+                startActivity(intent);
 
                 break;
 
@@ -245,5 +329,16 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
                 R.anim.item_bottom_in);
         viewToAnimate.startAnimation(animation);
 
+    }
+
+    public class WeydioReceiver extends BroadcastReceiver
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            initAlbumImage();
+
+            initNamenArtist();
+        }
     }
 }

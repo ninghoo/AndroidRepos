@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.NowPlayActivity">
+        <activity android:name=".Activity.MusicRecyclerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.MusicRecyclerActivity" />
+        <activity android:name=".Activity.NowPlayActivity" />
 
         <service android:name=".Service.MusicPlayService"
             android:exported="true" />
