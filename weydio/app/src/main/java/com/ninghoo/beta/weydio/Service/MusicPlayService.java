@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class MusicPlayService extends Service
 {
-    public   static MediaPlayer mediaPlayer = new MediaPlayer();
+    public  static MediaPlayer mediaPlayer = new MediaPlayer();
 
     private String path;
 
@@ -29,7 +29,7 @@ public class MusicPlayService extends Service
 
     int msg;
 
-    private static int currentIndex;
+    private static int currentIndex = 0;
 
     private int mMaxPosition;
 
@@ -56,9 +56,20 @@ public class MusicPlayService extends Service
     {
         la = WeydioApplication.getMla();
 
-        mMaxPosition = intent.getIntExtra("MaxPosition", 0);
+        if(mediaPlayer == null)
+        {
+            mMaxPosition = intent.getIntExtra("MaxPosition", 0);
 
-        currentIndex = intent.getIntExtra("position", 0);
+            currentIndex = intent.getIntExtra("position", 0);
+
+        }
+        else if(intent.getIntExtra("BASIC", 0) == 0)
+        {
+            // 判断指令来自哪个组件。
+            mMaxPosition = intent.getIntExtra("MaxPosition", 0);
+
+            currentIndex = intent.getIntExtra("position", 0);
+        }
 
         if(mediaPlayer.isPlaying())
         {
@@ -82,11 +93,15 @@ public class MusicPlayService extends Service
         }
         else if(msg == AppConstant.PlayerMsg.STOP_MSG)
         {
-            //
+
         }
         else if(msg == AppConstant.PlayerMsg.NEXT_MSG)
         {
             nextSong();
+        }
+        else if(msg == AppConstant.PlayerMsg.PRIVIOUS_MSG)
+        {
+            previousSong();
         }
 
         // 自动下一首。
@@ -115,6 +130,7 @@ public class MusicPlayService extends Service
             mediaPlayer.prepare();
             mediaPlayer.setOnPreparedListener(new PreparedListener(position));
 
+            WeydioApplication.setIsPlay(true);
         }
         catch(Exception e)
         {
@@ -138,6 +154,22 @@ public class MusicPlayService extends Service
         play(0);
     }
 
+    private void previousSong()
+    {
+        currentIndex--;
+
+        if(currentIndex < 0)
+        {
+            currentIndex = mMaxPosition;
+        }
+
+        audio = la.get(currentIndex);
+
+        path = audio.getmPath();
+
+        play(0);
+    }
+
 
     @Override
     public void onDestroy()
@@ -146,6 +178,7 @@ public class MusicPlayService extends Service
         {
             mediaPlayer.stop();
             mediaPlayer.release();
+            WeydioApplication.setIsPlay(false);
         }
 
         super.onDestroy();
@@ -165,6 +198,7 @@ public class MusicPlayService extends Service
         {
             mp.start();
             isPause = false;
+            WeydioApplication.setIsPlay(true);
 
             if(position > 0)
             {

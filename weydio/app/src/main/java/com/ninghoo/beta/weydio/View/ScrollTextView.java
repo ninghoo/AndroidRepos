@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
-import com.ninghoo.beta.weydio.Activity.MainActivity;
 import com.ninghoo.beta.weydio.Activity.MusicRecyclerActivity;
 import com.ninghoo.beta.weydio.R;
 

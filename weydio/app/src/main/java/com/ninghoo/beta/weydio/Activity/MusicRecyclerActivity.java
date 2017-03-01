@@ -1,21 +1,22 @@
 package com.ninghoo.beta.weydio.Activity;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ninghoo.beta.weydio.Adapter.MusicListAdapter;
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
@@ -29,7 +30,7 @@ import com.ninghoo.beta.weydio.Model.MediaDetails;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-public class MusicRecyclerActivity extends AppCompatActivity
+public class MusicRecyclerActivity extends CommonActivity
 {
     private DrawerLayout mDrawLayout;
 
@@ -54,14 +55,15 @@ public class MusicRecyclerActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listrecycler);
 
-//        InitDrawerLayout();
+        WeydioApplication.setIsPlay(false);
 
-        hideActionBar();
+        InitDrawerLayout();
 
         initState();
 
-        initRecyMusicList();
+        initNotify();
 
+        initRecyMusicList();
     }
 
 
@@ -69,7 +71,7 @@ public class MusicRecyclerActivity extends AppCompatActivity
     {
         mDrawLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        mDrawLayout.setScrimColor(Color.TRANSPARENT);
+        mDrawLayout.setScrimColor(Color.argb(106, 0, 0, 0));
 
         mDrawLayout.setDrawerListener(new DrawerLayout.DrawerListener()
         {
@@ -93,7 +95,7 @@ public class MusicRecyclerActivity extends AppCompatActivity
                     MusicPlayService.isPause = true;
                 }
 
-                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
+//                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
             }
 
             @Override
@@ -114,8 +116,8 @@ public class MusicRecyclerActivity extends AppCompatActivity
 //            @Override
 //            public void onClick(View v)
 //            {
-//                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-//                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+////                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+////                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 //
 //            }
 //        });
@@ -156,36 +158,48 @@ public class MusicRecyclerActivity extends AppCompatActivity
 
         adapter.setOnItemLongClickListener(new MusicListAdapter.OnItemLongClickListener()
         {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onItemLongClick(View view, int position)
             {
-                if(isShow)
-                {
-                    mShadow.setVisibility(View.INVISIBLE);
-                    isShow = false;
-                }
-                else
-                {
-                    mShadow.setVisibility(View.VISIBLE);
-                    isShow = true;
-                }
+//                if(isShow)
+//                {
+//                    mShadow.setVisibility(View.INVISIBLE);
+//                    isShow = false;
+//                }
+//                else
+//                {
+//                    mShadow.setVisibility(View.VISIBLE);
+//                    isShow = true;
+//                }
 
-//                Toast.makeText(MainActivity.this,"long click "+la.get(position),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(NowPlayActivity.this,"long click "+la.get(position),Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent();
+
+                intent.setClass(WeydioApplication.getContext(), NowPlayActivity.class);
+
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MusicRecyclerActivity.this).toBundle());
             }
         });
 
         mRecyMusiclist.setAdapter(adapter);
     }
 
-
-    private void hideActionBar()
+    private void initNotify()
     {
-        ActionBar actionBar = getSupportActionBar();
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        if(actionBar != null)
-        {
-            actionBar.hide();
-        }
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(WeydioApplication.getContext());
+
+        Notification notification = builder.setContentTitle("adasd")
+                .setContentText("text")
+                .setWhen(System.currentTimeMillis())
+//                .setSmallIcon(R.mipmap.leffilo)
+//                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.leffilo))
+                .build();
+
+        manager.notify(0, notification);
     }
 
     /**

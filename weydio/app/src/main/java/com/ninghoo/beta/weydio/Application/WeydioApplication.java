@@ -27,6 +27,8 @@ public class WeydioApplication extends Application
 
     public static DisplayImageOptions mOptions;
 
+    public static boolean isPlay;
+
     @Override
     public void onCreate()
     {
@@ -51,8 +53,16 @@ public class WeydioApplication extends Application
         return mla;
     }
 
+    public static boolean getIsPlay() {
+        return isPlay;
+    }
+
     public static void setMla(ArrayList<Audio> mla) {
         WeydioApplication.mla = mla;
+    }
+
+    public static void setIsPlay(boolean isPlay) {
+        WeydioApplication.isPlay = isPlay;
     }
 
     // 在Application中去初始化对ImageLoader的配置。
