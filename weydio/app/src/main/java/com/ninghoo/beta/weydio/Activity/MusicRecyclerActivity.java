@@ -38,8 +38,6 @@ public class MusicRecyclerActivity extends CommonActivity
 
     private MusicListAdapter adapter;
 
-    private ArrayList<Audio> la;
-
     private Context mContext;
 
     private TextView mShadow;
@@ -148,11 +146,6 @@ public class MusicRecyclerActivity extends CommonActivity
 
         mShadow = (TextView) findViewById(R.id.tv_shadow);
         isShow = false;
-
-        // 由于getAudioList是static方法，所以可以直接通过类名调用。
-        la =  MediaDetails.getAudioList(WeydioApplication.getContext());
-
-        WeydioApplication.setMla(la);
 
         adapter = new MusicListAdapter(this, WeydioApplication.getMla());
 

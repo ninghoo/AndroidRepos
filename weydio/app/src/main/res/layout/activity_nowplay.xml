@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:paddingBottom="10dp"
         android:background="@drawable/four_corner_blr"
-        wave:above_wave_color="@android:color/white"
+        wave:above_wave_color="@android:color/black"
         wave:blow_wave_color="@android:color/white"
         wave:progress="50"
         wave:wave_height="little"
@@ -46,8 +46,8 @@
             wave:bsb_second_track_size="17dp"
             wave:bsb_thumb_color="#ff975a"
             wave:bsb_thumb_text_color="#ffffff"
-            wave:bsb_track_color="#3c000000"
-            wave:bsb_second_track_color="#80000000"
+            wave:bsb_track_color="#32000000"
+            wave:bsb_second_track_color="#c4000000"
             wave:bsb_bubble_text_color="#ff975a"
             wave:bsb_bubble_color="#ffffff"
             wave:bsb_bubble_text_size="49sp" />
@@ -69,46 +69,29 @@
 
         </LinearLayout>
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="98dp"
+            android:id="@+id/relativeLayout"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/relativeLayout">
+            android:layout_marginBottom="60dp">
+
 
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
-                android:background="@drawable/ic_play_arrow_white_48dp"
+                android:background="@drawable/ic_pause_circle_filled_white_48dp"
                 android:id="@+id/im_playPause"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"/>
 
             <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_skip_previous_white_48dp"
-                android:id="@+id/ib_previous"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="65dp"/>
-
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="right"
-                android:background="@drawable/ic_skip_next_white_48dp"
-                android:id="@+id/ib_next"
-                android:layout_marginEnd="26dp"
-                android:layout_alignParentTop="true"
-                android:layout_toStartOf="@+id/ib_replay"/>
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_gravity="bottom"
                 android:background="@drawable/ic_replay_white_48dp"
                 android:id="@+id/ib_replay"
@@ -116,19 +99,90 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="15dp"/>
 
-        </RelativeLayout>
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/ic_queue_music_white_48dp"
+                android:id="@+id/ib_mustack"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"/>
 
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_skip_previous_white_48dp"
+                android:id="@+id/ib_previous"
+                android:layout_marginStart="65dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:background="@drawable/ic_skip_next_white_48dp"
+                android:id="@+id/ib_next"
+                android:layout_marginEnd="32dp"
+                android:layout_centerVertical="true"
+                android:layout_alignTop="@+id/ib_previous"
+                android:layout_toStartOf="@+id/ib_replay"/>
+
+        </RelativeLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ib_albumArt"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="55dp"
-            wave:civ_border_width="5dp"
+            wave:civ_border_width="1dp"
             wave:civ_border_color="#ffffff"
-            android:layout_below="@+id/linearLayout"
+            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text=".Kevin Morty"
+            android:singleLine="true"
+            android:id="@+id/textView2"
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="32dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="Parades"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textSize="56dp"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:id="@+id/textView"
+            android:layout_below="@+id/textView2"
+            android:layout_alignParentStart="true"/>
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="@color/originOrange"-->
+            <!--android:text="04: 55"-->
+            <!--android:textSize="10dp"-->
+            <!--android:textStyle="bold"-->
+            <!--android:paddingTop="5dp"-->
+            <!--android:singleLine="true"-->
+            <!--android:id="@+id/textView3"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentStart="true"/>-->
 
     </RelativeLayout>
 

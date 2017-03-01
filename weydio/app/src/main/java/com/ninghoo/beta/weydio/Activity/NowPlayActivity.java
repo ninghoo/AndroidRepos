@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -27,6 +26,7 @@ import com.xw.repo.BubbleSeekBar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.R.attr.gravity;
 import static com.ninghoo.beta.weydio.Service.MusicPlayService.mediaPlayer;
 
 /**
@@ -38,7 +38,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
     WaveView mWaveView;
     BubbleSeekBar mBubbleSeekBar;
 
-    private static int currentPosition = 87;
+    private static int currentPosition = 46;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -96,7 +96,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
         switch (v.getId())
         {
             case R.id.im_playPause:
-                mediaPlayer.pause();
+                mediaPlayer.start();
                 break;
 
             case R.id.ib_previous:
@@ -126,7 +126,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
 
     private void initWaveDuration()
     {
-//        mWaveView = (WaveView) findViewById(R.id.wave_view);
+        mWaveView = (WaveView) findViewById(R.id.wave_view);
 //
 //        Handler handler = new Handler();
 //
@@ -174,7 +174,11 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
                 {
                     if(i >= 50)
                     {
-                        Toast.makeText(WeydioApplication.getContext(), "<(￣—￣)> 这样玩音量键，很危险的。。。", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(WeydioApplication.getContext(), "<(￣—￣)> 这样玩音量键，很危险的。。。", Toast.LENGTH_SHORT).show();
+
+//                        Toast toast=Toast.makeText(WeydioApplication.getContext(), "<(￣—￣)>  这样玩音量键，很危险",  Toast.LENGTH_SHORT);
+//                        toast.setGravity(gravity, 300, 300);    //设置toast的位置
+//                        toast.show();
                     }
                 }
             }
