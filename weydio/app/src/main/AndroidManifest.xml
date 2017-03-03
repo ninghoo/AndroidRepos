@@ -26,7 +26,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.NowPlayActivity" />
+        <activity android:name=".Activity.NowPlayActivity"/>
+
+        <!--android:configChanges="orientation|screenSize"-->
 
         <service android:name=".Service.MusicPlayService"
             android:exported="true" />

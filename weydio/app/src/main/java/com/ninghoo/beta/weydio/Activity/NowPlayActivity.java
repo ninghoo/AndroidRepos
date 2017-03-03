@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -39,7 +40,7 @@ import static com.ninghoo.beta.weydio.Service.MusicPlayService.mediaPlayer;
  * Created by ningfu on 17-2-25.
  */
 
-public class NowPlayActivity extends CommonActivity implements View.OnClickListener
+public class NowPlayActivity extends CommonActivity implements View.OnTouchListener
 {
     WaveView mWaveView;
     BubbleSeekBar mBubbleSeekBar;
@@ -57,6 +58,8 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
     TextView mSongName;
 
     Audio audio;
+
+    boolean isPause = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -93,7 +96,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
         mArtistName = (TextView) findViewById(R.id.tv_nowArtistName);
         mSongName = (TextView) findViewById(R.id.tv_nowSongName);
 
-        mArtistName.setText(audio.getmArtist());
+        mArtistName.setText("." + audio.getmArtist());
         mSongName.setText(audio.getmTitle());
     }
 
@@ -133,17 +136,25 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
         mBtnRoundTyp = (ImageView) findViewById(R.id.ib_replay);
         mBtnMusicStack = (ImageView) findViewById(R.id.ib_mustack);
 
-        mBtnPlayPause.setOnClickListener(this);
-        mBtnPrevious.setOnClickListener(this);
-        mBtnNext.setOnClickListener(this);
-        mBtnRoundTyp.setOnClickListener(this);
-        mBtnMusicStack.setOnClickListener(this);
+        mBtnPlayPause.setOnTouchListener(this);
+        mBtnPrevious.setOnTouchListener(this);
+        mBtnNext.setOnTouchListener(this);
+        mBtnRoundTyp.setOnTouchListener(this);
+        mBtnMusicStack.setOnTouchListener(this);
 
-        mBtnPlayPause.setImageResource(R.drawable.ic_play_circle_filled_white_48dp);
+        if (MusicPlayService.mediaPlayer.isPlaying())
+        {
+            mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+        }
+        else
+        {
+            mBtnPlayPause.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+        }
     }
 
+
     @Override
-    public void onClick(View v)
+    public boolean onTouch(View v, MotionEvent event)
     {
         switch (v.getId())
         {
@@ -166,21 +177,27 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
                     {
                         MusicPlayService.mediaPlayer.start();
                         mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+                        isPause = false;
                     }
                 }
                 else if(MusicPlayService.mediaPlayer.isPlaying())
                 {
                     mediaPlayer.pause();
-                    mBtnPlayPause.setImageResource(R.drawable.ic_play_circle_filled_white_48dp);
+                    mBtnPlayPause.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+                    isPause = true;
                 }
                 break;
 
             case R.id.ib_previous:
                 activityPreviousSong();
+                mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+                isPause = false;
                 break;
 
             case R.id.ib_next:
                 activityNextSong();
+                mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+                isPause = false;
                 break;
 
             case R.id.ib_replay:
@@ -198,7 +215,72 @@ public class NowPlayActivity extends CommonActivity implements View.OnClickListe
             default:
                 break;
         }
+        return false;
     }
+
+//    @Override
+//    public void onClick(View v)
+//    {
+//        switch (v.getId())
+//        {
+//            case R.id.im_playPause:
+//                if(!MusicPlayService.mediaPlayer.isPlaying())
+//                {
+//                    int i = MusicPlayService.firstPlay;
+//                    if(i == 0)
+//                    {
+//                        Intent intent = new Intent();
+////                    intent.putExtra("randomPlay", new Random().nextInt(WeydioApplication.getMla().size()));
+//                        intent.putExtra("MSG", AppConstant.PlayerMsg.PLAY_MSG);
+//                        intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+//
+//                        i++;
+//                        startService(intent);
+//                        mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+//                    }
+//                    else
+//                    {
+//                        MusicPlayService.mediaPlayer.start();
+//                        mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+//                        isPause = false;
+//                    }
+//                }
+//                else if(MusicPlayService.mediaPlayer.isPlaying())
+//                {
+//                    mediaPlayer.pause();
+//                    mBtnPlayPause.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+//                    isPause = true;
+//                }
+//                break;
+//
+//            case R.id.ib_previous:
+//                activityPreviousSong();
+//                mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+//                isPause = false;
+//                break;
+//
+//            case R.id.ib_next:
+//                activityNextSong();
+//                mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+//                isPause = false;
+//                break;
+//
+//            case R.id.ib_replay:
+//
+//                break;
+//
+//            case R.id.ib_mustack:
+//                Intent intent = new Intent();
+//                intent.setClass(WeydioApplication.getContext(), MusicRecyclerActivity.class);
+//
+//                startActivity(intent);
+//
+//                break;
+//
+//            default:
+//                break;
+//        }
+//    }
 
     private void initTranStatus() 
     {

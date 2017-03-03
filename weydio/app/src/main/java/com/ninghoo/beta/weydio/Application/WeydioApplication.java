@@ -29,6 +29,8 @@ public class WeydioApplication extends Application
 
     public static boolean isPlay;
 
+    private static int mMaxPosition;
+
     @Override
     public void onCreate()
     {
@@ -57,6 +59,10 @@ public class WeydioApplication extends Application
         return isPlay;
     }
 
+    public static int getmMaxPosition() {
+        return mMaxPosition;
+    }
+
     public static void setMla(ArrayList<Audio> mla) {
         WeydioApplication.mla = mla;
     }
@@ -65,6 +71,9 @@ public class WeydioApplication extends Application
         WeydioApplication.isPlay = isPlay;
     }
 
+    public static void setmMaxPosition(int mMaxPosition) {
+        WeydioApplication.mMaxPosition = mMaxPosition;
+    }
     // 在Application中去初始化对ImageLoader的配置。
     private void initImageLoader(Context context)
     {

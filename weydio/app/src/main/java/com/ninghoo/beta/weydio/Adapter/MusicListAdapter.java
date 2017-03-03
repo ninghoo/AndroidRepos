@@ -91,6 +91,8 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
     {
         mMaxPosition = getItemCount();
 
+        WeydioApplication.setmMaxPosition(mMaxPosition);
+
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_musiclist, parent, false);
 
@@ -122,9 +124,9 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
 //                    intent.putParcelableArrayListExtra("Audio", mData);
 
                     intent.putExtra("position", position);
-                    intent.putExtra("MaxPosition", mMaxPosition);
+//                    intent.putExtra("MaxPosition", mMaxPosition);
 //                    intent.putExtra("url", audio.getmPath());
-                    intent.putExtra("MSG", AppConstant.PlayerMsg.PLAY_MSG);
+                    intent.putExtra("MSG", AppConstant.PlayerMsg.ITEMCLICK_MSG);
                     intent.putExtra("BASIC", 0);
                     intent.setClass(context, MusicPlayService.class);
                     // 在这里设置Intent去跳转制定的Sevice。

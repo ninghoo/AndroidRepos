@@ -4,12 +4,17 @@
                                         android:id="@+id/drawer_layout"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:background="#000">
+                                        android:background="#000000">
 
     <!--<FrameLayout-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
-        <!--android:background="@drawable/recycler_corner">-->
+        <!--android:background="@drawable/four_corner_wht" >-->
+
+        <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="4dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:background="#1e000000" />&ndash;&gt;-->
 
         <!--<LinearLayout-->
             <!--android:layout_width="match_parent"-->
@@ -24,12 +29,12 @@
                 <!--android:paddingLeft="5dp"-->
                 <!--android:paddingRight="5dp"-->
                 <!--app:fastScrollAutoHide="true"-->
-                <!--app:fastScrollAutoHideDelay="1000"-->
-                <!--app:fastScrollPopupBgColor="@color/itemImageBg"-->
+                <!--app:fastScrollAutoHideDelay="100"-->
+                <!--app:fastScrollPopupBgColor="@color/midnight_blue"-->
                 <!--app:fastScrollPopupTextColor="@android:color/primary_text_dark"-->
-                <!--app:fastScrollPopupTextSize="45sp"-->
+                <!--app:fastScrollPopupTextSize="49sp"-->
                 <!--app:fastScrollPopupBackgroundSize="88dp"-->
-                <!--app:fastScrollThumbColor="#51000000"-->
+                <!--app:fastScrollThumbColor="#ff975a"-->
                 <!--app:fastScrollTrackColor="#00000000"-->
                 <!--/>-->
 
@@ -38,12 +43,12 @@
         <!--&lt;!&ndash;这个是隐藏的布局，然后通过动态的设置高度达到效果&ndash;&gt;-->
         <!--<LinearLayout-->
             <!--android:id="@+id/visable_bar"-->
-            <!--android:layout_width="350dp"-->
+            <!--android:layout_width="1dp"-->
             <!--android:layout_height="1dp"-->
             <!--android:layout_gravity="center_horizontal"-->
             <!--android:background="@drawable/status_corner"-->
-            <!--android:orientation="vertical" >-->
-        <!--</LinearLayout>-->
+            <!--android:transitionName="shareNames"-->
+            <!--android:orientation="vertical" />-->
 
         <!--<com.ninghoo.beta.weydio.View.ScrollTextView-->
             <!--android:id="@+id/tv_shadow"-->
@@ -55,11 +60,11 @@
 
     <!--</FrameLayout>-->
 
-
-    <!--<FrameLayout-->
-        <!--android:layout_width="match_parent"-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="70dp"-->
         <!--android:layout_height="match_parent"-->
-        <!--android:layout_gravity="start" >-->
+        <!--android:layout_gravity="right"-->
+        <!--android:background="@drawable/four_corner_wht">-->
 
         <!--&lt;!&ndash;<com.ninghoo.beta.weydio.View.DrawSquare&ndash;&gt;-->
         <!--&lt;!&ndash;android:id="@+id/left_drawer"&ndash;&gt;-->
@@ -69,12 +74,12 @@
         <!--&lt;!&ndash;android:background="#fff"/>&ndash;&gt;-->
 
         <!--<Button-->
-            <!--android:id="@+id/btn_closeDrawer"-->
+            <!--android:id="@+id/btn_Drawer2Act"-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:layout_gravity="bottom"-->
-            <!--android:text="close" />-->
+            <!--android:text="Now" />-->
 
-    <!--</FrameLayout>-->
+    <!--</LinearLayout>-->
 
 </android.support.v4.widget.DrawerLayout>

@@ -17,6 +17,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,7 +45,7 @@ public class MusicRecyclerActivity extends CommonActivity {
 
     private TextView mShadow;
 
-//    private Button mBtnClsDrw;
+//    private Button mBtn2Now;
 
     public static boolean isShow;
 
@@ -100,7 +101,7 @@ public class MusicRecyclerActivity extends CommonActivity {
             }
         });
 
-//        findViewById(R.id.btn_closeDrawer).setOnClickListener(new View.OnClickListener()
+//        findViewById(R.id.btn_Drawer2Act).setOnClickListener(new View.OnClickListener()
 //        {
 //            @Override
 //            public void onClick(View v)
@@ -155,11 +156,7 @@ public class MusicRecyclerActivity extends CommonActivity {
 
 //                Toast.makeText(NowPlayActivity.this,"long click "+la.get(position),Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent();
-
-                intent.setClass(WeydioApplication.getContext(), NowPlayActivity.class);
-
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MusicRecyclerActivity.this).toBundle());
+                turnToNow();
             }
         });
 
@@ -251,8 +248,16 @@ public class MusicRecyclerActivity extends CommonActivity {
     private void turnToNow()
     {
         Intent intent = new Intent();
-        intent.setClass(MusicRecyclerActivity.this, NowPlayActivity.class);
 
-        startActivity(intent);
+        intent.setClass(WeydioApplication.getContext(), NowPlayActivity.class);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MusicRecyclerActivity.this).toBundle());
+            startActivity(intent);
+        }
+        else
+        {
+            startActivity(intent);
+        }
     }
 }

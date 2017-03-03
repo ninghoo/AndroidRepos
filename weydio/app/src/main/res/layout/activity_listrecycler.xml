@@ -11,10 +11,10 @@
         android:layout_height="match_parent"
         android:background="@drawable/four_corner_wht" >
 
-        <LinearLayout
-            android:layout_width="4dp"
-            android:layout_height="match_parent"
-        android:background="#40000000" />
+        <!--<LinearLayout-->
+            <!--android:layout_width="4dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#1e000000" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:layout_weight="0.9"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                app:fastScrollAutoHide="true"
+                app:fastScrollAutoHide="false"
                 app:fastScrollAutoHideDelay="1000"
                 app:fastScrollPopupBgColor="@color/midnight_blue"
                 app:fastScrollPopupTextColor="@android:color/primary_text_dark"
@@ -73,12 +73,12 @@
     <!--android:layout_gravity="start"-->
     <!--android:background="#fff"/>-->
 
-    <!--<Button-->
-    <!--android:id="@+id/btn_closeDrawer"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="bottom"-->
-    <!--android:text="close" />-->
+    <Button
+    android:id="@+id/btn_Drawer2Act"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:text="Now" />
 
     </LinearLayout>
 

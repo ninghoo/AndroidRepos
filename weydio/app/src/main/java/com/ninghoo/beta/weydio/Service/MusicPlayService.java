@@ -51,7 +51,6 @@ public class MusicPlayService extends Service
     public void onCreate()
     {
         super.onCreate();
-
     }
 
     // 这是属于Service类里的内部方法。
@@ -59,41 +58,24 @@ public class MusicPlayService extends Service
     public int onStartCommand(final Intent intent, int flags, int startId)
     {
         la = WeydioApplication.getMla();
-
-        if(mediaPlayer == null)
-        {
-            mMaxPosition = intent.getIntExtra("MaxPosition", 0);
-
-            currentIndex = intent.getIntExtra("position", 0);
-
-        }
-        else if(intent.getIntExtra("BASIC", 0) == 0)
-        {
-            // 判断指令来自哪个组件。
-            mMaxPosition = intent.getIntExtra("MaxPosition", 0);
-
-            currentIndex = intent.getIntExtra("position", 0);
-        }
-
-        if(mediaPlayer.isPlaying())
-        {
-            //
-        }
-
-        path = la.get(currentIndex).getmPath();
-
-        Log.i("PATH", "position:" + currentIndex +path);
-        Log.i("MAX", ":" + mMaxPosition);
+        mMaxPosition = WeydioApplication.getmMaxPosition();
 
         msg = intent.getIntExtra("MSG", 0);
 
-        if(msg == AppConstant.PlayerMsg.PLAY_MSG)
+        if(msg == AppConstant.PlayerMsg.ITEMCLICK_MSG)
         {
+            currentIndex = intent.getIntExtra("position", 0);
+            path = la.get(currentIndex).getmPath();
+            play(0);
+        }
+        else if(msg == AppConstant.PlayerMsg.PLAY_MSG)
+        {
+            path = la.get(currentIndex).getmPath();
             play(0);
         }
         else if(msg == AppConstant.PlayerMsg.PAUSE_MSG)
         {
-            //
+
         }
         else if(msg == AppConstant.PlayerMsg.STOP_MSG)
         {
@@ -169,7 +151,7 @@ public class MusicPlayService extends Service
 
         if(currentIndex < 0)
         {
-            currentIndex = mMaxPosition;
+            currentIndex = mMaxPosition -1;
         }
 
         audio = la.get(currentIndex);
