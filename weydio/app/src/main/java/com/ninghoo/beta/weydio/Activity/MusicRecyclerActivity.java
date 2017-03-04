@@ -4,20 +4,21 @@ import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,13 +29,11 @@ import com.ninghoo.beta.weydio.FastScrollView.FastScrollRecyclerView;
 import com.ninghoo.beta.weydio.R;
 import com.ninghoo.beta.weydio.Service.MusicPlayService;
 import com.ninghoo.beta.weydio.Model.AppConstant;
-import com.ninghoo.beta.weydio.Model.Audio;
-import com.ninghoo.beta.weydio.Model.MediaDetails;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 
-public class MusicRecyclerActivity extends CommonActivity {
+public class MusicRecyclerActivity extends CommonActivity
+{
     private DrawerLayout mDrawLayout;
 
     private FastScrollRecyclerView mRecyMusiclist;
@@ -49,9 +48,17 @@ public class MusicRecyclerActivity extends CommonActivity {
 
     public static boolean isShow;
 
+    private FloatingActionButton mFloatBtn;
+
+    // 虽然和nowplayActivity里面的receiver同名，但实际上是两个独立的对象，只是同样监听同一个action。
+    private WeydioReceiver mWeydioReceiver;
+
+    private IntentFilter intentFilter;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listrecycler);
 
@@ -64,16 +71,83 @@ public class MusicRecyclerActivity extends CommonActivity {
         initNotify();
 
         initRecyMusicList();
+
+        initFloatingBtn();
+
+        initBroadCast();
     }
 
-    private void InitDrawerLayout() {
+    @Override
+    protected void onRestart()
+    {
+        super.onRestart();
+
+        initFloatingBtn();
+    }
+
+    private void initFloatingBtn()
+    {
+        mFloatBtn = (FloatingActionButton) findViewById(R.id.fb_playPause);
+
+        mFloatBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(MusicPlayService.mediaPlayer.isPlaying())
+                {
+                    MusicPlayService.mediaPlayer.pause();
+                    mFloatBtn.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+                }
+                else
+                {
+                    if(MusicPlayService.firstPlay == 0)
+                    {
+                        Intent intent = new Intent();
+                        intent.putExtra("MSG", AppConstant.PlayerMsg.PRIVIOUS_MSG);
+                        intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+
+                        startService(intent);
+                    }
+                    else
+                    {
+                        MusicPlayService.mediaPlayer.start();
+                        mFloatBtn.setImageResource(R.drawable.ic_pause_white_48dp);
+                    }
+                }
+            }
+        });
+
+        if(MusicPlayService.mediaPlayer.isPlaying())
+        {
+            mFloatBtn.setImageResource(R.drawable.ic_pause_white_48dp);
+        }
+        else
+        {
+            mFloatBtn.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+        }
+
+        mFloatBtn.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                return false;
+            }
+        });
+    }
+
+    private void InitDrawerLayout()
+    {
         mDrawLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         mDrawLayout.setScrimColor(Color.argb(106, 0, 0, 0));
 
-        mDrawLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+        mDrawLayout.setDrawerListener(new DrawerLayout.DrawerListener()
+        {
             @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
+            public void onDrawerSlide(View drawerView, float slideOffset)
+            {
 
             }
 
@@ -134,7 +208,7 @@ public class MusicRecyclerActivity extends CommonActivity {
 
         mRecyMusiclist.setLayoutManager(new LinearLayoutManager(this));
 
-        mShadow = (TextView) findViewById(R.id.tv_shadow);
+//        mShadow = (TextView) findViewById(R.id.tv_shadow);
         isShow = false;
 
         adapter = new MusicListAdapter(this, WeydioApplication.getMla());
@@ -252,12 +326,30 @@ public class MusicRecyclerActivity extends CommonActivity {
         intent.setClass(WeydioApplication.getContext(), NowPlayActivity.class);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MusicRecyclerActivity.this).toBundle());
-            startActivity(intent);
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MusicRecyclerActivity.this, mFloatBtn, "shareNames").toBundle());
+//            startActivity(intent);
         }
         else
         {
             startActivity(intent);
+        }
+    }
+
+    private void initBroadCast()
+    {
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("serviceChangAlbumArt");
+
+        mWeydioReceiver = new WeydioReceiver();
+        registerReceiver(mWeydioReceiver, intentFilter);
+    }
+
+    private class WeydioReceiver extends BroadcastReceiver
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            initFloatingBtn();
         }
     }
 }

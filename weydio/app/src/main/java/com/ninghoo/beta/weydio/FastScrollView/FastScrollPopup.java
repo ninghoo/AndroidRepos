@@ -109,7 +109,7 @@ public class FastScrollPopup {
                 mAlphaAnimator.cancel();
             }
             mAlphaAnimator = ObjectAnimator.ofFloat(this, "alpha", visible ? 1f : 0f);
-            mAlphaAnimator.setDuration(visible ? 2000 : 1500);
+            mAlphaAnimator.setDuration(visible ? 800 : 1000);
             mAlphaAnimator.start();
         }
     }

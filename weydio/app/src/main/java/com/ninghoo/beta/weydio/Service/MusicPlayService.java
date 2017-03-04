@@ -24,7 +24,7 @@ public class MusicPlayService extends Service
 
     private String path;
 
-    public static boolean isPause;
+    public static boolean isPause = true;
 
     // audio是单个的item数据。
     private Audio audio;

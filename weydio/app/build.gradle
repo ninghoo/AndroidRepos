@@ -4,11 +4,11 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.ninghoo.beta.weydio"
-        minSdkVersion 17
+        applicationId "com.ninghoo.soft.weydio"
+        minSdkVersion 21
         targetSdkVersion 21
         versionCode 1
-        versionName "1.1"
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -33,4 +33,6 @@ dependencies {
     compile 'com.github.john990:WaveView:v0.9'
     compile 'com.github.woxingxiao:BubbleSeekBar:v1.9'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.android.support:design:25.2.0'
+    compile 'com.getbase:floatingactionbutton:1.10.1'
 }

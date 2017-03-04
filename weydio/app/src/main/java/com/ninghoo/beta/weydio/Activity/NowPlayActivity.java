@@ -59,6 +59,8 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
     Audio audio;
 
+    CircleImageView mAlbumArt;
+
     boolean isPause = true;
 
     @Override
@@ -66,7 +68,15 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
     {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_nowplay);
+        //判断横屏竖屏来填充不同的布局。
+        if(getResources().getConfiguration().orientation == 1)
+        {
+            setContentView(R.layout.activity_nowplay);
+        }
+        else
+        {
+            setContentView(R.layout.activity_nowplay_horizonal);
+        }
 
         initTranStatus();
 
@@ -121,7 +131,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
 //        Log.i("URL" , ":"+url);
 
-        CircleImageView mAlbumArt = (CircleImageView) findViewById(R.id.ib_albumArt);
+        mAlbumArt = (CircleImageView) findViewById(R.id.ib_albumArt);
 
         // 这里的ImageLoader，并没有用MediaUtils去获取专辑图片，而是直接获取歌曲专辑的地址。
         ImageLoader.getInstance().displayImage(url, mAlbumArt, WeydioApplication.mOptions);
@@ -205,11 +215,11 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
                 break;
 
             case R.id.ib_mustack:
-                Intent intent = new Intent();
-                intent.setClass(WeydioApplication.getContext(), MusicRecyclerActivity.class);
-
-                startActivity(intent);
-
+//                Intent intent = new Intent();
+//                intent.setClass(WeydioApplication.getContext(), MusicRecyclerActivity.class);
+//
+//                startActivity(intent);
+                finish();
                 break;
 
             default:
@@ -217,70 +227,6 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
         }
         return false;
     }
-
-//    @Override
-//    public void onClick(View v)
-//    {
-//        switch (v.getId())
-//        {
-//            case R.id.im_playPause:
-//                if(!MusicPlayService.mediaPlayer.isPlaying())
-//                {
-//                    int i = MusicPlayService.firstPlay;
-//                    if(i == 0)
-//                    {
-//                        Intent intent = new Intent();
-////                    intent.putExtra("randomPlay", new Random().nextInt(WeydioApplication.getMla().size()));
-//                        intent.putExtra("MSG", AppConstant.PlayerMsg.PLAY_MSG);
-//                        intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
-//
-//                        i++;
-//                        startService(intent);
-//                        mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
-//                    }
-//                    else
-//                    {
-//                        MusicPlayService.mediaPlayer.start();
-//                        mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
-//                        isPause = false;
-//                    }
-//                }
-//                else if(MusicPlayService.mediaPlayer.isPlaying())
-//                {
-//                    mediaPlayer.pause();
-//                    mBtnPlayPause.setImageResource(R.drawable.ic_play_arrow_white_48dp);
-//                    isPause = true;
-//                }
-//                break;
-//
-//            case R.id.ib_previous:
-//                activityPreviousSong();
-//                mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
-//                isPause = false;
-//                break;
-//
-//            case R.id.ib_next:
-//                activityNextSong();
-//                mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
-//                isPause = false;
-//                break;
-//
-//            case R.id.ib_replay:
-//
-//                break;
-//
-//            case R.id.ib_mustack:
-//                Intent intent = new Intent();
-//                intent.setClass(WeydioApplication.getContext(), MusicRecyclerActivity.class);
-//
-//                startActivity(intent);
-//
-//                break;
-//
-//            default:
-//                break;
-//        }
-//    }
 
     private void initTranStatus() 
     {
@@ -413,7 +359,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
     }
 
-    public class WeydioReceiver extends BroadcastReceiver
+    private class WeydioReceiver extends BroadcastReceiver
     {
         @Override
         public void onReceive(Context context, Intent intent)

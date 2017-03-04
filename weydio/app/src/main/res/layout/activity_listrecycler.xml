@@ -28,7 +28,7 @@
                 android:layout_weight="0.9"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                app:fastScrollAutoHide="false"
+                app:fastScrollAutoHide="true"
                 app:fastScrollAutoHideDelay="1000"
                 app:fastScrollPopupBgColor="@color/midnight_blue"
                 app:fastScrollPopupTextColor="@android:color/primary_text_dark"
@@ -50,13 +50,15 @@
             android:transitionName="shareNames"
             android:orientation="vertical" />
 
-        <com.ninghoo.beta.weydio.View.ScrollTextView
-            android:id="@+id/tv_shadow"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            android:background="#6affffff" >
-        </com.ninghoo.beta.weydio.View.ScrollTextView>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fb_playPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_margin="16dp"
+            app:backgroundTint="#ff975a"
+            app:rippleColor="#33728dff"
+            android:transitionName="shareNames"/>
 
     </FrameLayout>
 
@@ -64,14 +66,7 @@
     android:layout_width="70dp"
     android:layout_height="match_parent"
     android:layout_gravity="right"
-        android:background="@drawable/four_corner_wht">
-
-    <!--<com.ninghoo.beta.weydio.View.DrawSquare-->
-    <!--android:id="@+id/left_drawer"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_gravity="start"-->
-    <!--android:background="#fff"/>-->
+    android:background="@drawable/four_corner_wht">
 
     <Button
     android:id="@+id/btn_Drawer2Act"
