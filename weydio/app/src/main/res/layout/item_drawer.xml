@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="70dp"
+              android:layout_width="85dp"
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:layout_gravity="right"
@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/btn_listAddTime"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:src="@drawable/ic_av_timer_black_48dp"
         android:clickable="true"
         android:layout_centerVertical="true"
@@ -18,19 +18,21 @@
     <ImageView
         android:id="@+id/btn_listA_Z"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:src="@drawable/ic_sort_by_alpha_black_48dp"
         android:clickable="true"
-        android:layout_above="@+id/btn_listAddTime"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="130dp"/>
 
     <ImageView
         android:id="@+id/btn_listArtist"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:src="@drawable/ic_recent_actors_black_48dp"
         android:clickable="true"
-        android:layout_below="@+id/btn_listAddTime"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="130dp"/>
 
 </RelativeLayout>

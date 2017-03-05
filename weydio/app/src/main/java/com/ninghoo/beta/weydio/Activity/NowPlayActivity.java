@@ -9,6 +9,8 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +31,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xw.repo.BubbleSeekBar;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -52,6 +56,10 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
     ImageView mBtnRoundTyp;
     ImageView mBtnMusicStack;
 
+    TextView mTvTimeStill;
+    Timer mTimer;
+    TimerTask mTimerTask;
+
     TextView mArtistName;
     TextView mSongName;
 
@@ -73,6 +81,9 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
         if(getResources().getConfiguration().orientation == 1)
         {
             setContentView(R.layout.activity_nowplay);
+
+            // 因为子啊横屏情况下，没有timestill的textView存在。
+            initTextDuration();
         }
         else
         {
@@ -87,11 +98,11 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
         initMusicCtrl();
 
-//        initWaveDuration();
-
         initNamenArtist();
 
         initBroadCast();
+
+        initRoundType();
     }
 
     @Override
@@ -146,6 +157,8 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
         mBtnNext = (ImageView) findViewById(R.id.ib_next);
         mBtnRoundTyp = (ImageView) findViewById(R.id.ib_replay);
         mBtnMusicStack = (ImageView) findViewById(R.id.ib_mustack);
+        mTvTimeStill = (TextView) findViewById(R.id.tv_timestill);
+
 
         mBtnPlayPause.setOnTouchListener(this);
         mBtnPrevious.setOnTouchListener(this);
@@ -346,5 +359,64 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
             initNamenArtist();
         }
+    }
+
+    private void initTextDuration()
+    {
+        mTimer = new Timer();
+        mTimerTask = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                Message message = new Message();
+                message.what = 1;
+                mHandler.sendMessage(message);
+            }
+        };
+        mTimer.schedule(mTimerTask, 0, 1000);
+    }
+
+    private Handler mHandler = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg)
+        {
+            super.handleMessage(msg);
+
+            if(MusicPlayService.firstPlay == 0)
+            {
+                int millis = audio.getmDuration();
+
+                int secondnd = (millis / 1000) / 60;
+                int million = (millis / 1000) % 60;
+                String f = String.valueOf(secondnd);
+                String m = million >= 10 ? String.valueOf(million) : "0"
+                        + String.valueOf(million);
+
+                mTvTimeStill.setText(f + "min  ." + m);
+            }
+            else
+            {
+                switch (msg.what)
+                {
+                    case 1:
+                        int millis = MusicPlayService.mediaPlayer.getDuration() - MusicPlayService.mediaPlayer.getCurrentPosition();
+                        int secondnd = (millis / 1000) / 60;
+                        int million = (millis / 1000) % 60;
+                        String f = String.valueOf(secondnd);
+                        String m = million >= 10 ? String.valueOf(million) : "0"
+                                + String.valueOf(million);
+
+                        mTvTimeStill.setText(f + "min  ." + m);
+                }
+            }
+        }
+    };
+
+
+    private void initRoundType()
+    {
+
     }
 }
