@@ -394,7 +394,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
                 String m = million >= 10 ? String.valueOf(million) : "0"
                         + String.valueOf(million);
 
-                mTvTimeStill.setText(f + "min  ." + m);
+                mTvTimeStill.setText("- " + f + "min . " + m + " -");
             }
             else
             {
@@ -408,7 +408,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
                         String m = million >= 10 ? String.valueOf(million) : "0"
                                 + String.valueOf(million);
 
-                        mTvTimeStill.setText(f + "min  ." + m);
+                        mTvTimeStill.setText("- " + f + "min . " + m + " -");
                 }
             }
         }
