@@ -26,10 +26,10 @@
                 android:id="@+id/item_tv_musicName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
+                android:textSize="14.2dp"
                 android:textStyle="bold"
                 android:textColor="@color/musicname"
-                android:maxEms="10"
+                android:maxEms="14"
                 android:singleLine="true"
                 android:text="Parades"/>
 
@@ -37,7 +37,7 @@
                 android:id="@+id/item_tv_musicArtist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxEms="20"
+                android:maxEms="22"
                 android:singleLine="true"
                 android:paddingTop="5dp"
                 android:textSize="10dp"
