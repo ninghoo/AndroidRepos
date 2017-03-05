@@ -46,17 +46,40 @@ public class MediaDetails
             };
 
     // 由于是static方法，所以可以直接使用类名直接调用该方法。
-    public static ArrayList<Audio> getAudioList(Context context)
+    public static ArrayList<Audio> getAudioList(Context context, int o)
     {
         // 实际上这里是一个向下转型。
         ArrayList<Audio> autoList = new ArrayList<Audio>();
 
         ContentResolver resolver = context.getContentResolver();
 
-        // query方法最后一个参数可实现排序。
-        Cursor cursor = resolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                AUDIO_KEYS, null, null, MediaStore.Audio.Media._ID  + " DESC");
-        // + " DESC"可实现倒序。
+        Cursor cursor = null;
+
+        switch (o)
+        {
+            // A_Z
+            case 0:
+                // query方法最后一个参数可实现排序。
+                cursor = resolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        AUDIO_KEYS, null, null, MediaStore.Audio.Media.TITLE );
+                // + " DESC"可实现倒序。
+                break;
+
+            // time
+            case 1:
+                cursor = resolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        AUDIO_KEYS, null, null, MediaStore.Audio.Media._ID  + " DESC");
+                break;
+
+            // artist
+            case 2:
+                cursor = resolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        AUDIO_KEYS, null, null, MediaStore.Audio.Media.ARTIST);
+                break;
+        }
+
+//        cursor = resolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+//                        AUDIO_KEYS, null, null, MediaStore.Audio.Media.TITLE );
 
         for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
         {

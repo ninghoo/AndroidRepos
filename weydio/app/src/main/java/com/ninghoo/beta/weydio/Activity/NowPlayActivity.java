@@ -28,12 +28,10 @@ import com.ninghoo.beta.weydio.Service.MusicPlayService;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xw.repo.BubbleSeekBar;
 
-import java.util.Random;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.R.attr.gravity;
-import static com.ninghoo.beta.weydio.Service.MusicPlayService.firstPlay;
 import static com.ninghoo.beta.weydio.Service.MusicPlayService.mediaPlayer;
 
 /**
@@ -57,6 +55,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
     TextView mArtistName;
     TextView mSongName;
 
+    private ArrayList<Audio> mData;
     Audio audio;
 
     CircleImageView mAlbumArt;
@@ -67,6 +66,8 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        mData = WeydioApplication.getMla();
 
         //判断横屏竖屏来填充不同的布局。
         if(getResources().getConfiguration().orientation == 1)
@@ -86,7 +87,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
         initMusicCtrl();
 
-        initWaveDuration();
+//        initWaveDuration();
 
         initNamenArtist();
 
@@ -121,7 +122,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
     private void initAlbumImage()
     {
-        audio = WeydioApplication.getMla().get(MusicPlayService.currentIndex);
+        audio = mData.get(MusicPlayService.currentIndex);
 
         final Uri albumArtUri = Uri.parse("content://media/external/audio/albumart");
 
@@ -215,10 +216,6 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
                 break;
 
             case R.id.ib_mustack:
-//                Intent intent = new Intent();
-//                intent.setClass(WeydioApplication.getContext(), MusicRecyclerActivity.class);
-//
-//                startActivity(intent);
                 finish();
                 break;
 
@@ -239,26 +236,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
     private void initWaveDuration()
     {
         mWaveView = (WaveView) findViewById(R.id.wave_view);
-//
-//        Handler handler = new Handler();
-//
-//        Runnable thread = new Runnable()
-//        {
-//            public void run() {
-//                // 获得歌曲现在播放位置并设置成播放进度条的值
-//                if (mediaPlayer != null)
-//                {
-//                    int maxDuration = mediaPlayer.getDuration();
-//                    int currentDuration = mediaPlayer.getCurrentPosition();
-//                    int duration = currentDuration/maxDuration * 100;
-//                    Log.i("PRS", ":" + duration);
-//
-//                    mWaveView.setProgress(duration);
-//                    // 每次延迟100毫秒再启动线程
-//                }
-//            }
-//        };
-//        handler.postDelayed(thread, 100);
+
     }
 
     private void initBubbleSeek()
@@ -286,7 +264,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
                 {
                     if(i >= 50)
                     {
-//                        Toast.makeText(WeydioApplication.getContext(), "<(￣—￣)> 这样玩音量键，很危险的。。。", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WeydioApplication.getContext(), "<(￣—￣)> 这是音量键，很危险的。。。", Toast.LENGTH_SHORT).show();
 
 //                        Toast toast=Toast.makeText(WeydioApplication.getContext(), "<(￣—￣)>  这样玩音量键，很危险",  Toast.LENGTH_SHORT);
 //                        toast.setGravity(gravity, 300, 300);    //设置toast的位置

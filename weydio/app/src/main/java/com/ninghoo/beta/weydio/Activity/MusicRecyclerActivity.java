@@ -16,35 +16,44 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ninghoo.beta.weydio.Adapter.MusicListAdapter;
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
 import com.ninghoo.beta.weydio.FastScrollView.FastScrollRecyclerView;
+import com.ninghoo.beta.weydio.Model.Audio;
+import com.ninghoo.beta.weydio.Model.MediaDetails;
 import com.ninghoo.beta.weydio.R;
 import com.ninghoo.beta.weydio.Service.MusicPlayService;
 import com.ninghoo.beta.weydio.Model.AppConstant;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
-public class MusicRecyclerActivity extends CommonActivity
+public class MusicRecyclerActivity extends CommonActivity implements View.OnClickListener
 {
+    private ArrayList<Audio> la;
+
     private DrawerLayout mDrawLayout;
+
+    private ImageView mBtnA_Z;
+    private ImageView mBtnTimeOrder;
+    private ImageView mBtnArtistOrder;
+    // 默认1，显示全文本而非首字母。
+    public static int intOrder = 1;
 
     private FastScrollRecyclerView mRecyMusiclist;
 
     private MusicListAdapter adapter;
 
     private Context mContext;
-
-    private TextView mShadow;
-
-//    private Button mBtn2Now;
 
     public static boolean isShow;
 
@@ -60,6 +69,9 @@ public class MusicRecyclerActivity extends CommonActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        initLa();
+
         setContentView(R.layout.activity_listrecycler);
 
         WeydioApplication.setIsPlay(false);
@@ -104,7 +116,7 @@ public class MusicRecyclerActivity extends CommonActivity
                     if(MusicPlayService.firstPlay == 0)
                     {
                         Intent intent = new Intent();
-                        intent.putExtra("MSG", AppConstant.PlayerMsg.PRIVIOUS_MSG);
+                        intent.putExtra("MSG", AppConstant.PlayerMsg.PLAY_MSG);
                         intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
 
                         startService(intent);
@@ -141,50 +153,17 @@ public class MusicRecyclerActivity extends CommonActivity
     {
         mDrawLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        mDrawLayout.setScrimColor(Color.argb(106, 0, 0, 0));
+        mDrawLayout.setScrimColor(Color.argb(100, 0, 0, 0));
 
-        mDrawLayout.setDrawerListener(new DrawerLayout.DrawerListener()
-        {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset)
-            {
+//        mDrawLayout.setDrawerListener(new DrawerLayout.DrawerListener() {});
 
-            }
+        mBtnA_Z = (ImageView) findViewById(R.id.btn_listA_Z);
+        mBtnTimeOrder = (ImageView) findViewById(R.id.btn_listAddTime);
+        mBtnArtistOrder = (ImageView) findViewById(R.id.btn_listArtist);
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                if (MusicPlayService.isPause) {
-                    MusicPlayService.mediaPlayer.start();
-                    MusicPlayService.isPause = false;
-                } else {
-                    MusicPlayService.mediaPlayer.pause();
-                    MusicPlayService.isPause = true;
-                }
-
-//                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-//                activityNextSong();
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-
-            }
-        });
-
-//        findViewById(R.id.btn_Drawer2Act).setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View v)
-//            {
-////                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-////                mDrawLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-//
-//            }
-//        });
+        mBtnA_Z.setOnClickListener(this);
+        mBtnTimeOrder.setOnClickListener(this);
+        mBtnArtistOrder.setOnClickListener(this);
     }
 
     private void activityNextSong() {
@@ -208,27 +187,15 @@ public class MusicRecyclerActivity extends CommonActivity
 
         mRecyMusiclist.setLayoutManager(new LinearLayoutManager(this));
 
-//        mShadow = (TextView) findViewById(R.id.tv_shadow);
         isShow = false;
 
-        adapter = new MusicListAdapter(this, WeydioApplication.getMla());
+        adapter = new MusicListAdapter(this, la);
 
-        adapter.setOnItemLongClickListener(new MusicListAdapter.OnItemLongClickListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        // 在此处重写Adapter的接口方法。
+        adapter.setOnItemLongClickListener(new MusicListAdapter.OnItemLongClickListener()
+        {
             @Override
             public void onItemLongClick(View view, int position) {
-//                if(isShow)
-//                {
-//                    mShadow.setVisibility(View.INVISIBLE);
-//                    isShow = false;
-//                }
-//                else
-//                {
-//                    mShadow.setVisibility(View.VISIBLE);
-//                    isShow = true;
-//                }
-
-//                Toast.makeText(NowPlayActivity.this,"long click "+la.get(position),Toast.LENGTH_SHORT).show();
 
                 turnToNow();
             }
@@ -342,6 +309,67 @@ public class MusicRecyclerActivity extends CommonActivity
 
         mWeydioReceiver = new WeydioReceiver();
         registerReceiver(mWeydioReceiver, intentFilter);
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.btn_listA_Z:
+                intOrder = 0;
+
+                // 由于getAudioList是static方法，所以可以直接通过类名调用。
+                la =  MediaDetails.getAudioList(WeydioApplication.getContext(), 0);
+
+                WeydioApplication.setMla(la);
+
+                changeInfo();
+//                Toast.makeText(WeydioApplication.getContext(), "Orz", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btn_listAddTime:
+                intOrder = 1;
+
+                // 由于getAudioList是static方法，所以可以直接通过类名调用。
+                la =  MediaDetails.getAudioList(WeydioApplication.getContext(), 1);
+
+                changeInfo();
+//                Toast.makeText(WeydioApplication.getContext(), "E=mc^2", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btn_listArtist:
+                intOrder = 2;
+
+                // 由于getAudioList是static方法，所以可以直接通过类名调用。
+                la =  MediaDetails.getAudioList(WeydioApplication.getContext(), 2);
+
+                changeInfo();
+//                Toast.makeText(WeydioApplication.getContext(), "一o一", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void changeInfo()
+    {
+        WeydioApplication.setMla(la);
+
+        adapter.notifyDataSetChanged();
+        initRecyMusicList();
+        MusicPlayService.mediaPlayer.stop();
+        MusicPlayService.currentIndex = 0;
+        MusicPlayService.firstPlay = 0;
+        mFloatBtn.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+        mDrawLayout.closeDrawers();
+    }
+
+
+    private void initLa()
+    {
+        // 由于getAudioList是static方法，所以可以直接通过类名调用。
+        la =  MediaDetails.getAudioList(WeydioApplication.getContext(), 1);
+
+        WeydioApplication.setMla(la);
     }
 
     private class WeydioReceiver extends BroadcastReceiver

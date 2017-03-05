@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ninghoo.beta.weydio.Activity.MusicRecyclerActivity;
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
 import com.ninghoo.beta.weydio.FastScrollView.FastScrollRecyclerView;
 import com.ninghoo.beta.weydio.R;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.ViewHolder> implements FastScrollRecyclerView.SectionedAdapter
 {
     private ArrayList<Audio> mData;
+    private Audio audio;
 
     private Context mContext;
 
@@ -51,13 +53,32 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
         this.mContext = context;
     }
 
-    @NonNull
+// 这里控制popup的显示内容。
     @Override
     public String getSectionName(int position)
     {
-        Audio audio = mData.get(position);
+        String section = "一_一";
 
-        return audio.getmArtist();
+        switch (MusicRecyclerActivity.intOrder)
+        {
+            case 0:
+            audio = mData.get(position);
+             section = audio.getmTitle().substring(0, 1);
+                break;
+
+            case 1:
+                audio = mData.get(position);
+                section = audio.getmArtist();
+                break;
+
+            case 2:
+                audio = mData.get(position);
+                section = audio.getmArtist();
+                break;
+            default:
+                break;
+        }
+        return section;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder

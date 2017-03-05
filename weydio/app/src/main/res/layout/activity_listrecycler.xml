@@ -62,19 +62,6 @@
 
     </FrameLayout>
 
-    <LinearLayout
-    android:layout_width="70dp"
-    android:layout_height="match_parent"
-    android:layout_gravity="right"
-    android:background="@drawable/four_corner_wht">
-
-    <Button
-    android:id="@+id/btn_Drawer2Act"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
-    android:text="Now" />
-
-    </LinearLayout>
+    <include layout="@layout/item_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

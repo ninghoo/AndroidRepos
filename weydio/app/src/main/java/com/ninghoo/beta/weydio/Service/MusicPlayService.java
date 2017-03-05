@@ -138,6 +138,8 @@ public class MusicPlayService extends Service
             currentIndex = 0;
         }
 
+        la = WeydioApplication.getMla();
+
         audio = la.get(currentIndex);
 
         path = audio.getmPath();
@@ -153,6 +155,8 @@ public class MusicPlayService extends Service
         {
             currentIndex = mMaxPosition -1;
         }
+
+        la = WeydioApplication.getMla();
 
         audio = la.get(currentIndex);
 
