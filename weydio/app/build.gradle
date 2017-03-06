@@ -33,4 +33,5 @@ dependencies {
     compile 'com.github.woxingxiao:BubbleSeekBar:v1.9'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support:design:25.2.0'
+    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
 }

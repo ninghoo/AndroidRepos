@@ -1,12 +1,15 @@
 package com.ninghoo.beta.weydio.Service;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.ninghoo.beta.weydio.Activity.LockScreenActivity;
 import com.ninghoo.beta.weydio.Activity.NowPlayActivity;
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
 import com.ninghoo.beta.weydio.Model.AppConstant;
@@ -42,6 +45,8 @@ public class MusicPlayService extends Service
 
     public static int replay = AppConstant.PlayerMsg.ROUND_MSG;
 
+    BroadcastReceiver receiver;
+
     // onBind方法，用于与Activity沟通。
     @Override
     public IBinder onBind(Intent intent)
@@ -53,6 +58,8 @@ public class MusicPlayService extends Service
     public void onCreate()
     {
         super.onCreate();
+
+        initLockScreenPlay();
     }
 
     // 这是属于Service类里的内部方法。
@@ -184,7 +191,6 @@ public class MusicPlayService extends Service
         play(0);
     }
 
-
     @Override
     public void onDestroy()
     {
@@ -229,5 +235,27 @@ public class MusicPlayService extends Service
         intent.setAction("serviceChangAlbumArt");
         intent.putExtra("changAlbum", currentIndex);
         sendBroadcast(intent);//发送广播
+    }
+
+    // 在service中监听锁屏的Activity。
+    private void initLockScreenPlay()
+    {
+        receiver = new BroadcastReceiver() {
+
+            @Override
+            public void onReceive(Context context, Intent intent)
+            {
+                if (intent.getAction() == Intent.ACTION_SCREEN_OFF)
+                {
+                    Intent lockscreen = new Intent(MusicPlayService.this, LockScreenActivity.class);
+                    lockscreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(lockscreen);
+                }
+            }
+        };
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        registerReceiver(receiver, filter);
     }
 }

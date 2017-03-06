@@ -28,7 +28,10 @@
 
         <activity android:name=".Activity.NowPlayActivity"/>
 
-        <!--android:configChanges="orientation|screenSize"-->
+        <activity android:name=".Activity.LockScreenActivity"
+                  android:launchMode="singleInstance"
+                  android:excludeFromRecents="true"
+                  android:taskAffinity="com.ninghoo.beta.weydio.Activity.LockScreenActivity" />
 
         <service android:name=".Service.MusicPlayService"
             android:exported="true" />
