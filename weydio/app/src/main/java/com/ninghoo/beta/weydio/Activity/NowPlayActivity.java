@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -50,7 +51,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
     private IntentFilter intentFilter;
     private WeydioReceiver mWeydioReceiver;
 
-    ImageView mBtnPlayPause;
+    FloatingActionButton mBtnPlayPause;
     ImageView mBtnPrevious;
     ImageView mBtnNext;
     ImageView mBtnRoundTyp;
@@ -155,7 +156,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
     private void initMusicCtrl()
     {
-        mBtnPlayPause = (ImageView) findViewById(R.id.im_playPause);
+        mBtnPlayPause = (FloatingActionButton) findViewById(R.id.im_playPause);
         mBtnPrevious = (ImageView) findViewById(R.id.ib_previous);
         mBtnNext = (ImageView) findViewById(R.id.ib_next);
         mBtnRoundTyp = (ImageView) findViewById(R.id.ib_replay);
@@ -171,11 +172,11 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
         if (MusicPlayService.mediaPlayer.isPlaying())
         {
-            mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+            mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
         }
         else
         {
-            mBtnPlayPause.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+            mBtnPlayPause.setImageResource(R.drawable.ic_clear_white_18dp);
         }
     }
 
@@ -198,32 +199,32 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
                         i++;
                         startService(intent);
-                        mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+                        mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
                     }
                     else
                     {
                         MusicPlayService.mediaPlayer.start();
-                        mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+                        mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
                         isPause = false;
                     }
                 }
                 else if(MusicPlayService.mediaPlayer.isPlaying())
                 {
                     mediaPlayer.pause();
-                    mBtnPlayPause.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+                    mBtnPlayPause.setImageResource(R.drawable.ic_clear_white_18dp);
                     isPause = true;
                 }
                 break;
 
             case R.id.ib_previous:
                 activityPreviousSong();
-                mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+                mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
                 isPause = false;
                 break;
 
             case R.id.ib_next:
                 activityNextSong();
-                mBtnPlayPause.setImageResource(R.drawable.ic_pause_circle_filled_white_48dp);
+                mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
                 isPause = false;
                 break;
 

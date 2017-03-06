@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:wave="http://schemas.android.com/apk/res-auto"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              android:orientation="vertical"
              android:background="#000"
              android:layout_width="match_parent"
@@ -80,13 +81,15 @@
             android:layout_marginBottom="60dp">
 
 
-            <ImageView
+            <android.support.design.widget.FloatingActionButton
                 android:layout_width="49dp"
                 android:layout_height="49dp"
                 android:layout_gravity="center"
                 android:id="@+id/im_playPause"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                app:backgroundTint="#ff975a"
                 android:transitionName="shareNames"/>
 
             <ImageView
@@ -146,8 +149,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ib_albumArt"
-            android:layout_width="185dp"
-            android:layout_height="185dp"
+            android:layout_width="195dp"
+            android:layout_height="195dp"
             android:layout_gravity="center_horizontal"
             wave:civ_border_width="1dp"
             wave:civ_border_color="#ffffff"

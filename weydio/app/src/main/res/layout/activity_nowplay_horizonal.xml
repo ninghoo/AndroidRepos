@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:wave="http://schemas.android.com/apk/res-auto"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              android:orientation="vertical"
              android:background="#000"
              android:layout_width="match_parent"
@@ -80,13 +81,15 @@
             android:layout_marginBottom="60dp">
 
 
-            <ImageView
+            <android.support.design.widget.FloatingActionButton
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:id="@+id/im_playPause"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+
+                app:backgroundTint="#ff975a"
                 android:transitionName="shareNames" />
 
             <ImageView
@@ -150,7 +153,7 @@
             android:id="@+id/tv_nowArtistName"
             android:layout_below="@+id/linearLayout"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="32dp"/>
+            android:layout_marginTop="26dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -163,7 +166,7 @@
             android:focusableInTouchMode="true"
             android:paddingLeft="19dp"
             android:paddingRight="19dp"
-            android:textSize="56sp"
+            android:textSize="56dp"
             android:textStyle="bold"
             android:singleLine="true"
             android:id="@+id/tv_nowSongName"
