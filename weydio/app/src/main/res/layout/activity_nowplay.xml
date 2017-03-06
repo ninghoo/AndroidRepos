@@ -81,8 +81,8 @@
 
 
             <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
                 android:layout_gravity="center"
                 android:id="@+id/im_playPause"
                 android:layout_alignParentTop="true"
@@ -93,7 +93,7 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_gravity="bottom"
-                android:background="@drawable/ic_replay_white_48dp"
+                android:src="@drawable/ic_replay_white_48dp"
                 android:id="@+id/ib_replay"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
@@ -178,8 +178,8 @@
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:paddingLeft="19dp"
-            android:paddingRight="19dp"
+            android:paddingLeft="18.5dp"
+            android:paddingRight="18.5dp"
             android:textSize="68dp"
             android:textStyle="bold"
             android:singleLine="true"

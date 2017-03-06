@@ -68,6 +68,9 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
     CircleImageView mAlbumArt;
 
+    // 循环0，单首1，随机2
+    static int replay = 0;
+
     boolean isPause = true;
 
     @Override
@@ -82,7 +85,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
         {
             setContentView(R.layout.activity_nowplay);
 
-            // 因为子啊横屏情况下，没有timestill的textView存在。
+            // 因为在横屏情况下，没有timestill的textView存在。
             initTextDuration();
         }
         else
@@ -225,7 +228,27 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
                 break;
 
             case R.id.ib_replay:
+                if(replay == 0)
+                {
+                    replay ++;
+                    mBtnRoundTyp.setImageResource(R.drawable.ic_repeat_one_wht);
 
+                    MusicPlayService.replay = AppConstant.PlayerMsg.REPEAT_MSG;
+                }
+                else if (replay == 1)
+                {
+                    replay ++;
+                    mBtnRoundTyp.setImageResource(R.drawable.ic_shuffle_white_48dp);
+
+                    MusicPlayService.replay = AppConstant.PlayerMsg.RANDOM_MSG;
+                }
+                else if (replay == 2)
+                {
+                    replay = 0;
+                    mBtnRoundTyp.setImageResource(R.drawable.ic_replay_white_48dp);
+
+                    MusicPlayService.replay = AppConstant.PlayerMsg.ROUND_MSG;
+                }
                 break;
 
             case R.id.ib_mustack:
@@ -244,12 +267,6 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
             //透明状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-    }
-
-    private void initWaveDuration()
-    {
-        mWaveView = (WaveView) findViewById(R.id.wave_view);
-
     }
 
     private void initBubbleSeek()
@@ -417,6 +434,17 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
     private void initRoundType()
     {
-
+        if (MusicPlayService.replay == AppConstant.PlayerMsg.REPEAT_MSG)
+        {
+            mBtnRoundTyp.setImageResource(R.drawable.ic_repeat_one_wht);
+        }
+        else if (MusicPlayService.replay == AppConstant.PlayerMsg.RANDOM_MSG)
+        {
+            mBtnRoundTyp.setImageResource(R.drawable.ic_shuffle_white_48dp);
+        }
+        else
+        {
+            mBtnRoundTyp.setImageResource(R.drawable.ic_replay_white_48dp);
+        }
     }
 }

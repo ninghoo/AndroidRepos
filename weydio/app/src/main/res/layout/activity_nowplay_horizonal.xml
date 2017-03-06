@@ -93,7 +93,7 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_gravity="bottom"
-                android:background="@drawable/ic_replay_white_48dp"
+                android:src="@drawable/ic_replay_white_48dp"
                 android:id="@+id/ib_replay"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"

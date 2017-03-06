@@ -13,6 +13,7 @@ import com.ninghoo.beta.weydio.Model.AppConstant;
 import com.ninghoo.beta.weydio.Model.Audio;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by ningfu on 17-2-8.
@@ -39,6 +40,7 @@ public class MusicPlayService extends Service
 
     public static int firstPlay = 0;
 
+    public static int replay = AppConstant.PlayerMsg.ROUND_MSG;
 
     // onBind方法，用于与Activity沟通。
     @Override
@@ -73,17 +75,16 @@ public class MusicPlayService extends Service
             path = la.get(currentIndex).getmPath();
             play(0);
         }
-        else if(msg == AppConstant.PlayerMsg.PAUSE_MSG)
-        {
-
-        }
-        else if(msg == AppConstant.PlayerMsg.STOP_MSG)
-        {
-
-        }
         else if(msg == AppConstant.PlayerMsg.NEXT_MSG)
         {
-            nextSong();
+            if (replay == AppConstant.PlayerMsg.RANDOM_MSG)
+            {
+                randomPlay();
+            }
+            else
+            {
+                nextSong();
+            }
         }
         else if(msg == AppConstant.PlayerMsg.PRIVIOUS_MSG)
         {
@@ -101,14 +102,24 @@ public class MusicPlayService extends Service
             @Override
             public void onCompletion(MediaPlayer mp)
             {
-                nextSong();
+                if(replay == AppConstant.PlayerMsg.REPEAT_MSG)
+                {
+                    play(currentIndex);
+                }
+                else if(replay == AppConstant.PlayerMsg.RANDOM_MSG)
+                {
+                    randomPlay();
+                }
+                else
+                {
+                    nextSong();
+                }
             }
         });
 
 
         return super.onStartCommand(intent, flags, startId);
     }
-
 
     private void play(int position)
     {
@@ -127,6 +138,14 @@ public class MusicPlayService extends Service
         {
             e.printStackTrace();
         }
+    }
+
+    private void randomPlay()
+    {
+        Random rand =new Random();
+        currentIndex =rand.nextInt(mMaxPosition);
+        path = la.get(currentIndex).getmPath();
+        play(0);
     }
 
     private void nextSong()

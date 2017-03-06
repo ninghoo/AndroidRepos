@@ -74,6 +74,7 @@ public class WeydioApplication extends Application
     public static void setmMaxPosition(int mMaxPosition) {
         WeydioApplication.mMaxPosition = mMaxPosition;
     }
+
     // 在Application中去初始化对ImageLoader的配置。
     private void initImageLoader(Context context)
     {
