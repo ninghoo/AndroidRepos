@@ -12,8 +12,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -74,9 +76,6 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
 
     CircleImageView mAlbumArt;
 
-    // 循环0，单首1，随机2
-    static int replay = 0;
-
     boolean isPause = true;
 
     @Override
@@ -110,7 +109,12 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
 
         initRoundType();
 
-
+    }
+    @Override
+    protected void onRestart()
+    {
+        super.onRestart();
+        initRoundType();
     }
 
     @Override
@@ -124,6 +128,79 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
     private void initSwipeEdge()
     {
         mSwipeBackLayout = getSwipeBackLayout();
+
+        mSwipeBackLayout.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                GestureDetector detector = new GestureDetector(WeydioApplication.getContext(), new GestureDetector.SimpleOnGestureListener() {
+
+                    @Override
+                    public boolean onSingleTapUp(MotionEvent e) {
+                        return super.onSingleTapUp(e);
+                    }
+
+                    @Override
+                    public void onLongPress(MotionEvent e) {
+                        super.onLongPress(e);
+                    }
+
+                    @Override
+                    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                        return super.onScroll(e1, e2, distanceX, distanceY);
+                    }
+
+                    @Override
+                    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                        return super.onFling(e1, e2, velocityX, velocityY);
+                    }
+
+                    @Override
+                    public void onShowPress(MotionEvent e) {
+                        super.onShowPress(e);
+                    }
+
+                    @Override
+                    public boolean onDown(MotionEvent e) {
+                        return super.onDown(e);
+                    }
+
+                    @Override
+                    public boolean onDoubleTap(MotionEvent e)
+                    {
+                        //获取电源管理器对象
+                        PowerManager pm=(PowerManager) getSystemService(Context.POWER_SERVICE);
+
+                        //得到键盘锁管理器对象
+                        KeyguardManager km= (KeyguardManager)getSystemService(Context.KEYGUARD_SERVICE);
+                        KeyguardManager.KeyguardLock kl = km.newKeyguardLock("unLock");
+
+                        kl.reenableKeyguard();
+
+                        return super.onDoubleTap(e);
+                    }
+
+                    @Override
+                    public boolean onDoubleTapEvent(MotionEvent e) {
+                        return super.onDoubleTapEvent(e);
+                    }
+
+                    @Override
+                    public boolean onSingleTapConfirmed(MotionEvent e) {
+                        return super.onSingleTapConfirmed(e);
+                    }
+
+                    @Override
+                    public boolean onContextClick(MotionEvent e) {
+                        return super.onContextClick(e);
+                    }
+                });
+                detector.onTouchEvent(event);
+
+                return false;
+            }
+        });
 
         mSwipeBackLayout.setEdgeSize(1600);
 
@@ -248,26 +325,23 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
                 break;
 
             case R.id.ib_replay:
-                if(replay == 0)
+                if(MusicPlayService.replay == AppConstant.PlayerMsg.ROUND_MSG)
                 {
-                    replay ++;
                     mBtnRoundTyp.setImageResource(R.drawable.ic_repeat_one_wht);
 
-                    MusicPlayService.replay = AppConstant.PlayerMsg.REPEAT_MSG;
+                    MusicPlayService.setReplay(AppConstant.PlayerMsg.REPEAT_MSG);
                 }
-                else if (replay == 1)
+                else if (MusicPlayService.replay == AppConstant.PlayerMsg.REPEAT_MSG)
                 {
-                    replay ++;
                     mBtnRoundTyp.setImageResource(R.drawable.ic_shuffle_white_48dp);
 
-                    MusicPlayService.replay = AppConstant.PlayerMsg.RANDOM_MSG;
+                    MusicPlayService.setReplay(AppConstant.PlayerMsg.RANDOM_MSG);
                 }
-                else if (replay == 2)
+                else if (MusicPlayService.replay == AppConstant.PlayerMsg.RANDOM_MSG)
                 {
-                    replay = 0;
                     mBtnRoundTyp.setImageResource(R.drawable.ic_replay_white_48dp);
 
-                    MusicPlayService.replay = AppConstant.PlayerMsg.ROUND_MSG;
+                    MusicPlayService.setReplay(AppConstant.PlayerMsg.ROUND_MSG);
                 }
                 break;
 
@@ -384,7 +458,6 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
         Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(),
                 R.anim.item_bottom_in);
         viewToAnimate.startAnimation(animation);
-
     }
 
     private class WeydioReceiver extends BroadcastReceiver

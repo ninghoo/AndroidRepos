@@ -258,4 +258,8 @@ public class MusicPlayService extends Service
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         registerReceiver(receiver, filter);
     }
+
+    public static void setReplay(int replay) {
+        MusicPlayService.replay = replay;
+    }
 }

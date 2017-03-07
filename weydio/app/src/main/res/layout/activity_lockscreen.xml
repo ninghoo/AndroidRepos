@@ -21,13 +21,13 @@
         wave:wave_length="middle"
         android:transitionName="shareNames" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_gravity="bottom"
-        android:gravity="center"
-        android:background="@drawable/two_corner_wht"
-        android:textColor="#000" />
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:gravity="center"-->
+        <!--android:background="@drawable/two_corner_wht"-->
+        <!--android:textColor="#000" />-->
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -47,8 +47,8 @@
             wave:bsb_second_track_size="17dp"
             wave:bsb_thumb_color="#ff975a"
             wave:bsb_thumb_text_color="#ffffff"
-            wave:bsb_track_color="#32000000"
-            wave:bsb_second_track_color="#c4000000"
+            wave:bsb_track_color="#32ffffff"
+            wave:bsb_second_track_color="#ffffff"
             wave:bsb_bubble_text_color="#ff975a"
             wave:bsb_bubble_color="#ffffff"
             wave:bsb_bubble_text_size="49sp" />
@@ -91,6 +91,7 @@
                 android:layout_margin="5dp"
                 app:backgroundTint="#ff975a"
                 app:rippleColor="#33333333"
+                android:elevation="30dp"
                 android:transitionName="shareNames"/>
 
             <ImageView

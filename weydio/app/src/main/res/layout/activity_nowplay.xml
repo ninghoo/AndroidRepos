@@ -91,6 +91,7 @@
                 android:layout_margin="5dp"
                 app:backgroundTint="#ff975a"
                 app:rippleColor="#33333333"
+                android:elevation="30dp"
                 android:transitionName="shareNames"/>
 
             <ImageView
@@ -107,10 +108,12 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_gravity="bottom"
-                android:background="@drawable/ic_queue_music_white_48dp"
                 android:id="@+id/ib_mustack"
+                android:background="@drawable/ic_queue_music_white_48dp"
+                android:clickable="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="15dp"/>
+
 
             <ImageView
                 android:layout_width="30dp"

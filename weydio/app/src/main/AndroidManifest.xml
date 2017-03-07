@@ -3,6 +3,7 @@
     package="com.ninghoo.beta.weydio">
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -10,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:name=".Application.WeydioApplication"
@@ -29,6 +31,7 @@
         <activity android:name=".Activity.NowPlayActivity"/>
 
         <activity android:name=".Activity.LockScreenActivity"
+                  android:screenOrientation="nosensor"
                   android:launchMode="singleInstance"
                   android:excludeFromRecents="true"
                   android:taskAffinity="com.ninghoo.beta.weydio.Activity.LockScreenActivity" />

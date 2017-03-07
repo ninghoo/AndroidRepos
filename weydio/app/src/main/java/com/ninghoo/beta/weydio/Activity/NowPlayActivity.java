@@ -69,8 +69,8 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
     CircleImageView mAlbumArt;
 
-    // 循环0，单首1，随机2
-    static int replay = 0;
+//    // 循环0，单首1，随机2
+//    static int replay = 0;
 
     boolean isPause = true;
 
@@ -106,6 +106,13 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
         initBroadCast();
 
+        initRoundType();
+    }
+
+    @Override
+    protected void onRestart()
+    {
+        super.onRestart();
         initRoundType();
     }
 
@@ -229,26 +236,23 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
                 break;
 
             case R.id.ib_replay:
-                if(replay == 0)
+                if(MusicPlayService.replay == AppConstant.PlayerMsg.ROUND_MSG)
                 {
-                    replay ++;
                     mBtnRoundTyp.setImageResource(R.drawable.ic_repeat_one_wht);
 
-                    MusicPlayService.replay = AppConstant.PlayerMsg.REPEAT_MSG;
+                    MusicPlayService.setReplay(AppConstant.PlayerMsg.REPEAT_MSG);
                 }
-                else if (replay == 1)
+                else if (MusicPlayService.replay == AppConstant.PlayerMsg.REPEAT_MSG)
                 {
-                    replay ++;
                     mBtnRoundTyp.setImageResource(R.drawable.ic_shuffle_white_48dp);
 
-                    MusicPlayService.replay = AppConstant.PlayerMsg.RANDOM_MSG;
+                    MusicPlayService.setReplay(AppConstant.PlayerMsg.RANDOM_MSG);
                 }
-                else if (replay == 2)
+                else if (MusicPlayService.replay == AppConstant.PlayerMsg.RANDOM_MSG)
                 {
-                    replay = 0;
                     mBtnRoundTyp.setImageResource(R.drawable.ic_replay_white_48dp);
 
-                    MusicPlayService.replay = AppConstant.PlayerMsg.ROUND_MSG;
+                    MusicPlayService.setReplay(AppConstant.PlayerMsg.ROUND_MSG);
                 }
                 break;
 
