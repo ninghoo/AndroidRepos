@@ -1,8 +1,15 @@
 package com.ninghoo.beta.weydio.Application;
 
 import android.app.Application;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
+import android.widget.RemoteViews;
 
 import com.ninghoo.beta.weydio.R;
 import com.ninghoo.beta.weydio.Model.Audio;
@@ -30,6 +37,8 @@ public class WeydioApplication extends Application
     public static boolean isPlay;
 
     private static int mMaxPosition;
+
+    private static Uri AlbumUri;
 
     @Override
     public void onCreate()
@@ -63,6 +72,10 @@ public class WeydioApplication extends Application
         return mMaxPosition;
     }
 
+    public static Uri getAlbumUri() {
+        return AlbumUri;
+    }
+
     public static void setMla(ArrayList<Audio> mla) {
         WeydioApplication.mla = mla;
     }
@@ -74,6 +87,11 @@ public class WeydioApplication extends Application
     public static void setmMaxPosition(int mMaxPosition) {
         WeydioApplication.mMaxPosition = mMaxPosition;
     }
+
+    public static void setAlbumUri(Uri albumUri) {
+        AlbumUri = albumUri;
+    }
+
 
     // 在Application中去初始化对ImageLoader的配置。
     private void initImageLoader(Context context)

@@ -28,9 +28,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.NowPlayActivity"/>
+        <activity android:name=".Activity.NowPlayActivity"
+                  android:theme="@style/NowPlayTheme" />
 
         <activity android:name=".Activity.LockScreenActivity"
+                  android:theme="@style/NowPlayTheme"
                   android:screenOrientation="nosensor"
                   android:launchMode="singleInstance"
                   android:excludeFromRecents="true"

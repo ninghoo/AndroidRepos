@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.ninghoo.beta.weydio.Activity.LockScreenActivity;
+import com.ninghoo.beta.weydio.Activity.MusicRecyclerActivity;
 import com.ninghoo.beta.weydio.Activity.NowPlayActivity;
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
 import com.ninghoo.beta.weydio.Model.AppConstant;
@@ -22,7 +23,7 @@ import java.util.Random;
  * Created by ningfu on 17-2-8.
  */
 
-public class MusicPlayService extends Service
+public class MusicPlayService extends NotifyService
 {
     public  static MediaPlayer mediaPlayer = new MediaPlayer();
 

@@ -185,6 +185,7 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
         Uri uri = ContentUris.withAppendedId(albumArtUri, audio.getmAlbumId());
 
         String url = uri.toString();
+        WeydioApplication.setAlbumUri(uri);
 
 //        Log.i("URL" , ":"+url);
 

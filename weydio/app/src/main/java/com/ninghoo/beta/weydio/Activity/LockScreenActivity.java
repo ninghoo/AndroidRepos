@@ -210,7 +210,7 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
     @Override
     public void onBackPressed()
     {
-        super.onBackPressed();
+//        super.onBackPressed();
     }
 
     private void initNamenArtist()

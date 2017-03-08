@@ -1,5 +1,6 @@
 package com.ninghoo.beta.weydio.Activity;
 
+import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -11,8 +12,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -36,6 +40,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 import static com.ninghoo.beta.weydio.Service.MusicPlayService.mediaPlayer;
 
@@ -43,8 +49,10 @@ import static com.ninghoo.beta.weydio.Service.MusicPlayService.mediaPlayer;
  * Created by ningfu on 17-2-25.
  */
 
-public class NowPlayActivity extends CommonActivity implements View.OnTouchListener
+public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchListener
 {
+    private SwipeBackLayout mSwipeBackLayout;
+
     WaveView mWaveView;
     BubbleSeekBar mBubbleSeekBar;
 
@@ -69,8 +77,7 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
 
     CircleImageView mAlbumArt;
 
-//    // 循环0，单首1，随机2
-//    static int replay = 0;
+    BroadcastReceiver receiver;
 
     boolean isPause = true;
 
@@ -94,6 +101,8 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
             setContentView(R.layout.activity_nowplay_horizonal);
         }
 
+        initSwipeEdge();
+
         initTranStatus();
 
         initBubbleSeek();
@@ -107,6 +116,8 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
         initBroadCast();
 
         initRoundType();
+
+        initScreenLockBroadCast();
     }
 
     @Override
@@ -117,11 +128,17 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
     }
 
     @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+    }
+
+    @Override
     protected void onDestroy()
     {
         super.onDestroy();
 
         unregisterReceiver(mWeydioReceiver);
+        unregisterReceiver(receiver);
     }
 
     private void initNamenArtist()
@@ -451,5 +468,33 @@ public class NowPlayActivity extends CommonActivity implements View.OnTouchListe
         {
             mBtnRoundTyp.setImageResource(R.drawable.ic_replay_white_48dp);
         }
+    }
+
+    private void initSwipeEdge()
+    {
+        mSwipeBackLayout = getSwipeBackLayout();
+
+        mSwipeBackLayout.setEdgeSize(1600);
+
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_BOTTOM);
+    }
+
+    private void initScreenLockBroadCast()
+    {
+        receiver = new BroadcastReceiver() {
+
+            @Override
+            public void onReceive(Context context, Intent intent)
+            {
+                if (intent.getAction() == Intent.ACTION_SCREEN_OFF)
+                {
+                    finish();
+                }
+            }
+        };
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        registerReceiver(receiver, filter);
     }
 }
