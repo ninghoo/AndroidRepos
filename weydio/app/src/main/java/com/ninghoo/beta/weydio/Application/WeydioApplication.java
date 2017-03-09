@@ -38,7 +38,8 @@ public class WeydioApplication extends Application
 
     private static int mMaxPosition;
 
-    private static Uri AlbumUri;
+    private static String AlbumUri;
+    private static String CurrentMusicTitle;
 
     @Override
     public void onCreate()
@@ -72,8 +73,12 @@ public class WeydioApplication extends Application
         return mMaxPosition;
     }
 
-    public static Uri getAlbumUri() {
+    public static String getAlbumUri() {
         return AlbumUri;
+    }
+
+    public static String getCurrentMusicTitle() {
+        return CurrentMusicTitle;
     }
 
     public static void setMla(ArrayList<Audio> mla) {
@@ -88,10 +93,13 @@ public class WeydioApplication extends Application
         WeydioApplication.mMaxPosition = mMaxPosition;
     }
 
-    public static void setAlbumUri(Uri albumUri) {
+    public static void setAlbumUri(String albumUri) {
         AlbumUri = albumUri;
     }
 
+    public static void setCurrentMusicTitle(String currentMusicTitle) {
+        CurrentMusicTitle = currentMusicTitle;
+    }
 
     // 在Application中去初始化对ImageLoader的配置。
     private void initImageLoader(Context context)

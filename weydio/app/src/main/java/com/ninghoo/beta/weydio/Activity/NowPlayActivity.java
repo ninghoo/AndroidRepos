@@ -169,6 +169,8 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
 
         String url = uri.toString();
 
+        WeydioApplication.setAlbumUri(url);
+
 //        Log.i("URL" , ":"+url);
 
         mAlbumArt = (CircleImageView) findViewById(R.id.ib_albumArt);
@@ -194,6 +196,11 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
         mBtnRoundTyp.setOnTouchListener(this);
         mBtnMusicStack.setOnTouchListener(this);
 
+        initBtnPlaynPause();
+    }
+
+    private void initBtnPlaynPause()
+    {
         if (MusicPlayService.mediaPlayer.isPlaying())
         {
             mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
@@ -227,14 +234,24 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
                     }
                     else
                     {
-                        MusicPlayService.mediaPlayer.start();
+//                        MusicPlayService.mediaPlayer.start();
+                        Intent intent = new Intent();
+                        intent.putExtra("MSG", AppConstant.PlayerMsg.CONTINUE_MSG);
+                        intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+                        startService(intent);
+
                         mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
                         isPause = false;
                     }
                 }
                 else if(MusicPlayService.mediaPlayer.isPlaying())
                 {
-                    mediaPlayer.pause();
+//                    mediaPlayer.pause();
+                    Intent intent = new Intent();
+                    intent.putExtra("MSG", AppConstant.PlayerMsg.PAUSE_MSG);
+                    intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+                    startService(intent);
+
                     mBtnPlayPause.setImageResource(R.drawable.ic_clear_white_18dp);
                     isPause = true;
                 }
@@ -397,6 +414,8 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
             initAlbumImage();
 
             initNamenArtist();
+
+            initBtnPlaynPause();
         }
     }
 

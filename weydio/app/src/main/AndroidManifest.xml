@@ -20,7 +20,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.MusicRecyclerActivity">
+        <activity android:name=".Activity.MusicRecyclerActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,6 +40,15 @@
 
         <service android:name=".Service.MusicPlayService"
             android:exported="true" />
+
+        <!--<receiver-->
+            <!--android:name=".Activity.MusicRecyclerActivity$NoticReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="NoticPlayPause" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 
 </manifest>

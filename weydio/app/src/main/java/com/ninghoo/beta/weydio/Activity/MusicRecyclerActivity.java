@@ -63,8 +63,10 @@ public class MusicRecyclerActivity extends CommonActivity implements View.OnClic
 
     // 虽然和nowplayActivity里面的receiver同名，但实际上是两个独立的对象，只是同样监听同一个action。
     private WeydioReceiver mWeydioReceiver;
+//    private NoticReceiver mNoticReceiver;
 
     private IntentFilter intentFilter;
+    private IntentFilter intentFilterNotic;
 
 
     @Override
@@ -92,11 +94,27 @@ public class MusicRecyclerActivity extends CommonActivity implements View.OnClic
     }
 
     @Override
+    protected void onResume()
+    {
+        super.onResume();
+        initFloatingBtn();
+    }
+
+    @Override
     protected void onRestart()
     {
         super.onRestart();
 
         initFloatingBtn();
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        unregisterReceiver(mWeydioReceiver);
+//        unregisterReceiver(mNoticReceiver);
     }
 
     private void initFloatingBtn()
@@ -110,7 +128,12 @@ public class MusicRecyclerActivity extends CommonActivity implements View.OnClic
             {
                 if(MusicPlayService.mediaPlayer.isPlaying())
                 {
-                    MusicPlayService.mediaPlayer.pause();
+//                    MusicPlayService.mediaPlayer.pause();
+                    Intent intent = new Intent();
+                    intent.putExtra("MSG", AppConstant.PlayerMsg.PAUSE_MSG);
+                    intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+                    startService(intent);
+
                     mFloatBtn.setImageResource(R.drawable.ic_play_arrow_white_48dp);
                 }
                 else
@@ -125,7 +148,12 @@ public class MusicRecyclerActivity extends CommonActivity implements View.OnClic
                     }
                     else
                     {
-                        MusicPlayService.mediaPlayer.start();
+//                        MusicPlayService.mediaPlayer.start();
+                        Intent intent = new Intent();
+                        intent.putExtra("MSG", AppConstant.PlayerMsg.CONTINUE_MSG);
+                        intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+                        startService(intent);
+
                         mFloatBtn.setImageResource(R.drawable.ic_pause_white_48dp);
                     }
                 }
@@ -307,10 +335,16 @@ public class MusicRecyclerActivity extends CommonActivity implements View.OnClic
     private void initBroadCast()
     {
         intentFilter = new IntentFilter();
+//        intentFilterNotic = new IntentFilter();
+
         intentFilter.addAction("serviceChangAlbumArt");
+//        intentFilterNotic.addAction("NoticPlayPause");
 
         mWeydioReceiver = new WeydioReceiver();
         registerReceiver(mWeydioReceiver, intentFilter);
+
+//        mNoticReceiver = new NoticReceiver();
+//        registerReceiver(mNoticReceiver, intentFilterNotic);
     }
 
     @Override

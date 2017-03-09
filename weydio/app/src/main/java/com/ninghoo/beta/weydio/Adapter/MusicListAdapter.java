@@ -127,7 +127,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
             {
                 if(mData != null)
                 {
-
                     intent = new Intent();
                     position = holder.getAdapterPosition();
 
@@ -151,6 +150,14 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
                     intent.putExtra("BASIC", 0);
                     intent.setClass(context, MusicPlayService.class);
                     // 在这里设置Intent去跳转制定的Sevice。
+
+                    final Uri albumArtUri = Uri.parse("content://media/external/audio/albumart");
+
+                    Uri uri = ContentUris.withAppendedId(albumArtUri, audio.getmAlbumId());
+
+                    String url = uri.toString();
+
+                    WeydioApplication.setAlbumUri(url);
 
                     context.startService(intent);
                 }
@@ -185,7 +192,6 @@ public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.View
         Uri uri = ContentUris.withAppendedId(albumArtUri, audio.getmAlbumId());
 
         String url = uri.toString();
-        WeydioApplication.setAlbumUri(uri);
 
 //        Log.i("URL" , ":"+url);
 

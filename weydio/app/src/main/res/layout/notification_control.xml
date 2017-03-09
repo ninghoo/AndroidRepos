@@ -14,25 +14,39 @@
         android:id="@+id/bt_notic_last"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:background="@drawable/oafront"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"/>
 
     <Button
-        android:id="@+id/bt_notic_play"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:background="@drawable/ic_brightness_1_black_18dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="28dp"/>
-
-    <Button
         android:id="@+id/bt_notic_next"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginLeft="28dp"
-        android:background="@drawable/ic_keyboard_arrow_right_black_18dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/ic_keyboard_arrow_right_black_48dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:id="@+id/bt_notic_play"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="5dp"
+        android:layout_alignTop="@+id/bt_notic_next"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:id="@+id/tv_notic_musicname"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/midnight_blue"
+        android:textSize="10dp"
+        android:gravity="center"
+        android:paddingRight="10dp"
+        android:layout_marginTop="10dp"
+        android:singleLine="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/bt_notic_play"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
