@@ -392,6 +392,8 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
                 audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, i, 0);
                 audioManager.setStreamVolume(3, i, 0);//  3 代表  AudioManager.STREAM_MUSIC
 
+                WeydioApplication.setCurrentVolume(i);
+
                 if(!WeydioApplication.getIsPlay())
                 {
                     if(i >= 50)

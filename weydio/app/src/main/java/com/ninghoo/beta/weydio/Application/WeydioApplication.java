@@ -41,6 +41,8 @@ public class WeydioApplication extends Application
     private static String AlbumUri;
     private static String CurrentMusicTitle;
 
+    private static int currentVolume;
+
     @Override
     public void onCreate()
     {
@@ -81,6 +83,10 @@ public class WeydioApplication extends Application
         return CurrentMusicTitle;
     }
 
+    public static int getCurrentVolume() {
+        return currentVolume;
+    }
+
     public static void setMla(ArrayList<Audio> mla) {
         WeydioApplication.mla = mla;
     }
@@ -99,6 +105,10 @@ public class WeydioApplication extends Application
 
     public static void setCurrentMusicTitle(String currentMusicTitle) {
         CurrentMusicTitle = currentMusicTitle;
+    }
+
+    public static void setCurrentVolume(int currentVolume) {
+        WeydioApplication.currentVolume = currentVolume;
     }
 
     // 在Application中去初始化对ImageLoader的配置。
