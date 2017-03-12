@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.ninghoo.beta.weydio.Activity.MusicRecyclerActivity;
 import com.ninghoo.beta.weydio.Application.WeydioApplication;
 import com.ninghoo.beta.weydio.R;
 
@@ -78,15 +79,15 @@ public class NotifyService extends Service
             remoteViews.setImageViewResource(R.id.bt_notic_play, R.drawable.ic_brightness_1_black_18dp);
         }
 
-        remoteViews.setTextViewText(R.id.tv_notic_musicname, "· " + WeydioApplication.getCurrentMusicTitle() + " ·");
+        remoteViews.setTextViewText(R.id.tv_notic_musicname, WeydioApplication.getCurrentMusicTitle());
 
         Log.i("NotifyAlbumUri", ":" + WeydioApplication.getAlbumUri());
 
-//        Intent intent = new Intent(this, NowPlayActivity.class);
-//        // 点击跳转到主界面
-//        PendingIntent intent_go = PendingIntent.getActivity(this, 5, intent,
-//                PendingIntent.FLAG_UPDATE_CURRENT);
-//        remoteViews.setOnClickPendingIntent(R.id.notice, intent_go);
+        Intent intent = new Intent(this, MusicRecyclerActivity.class);
+        // 点击跳转到主界面
+        PendingIntent intent_go = PendingIntent.getActivity(this, 5, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.notice, intent_go);
 
 ////        // 4个参数context, requestCode, intent, flags
 ////        PendingIntent intent_close = PendingIntent.getActivity(this, 0, intent,
@@ -151,7 +152,7 @@ public class NotifyService extends Service
         notify.flags = Notification.FLAG_ONGOING_EVENT;
         notify.icon = R.drawable.oafront;
 
-//        builder.setContent(remoteViews);
+        builder.setSmallIcon(R.drawable.oafront);
 
         mNotifyManager.notify(1, notify);
     }

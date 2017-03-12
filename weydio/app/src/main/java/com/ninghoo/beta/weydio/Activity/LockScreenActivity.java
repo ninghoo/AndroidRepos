@@ -280,6 +280,8 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
     @Override
     public boolean onTouch(View v, MotionEvent event)
     {
+        Intent intent = new Intent();
+
         switch (v.getId())
         {
             case R.id.im_playPause:
@@ -288,7 +290,6 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
                     int i = MusicPlayService.firstPlay;
                     if(i == 0)
                     {
-                        Intent intent = new Intent();
 //                    intent.putExtra("randomPlay", new Random().nextInt(WeydioApplication.getMla().size()));
                         intent.putExtra("MSG", AppConstant.PlayerMsg.PLAY_MSG);
                         intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
@@ -296,17 +297,24 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
                         i++;
                         startService(intent);
                         mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
+//                        mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
                     }
                     else
                     {
-                        MusicPlayService.mediaPlayer.start();
+                        intent.putExtra("MSG", AppConstant.PlayerMsg.CONTINUE_MSG);
+                        intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+                        startService(intent);
+
                         mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
                         isPause = false;
                     }
                 }
                 else if(MusicPlayService.mediaPlayer.isPlaying())
                 {
-                    mediaPlayer.pause();
+                    intent.putExtra("MSG", AppConstant.PlayerMsg.PAUSE_MSG);
+                    intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+                    startService(intent);
+
                     mBtnPlayPause.setImageResource(R.drawable.ic_clear_white_18dp);
                     isPause = true;
                 }
@@ -468,6 +476,8 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
             initAlbumImage();
 
             initNamenArtist();
+
+            initBtnPlaynPause();
         }
     }
 
@@ -538,6 +548,18 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
         else
         {
             mBtnRoundTyp.setImageResource(R.drawable.ic_replay_white_48dp);
+        }
+    }
+
+    private void initBtnPlaynPause()
+    {
+        if (MusicPlayService.mediaPlayer.isPlaying())
+        {
+            mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
+        }
+        else
+        {
+            mBtnPlayPause.setImageResource(R.drawable.ic_clear_white_18dp);
         }
     }
 }

@@ -328,8 +328,6 @@ public class MusicPlayService extends NotifyService
         @Override
         public void onReceive(Context context, Intent intent)
         {
-//            remoteViews.setImageViewResource(R.id.bt_notic_play, R.drawable.ic_recent_actors_black_48dp);
-
             // TODO Auto-generated method stub
             String action = intent.getAction();
             if(action.equals(ACTION_BUTTON)){

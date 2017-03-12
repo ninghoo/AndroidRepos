@@ -259,13 +259,13 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
 
             case R.id.ib_previous:
                 activityPreviousSong();
-                mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
+//                mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
                 isPause = false;
                 break;
 
             case R.id.ib_next:
                 activityNextSong();
-                mBtnPlayPause.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
+//                mBtnPlayPause.setImageResource(R.drawable.ic_pause_white_48dp);
                 isPause = false;
                 break;
 

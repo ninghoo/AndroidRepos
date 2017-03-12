@@ -155,6 +155,7 @@ public class MusicRecyclerActivity extends CommonActivity implements View.OnClic
                         startService(intent);
 
                         mFloatBtn.setImageResource(R.drawable.ic_pause_white_48dp);
+//                        mFloatBtn.setImageResource(R.drawable.ic_fiber_manual_record_white_18dp);
                     }
                 }
             }
