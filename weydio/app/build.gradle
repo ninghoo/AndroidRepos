@@ -4,10 +4,10 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.ninghoo.beta.weydio"
+        applicationId "com.ninghoo.music2.weydio"
         minSdkVersion 21
         targetSdkVersion 21
-        versionCode 3
+        versionCode 1
         versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

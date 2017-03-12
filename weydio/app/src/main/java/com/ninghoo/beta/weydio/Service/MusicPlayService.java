@@ -6,6 +6,7 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.IBinder;
@@ -274,7 +275,7 @@ public class MusicPlayService extends NotifyService
         sendBroadcast(intent);//发送广播
     }
 
-    // 在service中监听锁屏的Activity。
+    // 在service中监听锁屏和拔出耳机的BroadCastReceiver。
     private void initLockScreenPlay()
     {
         lockScreenReceiver = new BroadcastReceiver()
@@ -288,11 +289,19 @@ public class MusicPlayService extends NotifyService
                     lockscreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(lockscreen);
                 }
+                else if(intent.getAction() == AudioManager.ACTION_AUDIO_BECOMING_NOISY)
+                {
+                    mediaPlayer.pause();
+                    isPause = true;
+                    initMusicNotify();
+                    sendBroadCastToNowPlay();
+                }
             }
         };
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
+        filter.addAction(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
         registerReceiver(lockScreenReceiver, filter);
     }
 
