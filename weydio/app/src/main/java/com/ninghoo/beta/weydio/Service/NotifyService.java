@@ -24,7 +24,7 @@ import com.ninghoo.beta.weydio.R;
 
 public class NotifyService extends Service
 {
-    PowerManager.WakeLock mWakeLock;// 电源锁
+    PowerManager.WakeLock mWakeLock;
 
     protected RemoteViews remoteViews;
     protected Notification notification;
