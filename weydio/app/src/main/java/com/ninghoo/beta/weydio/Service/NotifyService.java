@@ -41,6 +41,10 @@ public class NotifyService extends Service
     public final static int BUTTON_PALY_ID = 2;
     /** 下一首 按钮点击 ID */
     public final static int BUTTON_NEXT_ID = 3;
+    /** 关闭 按钮点击 ID */
+    public final static int BUTTON_CLOSE_ID = 4;
+
+    public static boolean noticAgain = true;
 
     @Nullable
     @Override
@@ -88,39 +92,41 @@ public class NotifyService extends Service
 
     protected void initMusicNotify()
     {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-
-        remoteViews = new RemoteViews(WeydioApplication.getContext().getPackageName(), R.layout.notification_control);
-
-        String url = WeydioApplication.getAlbumUri();
-
-        if (url != null)
+        if(noticAgain)
         {
-            remoteViews.setImageViewUri(R.id.bt_notic_last, Uri.parse(url));
-        }
-        else
-        {
-            remoteViews.setImageViewResource(R.id.bt_notic_last, R.drawable.oafront);
-        }
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
 
-        if(MusicPlayService.isPause)
-        {
-            remoteViews.setImageViewResource(R.id.bt_notic_play, R.drawable.ic_remove_black_48dp);
-        }
-        else
-        {
-            remoteViews.setImageViewResource(R.id.bt_notic_play, R.drawable.ic_brightness_1_black_18dp);
-        }
+            remoteViews = new RemoteViews(WeydioApplication.getContext().getPackageName(), R.layout.notification_control);
 
-        remoteViews.setTextViewText(R.id.tv_notic_musicname, WeydioApplication.getCurrentMusicTitle());
+            String url = WeydioApplication.getAlbumUri();
 
-        Log.i("NotifyAlbumUri", ":" + WeydioApplication.getAlbumUri());
+            if (url != null)
+            {
+                remoteViews.setImageViewUri(R.id.bt_notic_last, Uri.parse(url));
+            }
+            else
+            {
+                remoteViews.setImageViewResource(R.id.bt_notic_last, R.drawable.oafront);
+            }
 
-        Intent intent = new Intent(this, MusicRecyclerActivity.class);
-        // 点击跳转到主界面
-        PendingIntent intent_go = PendingIntent.getActivity(this, 5, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.notice, intent_go);
+            if(MusicPlayService.isPause)
+            {
+                remoteViews.setImageViewResource(R.id.bt_notic_play, R.drawable.ic_remove_black_48dp);
+            }
+            else
+            {
+                remoteViews.setImageViewResource(R.id.bt_notic_play, R.drawable.ic_brightness_1_black_18dp);
+            }
+
+            remoteViews.setTextViewText(R.id.tv_notic_musicname, WeydioApplication.getCurrentMusicTitle());
+
+            Log.i("NotifyAlbumUri", ":" + WeydioApplication.getAlbumUri());
+
+            Intent intent = new Intent(this, MusicRecyclerActivity.class);
+            // 点击跳转到主界面
+            PendingIntent intent_go = PendingIntent.getActivity(this, 5, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setOnClickPendingIntent(R.id.notice, intent_go);
 
 ////        // 4个参数context, requestCode, intent, flags
 ////        PendingIntent intent_close = PendingIntent.getActivity(this, 0, intent,
@@ -164,29 +170,38 @@ public class NotifyService extends Service
 ////                PendingIntent.FLAG_UPDATE_CURRENT);
 ////        remoteViews.setOnClickPendingIntent(R.id.widget_fav, intent_fav);
 
-        Intent buttonIntent = new Intent(ACTION_BUTTON);
+            Intent buttonIntent = new Intent(ACTION_BUTTON);
         /* 上一首按钮 */
-        buttonIntent.putExtra(INTENT_BUTTONID_TAG, BUTTON_PREV_ID);
-        //这里加了广播，所及INTENT的必须用getBroadcast方法
-        PendingIntent intent_prev = PendingIntent.getBroadcast(this, 1, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.bt_notic_last, intent_prev);
+            buttonIntent.putExtra(INTENT_BUTTONID_TAG, BUTTON_PREV_ID);
+            //这里加了广播，所及INTENT的必须用getBroadcast方法
+            PendingIntent intent_prev = PendingIntent.getBroadcast(this, 1, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setOnClickPendingIntent(R.id.bt_notic_last, intent_prev);
         /* 播放/暂停  按钮 */
-        buttonIntent.putExtra(INTENT_BUTTONID_TAG, BUTTON_PALY_ID);
-        PendingIntent intent_paly = PendingIntent.getBroadcast(this, 2, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.bt_notic_play, intent_paly);
+            buttonIntent.putExtra(INTENT_BUTTONID_TAG, BUTTON_PALY_ID);
+            PendingIntent intent_paly = PendingIntent.getBroadcast(this, 2, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setOnClickPendingIntent(R.id.bt_notic_play, intent_paly);
         /* 下一首 按钮  */
-        buttonIntent.putExtra(INTENT_BUTTONID_TAG, BUTTON_NEXT_ID);
-        PendingIntent intent_next = PendingIntent.getBroadcast(this, 3, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.bt_notic_next, intent_next);
+            buttonIntent.putExtra(INTENT_BUTTONID_TAG, BUTTON_NEXT_ID);
+            PendingIntent intent_next = PendingIntent.getBroadcast(this, 3, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setOnClickPendingIntent(R.id.bt_notic_next, intent_next);
+        /* 关闭 按钮  */
+            buttonIntent.putExtra(INTENT_BUTTONID_TAG, BUTTON_CLOSE_ID);
+            PendingIntent intent_close = PendingIntent.getBroadcast(this, 4, buttonIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setOnClickPendingIntent(R.id.bt_notic_close, intent_close);
 
-        Notification notify = builder.build();
-        notify.contentView = remoteViews; // 设置下拉图标
-        notify.bigContentView = remoteViews; // 防止显示不完全,需要添加apisupport
-        notify.flags = Notification.FLAG_ONGOING_EVENT;
-        notify.icon = R.drawable.oafront;
+            Notification notify = builder.build();
+            notify.contentView = remoteViews; // 设置下拉图标
+            notify.bigContentView = remoteViews; // 防止显示不完全,需要添加apisupport
+            notify.flags = Notification.FLAG_ONGOING_EVENT;
+            notify.icon = R.drawable.oafront;
 
-        builder.setSmallIcon(R.drawable.oafront);
+            builder.setSmallIcon(R.drawable.oafront);
 
-        mNotifyManager.notify(1, notify);
+            mNotifyManager.notify(1, notify);
+        }
+        else
+        {
+            // none
+        }
     }
 }

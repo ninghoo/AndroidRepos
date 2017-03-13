@@ -2,6 +2,7 @@ package com.ninghoo.beta.weydio.Service;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -58,9 +59,13 @@ public class MusicPlayService extends NotifyService
 
     public ButtonBroadcastReceiver notifyBtnReceiver;
 
+    AudioManager audioManager;
+    ComponentName mComponent;
+
     private int doubleClick = 0;
     EarPhoneTimer myTimer;
     Timer timer;
+
 
     // onBind方法，用于与Activity沟通。
     @Override
@@ -77,6 +82,9 @@ public class MusicPlayService extends NotifyService
         initLockScreenPlay();
 
         initButtonReceiver();
+
+        initMeidaButtonReceiver();
+
     }
 
     // 这是属于Service类里的内部方法。
@@ -247,6 +255,8 @@ public class MusicPlayService extends NotifyService
             mediaPlayer.release();
             WeydioApplication.setIsPlay(false);
         }
+
+        audioManager.unregisterMediaButtonEventReceiver(mComponent);
     }
 
     private class PreparedListener implements MediaPlayer.OnPreparedListener
@@ -291,7 +301,6 @@ public class MusicPlayService extends NotifyService
             public void onReceive(Context context, Intent intent)
             {
                 String action = intent.getAction();
-                AudioManager audioManager = (AudioManager) WeydioApplication.getContext().getSystemService(Context.AUDIO_SERVICE);
 
                 if (action == Intent.ACTION_SCREEN_OFF)
                 {
@@ -306,78 +315,13 @@ public class MusicPlayService extends NotifyService
                     initMusicNotify();
                     sendBroadCastToNowPlay();
                 }
-                else if(action == Intent.ACTION_MEDIA_BUTTON)
-                {
-                    KeyEvent event = intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
 
-                    int keycode = event.getKeyCode();
-
-                    switch (keycode) {
-                        case KeyEvent.KEYCODE_MEDIA_NEXT:
-                            myTimer = new EarPhoneTimer();
-                            timer = new Timer(true);
-                            timer.schedule(myTimer,600);
-
-                            if(doubleClick == 2)
-                            {
-                                Intent intent1 = new Intent();
-                                intent1.putExtra("MSG", AppConstant.PlayerMsg.NEXT_MSG);
-                                intent1.setClass(WeydioApplication.getContext(), MusicPlayService.class);
-                                startService(intent1);
-                                initMusicNotify();
-                                doubleClick = 0;
-                            }
-                            else
-                            {
-                                audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, WeydioApplication.getCurrentVolume() - 1, 0);
-                                audioManager.setStreamVolume(3, WeydioApplication.getCurrentVolume() - 1, 0);
-                                doubleClick = 0;
-                            }
-                            break;
-                        case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
-                            myTimer = new EarPhoneTimer();
-                            timer = new Timer(true);
-                            timer.schedule(myTimer,600);
-
-                            if(doubleClick == 2)
-                            {
-                                Intent intent1 = new Intent();
-                                intent1.putExtra("MSG", AppConstant.PlayerMsg.PRIVIOUS_MSG);
-                                intent1.setClass(WeydioApplication.getContext(), MusicPlayService.class);
-                                startService(intent1);
-                                initMusicNotify();
-                                doubleClick = 0;
-                            }
-                            else
-                            {
-                                audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, WeydioApplication.getCurrentVolume() + 1, 0);
-                                audioManager.setStreamVolume(3, WeydioApplication.getCurrentVolume() + 1, 0);
-                                doubleClick = 0;
-                            }
-                            break;
-                        case KeyEvent.KEYCODE_HEADSETHOOK:
-                            if(mediaPlayer.isPlaying())
-                            {
-                                mediaPlayer.pause();
-                                isPause = true;
-                            }
-                            else
-                            {
-                                mediaPlayer.start();
-                                isPause = false;
-                            }
-                            initMusicNotify();
-                            sendBroadCastToNowPlay();
-                            break;
-                        default:
-                            break;
-                    }
-                }
             }
         };
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
+//        filter.addAction(Intent.ACTION_MEDIA_BUTTON);
         filter.addAction(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
         registerReceiver(lockScreenReceiver, filter);
     }
@@ -405,6 +349,7 @@ public class MusicPlayService extends NotifyService
         notifyBtnReceiver = new ButtonBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BUTTON);
+
         registerReceiver(notifyBtnReceiver, intentFilter);
 
     }
@@ -451,11 +396,103 @@ public class MusicPlayService extends NotifyService
                         startService(mIntent);
                         initMusicNotify();
                         break;
+                    case BUTTON_CLOSE_ID:
+                        mNotifyManager.cancelAll();
+                        NotifyService.noticAgain = false;
+                        break;
                     default:
                         break;
                 }
             }
         }
+    }
+
+    public class MediaButtonReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            // TODO Auto-generated method stub
+            String action = intent.getAction();
+
+            if(action == Intent.ACTION_MEDIA_BUTTON)
+            {
+                Toast.makeText(WeydioApplication.getContext(), "ear", Toast.LENGTH_LONG).show();
+                KeyEvent event = intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
+
+                int keycode = event.getKeyCode();
+
+                switch (keycode) {
+                    case KeyEvent.KEYCODE_MEDIA_NEXT:
+                        myTimer = new EarPhoneTimer();
+                        timer = new Timer(true);
+                        timer.schedule(myTimer,600);
+
+                        if(doubleClick == 2)
+                        {
+                            Intent intent1 = new Intent();
+                            intent1.putExtra("MSG", AppConstant.PlayerMsg.NEXT_MSG);
+                            intent1.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+                            startService(intent1);
+                            initMusicNotify();
+                            doubleClick = 0;
+                        }
+                        else
+                        {
+                            audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, WeydioApplication.getCurrentVolume() - 1, 0);
+                            audioManager.setStreamVolume(3, WeydioApplication.getCurrentVolume() - 1, 0);
+                            doubleClick = 0;
+                        }
+                        break;
+                    case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
+                        myTimer = new EarPhoneTimer();
+                        timer = new Timer(true);
+                        timer.schedule(myTimer,600);
+
+                        if(doubleClick == 2)
+                        {
+                            Intent intent1 = new Intent();
+                            intent1.putExtra("MSG", AppConstant.PlayerMsg.PRIVIOUS_MSG);
+                            intent1.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+                            startService(intent1);
+                            initMusicNotify();
+                            doubleClick = 0;
+                        }
+                        else
+                        {
+                            audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, WeydioApplication.getCurrentVolume() + 1, 0);
+                            audioManager.setStreamVolume(3, WeydioApplication.getCurrentVolume() + 1, 0);
+                            doubleClick = 0;
+                        }
+                        break;
+                    case KeyEvent.KEYCODE_HEADSETHOOK:
+                        if(mediaPlayer.isPlaying())
+                        {
+                            mediaPlayer.pause();
+                            isPause = true;
+                        }
+                        else
+                        {
+                            mediaPlayer.start();
+                            isPause = false;
+                        }
+                        initMusicNotify();
+                        sendBroadCastToNowPlay();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            abortBroadcast();
+        }
+    }
+
+    private void initMeidaButtonReceiver()
+    {
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        mComponent = new ComponentName(getPackageName(), MediaButtonReceiver.class.getName());
+
+        audioManager.registerMediaButtonEventReceiver(mComponent);
     }
 
     public class EarPhoneTimer extends TimerTask
@@ -473,20 +510,4 @@ public class MusicPlayService extends NotifyService
             }
         }
     }
-
-//    public class EarPhonePreviousTimer extends TimerTask
-//    {
-//        @Override
-//        public void run()
-//        {
-//            try
-//            {
-//
-//            }
-//            catch (Exception e)
-//            {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 }
