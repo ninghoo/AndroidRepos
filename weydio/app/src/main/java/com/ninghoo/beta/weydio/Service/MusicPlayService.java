@@ -142,6 +142,19 @@ public class MusicPlayService extends NotifyService
             play(intent.getIntExtra("randomPlay", 0));
             isPause = false;
         }
+        else if(msg == AppConstant.PlayerMsg.MUSICSTACK_MSG)
+        {
+            if(!noticAgain)
+            {
+                noticAgain = true;
+                initMusicNotify();
+            }
+            else
+            {
+                mNotifyManager.cancelAll();
+                NotifyService.noticAgain = false;
+            }
+        }
 
         initNotifyAlbumUrlnTitle();
 

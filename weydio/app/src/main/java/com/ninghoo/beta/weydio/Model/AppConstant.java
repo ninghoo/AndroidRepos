@@ -19,5 +19,6 @@ public class AppConstant {
         public static final int RANDOM_MSG = 11;	//���ڲ���
         public static final int START_MSG = 12;	//���ڲ���
         public static final int ITEMCLICK_MSG = 13;	//���ڲ���
+        public static final int MUSICSTACK_MSG = 14;	//���ڲ���
     }
 }

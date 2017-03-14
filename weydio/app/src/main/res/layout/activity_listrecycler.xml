@@ -60,6 +60,16 @@
             app:rippleColor="#33728dff"
             android:transitionName="shareNames"/>
 
+        <!--<info.abdolahi.CircularMusicProgressBar-->
+        <!--android:id="@+id/fb_playPause"-->
+        <!--android:layout_width="48dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:layout_gravity="right|bottom"-->
+        <!--android:layout_margin="16dp"-->
+        <!--app:backgroundTint="#ff975a"-->
+        <!--app:rippleColor="#33728dff"-->
+        <!--android:transitionName="shareNames"/>-->
+
     </FrameLayout>
 
     <include layout="@layout/item_drawer" />

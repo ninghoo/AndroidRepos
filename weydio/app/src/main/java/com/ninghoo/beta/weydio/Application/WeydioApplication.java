@@ -1,15 +1,8 @@
 package com.ninghoo.beta.weydio.Application;
 
 import android.app.Application;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
-import android.widget.RemoteViews;
 
 import com.ninghoo.beta.weydio.R;
 import com.ninghoo.beta.weydio.Model.Audio;
@@ -33,6 +26,7 @@ public class WeydioApplication extends Application
     private static ArrayList<Audio> mla;
 
     public static DisplayImageOptions mOptions;
+    public static DisplayImageOptions mOptionsBig;
 
     public static boolean isPlay;
 
@@ -132,6 +126,15 @@ public class WeydioApplication extends Application
                 .showImageOnLoading(R.drawable.oafront)
                 .showImageForEmptyUri(R.drawable.oafront)
                 .showImageOnFail(R.drawable.oafront)
+                .cacheOnDisk(true)
+                .cacheInMemory(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
+
+        mOptionsBig = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.oafront4)
+                .showImageForEmptyUri(R.drawable.oafront4)
+                .showImageOnFail(R.drawable.oafront4)
                 .cacheOnDisk(true)
                 .cacheInMemory(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)

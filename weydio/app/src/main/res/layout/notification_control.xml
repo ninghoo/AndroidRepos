@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/notice"
-              android:background="@drawable/four_corner_lhtgray"
+              android:background="@drawable/two_corner_wht"
               android:layout_width="match_parent"
               android:layout_height="80dp" >
-
-    <ImageView
-        android:id="@+id/bt_notic_close"
-        android:layout_width="10dp"
-        android:layout_height="match_parent"
-        android:background="@color/midnight_gray"/>
 
     <ImageView
         android:id="@+id/bt_notic_last"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@drawable/oafront"
+        android:background="@drawable/oafront4"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"/>
 
@@ -45,7 +39,17 @@
         android:layout_height="40dp"
         android:layout_alignTop="@+id/bt_notic_next"
         android:layout_toEndOf="@+id/bt_notic_close"
-        android:layout_marginStart="22dp"
+        android:layout_marginStart="18dp"
         android:layout_marginTop="5dp"/>
+
+    <ImageView
+        android:id="@+id/bt_notic_close"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:background="@drawable/four_corner_lhtgray"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
 
 </RelativeLayout>

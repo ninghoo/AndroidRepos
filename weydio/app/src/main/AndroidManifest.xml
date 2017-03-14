@@ -17,11 +17,12 @@
     <application
         android:name=".Application.WeydioApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_blk192"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.MusicRecyclerActivity" >
+        <activity android:name=".Activity.MusicRecyclerActivity"
+                  android:screenOrientation="nosensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +31,8 @@
         </activity>
 
         <activity android:name=".Activity.NowPlayActivity"
-                  android:theme="@style/NowPlayTheme" />
+                  android:theme="@style/NowPlayTheme"
+                  android:screenOrientation="nosensor"/>
 
         <activity android:name=".Activity.LockScreenActivity"
                   android:theme="@style/NowPlayTheme"

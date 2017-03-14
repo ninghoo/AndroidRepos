@@ -16,6 +16,7 @@ import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.ninghoo.beta.weydio.Model.AppConstant;
 import com.ninghoo.beta.weydio.Model.Audio;
 import com.ninghoo.beta.weydio.R;
 import com.ninghoo.beta.weydio.Service.MusicPlayService;
+import com.ninghoo.beta.weydio.Service.NotifyService;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xw.repo.BubbleSeekBar;
 
@@ -40,6 +42,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import info.abdolahi.CircularMusicProgressBar;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
@@ -75,7 +78,8 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
     private ArrayList<Audio> mData;
     Audio audio;
 
-    CircleImageView mAlbumArt;
+//    CircleImageView mAlbumArt;
+    CircularMusicProgressBar mAlbumArt;
 
     BroadcastReceiver receiver;
 
@@ -173,10 +177,10 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
 
 //        Log.i("URL" , ":"+url);
 
-        mAlbumArt = (CircleImageView) findViewById(R.id.ib_albumArt);
+        mAlbumArt = (CircularMusicProgressBar) findViewById(R.id.ib_albumArt);
 
         // 这里的ImageLoader，并没有用MediaUtils去获取专辑图片，而是直接获取歌曲专辑的地址。
-        ImageLoader.getInstance().displayImage(url, mAlbumArt, WeydioApplication.mOptions);
+        ImageLoader.getInstance().displayImage(url, mAlbumArt, WeydioApplication.mOptionsBig);
         setAnimation(mAlbumArt);
     }
 
@@ -291,7 +295,13 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
                 break;
 
             case R.id.ib_mustack:
-                finish();
+                Intent intent = new Intent();
+
+                intent.putExtra("MSG", AppConstant.PlayerMsg.MUSICSTACK_MSG);
+                intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+                // 在这里设置Intent去跳转制定的Sevice。
+
+                startService(intent);
                 break;
 
             default:
@@ -459,7 +469,9 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
                 switch (msg.what)
                 {
                     case 1:
-                        int millis = MusicPlayService.mediaPlayer.getDuration() - MusicPlayService.mediaPlayer.getCurrentPosition();
+                        int totalDuration = MusicPlayService.mediaPlayer.getDuration();
+                        int currentMillis = MusicPlayService.mediaPlayer.getCurrentPosition();
+                        int millis = totalDuration - currentMillis;
                         int secondnd = (millis / 1000) / 60;
                         int million = (millis / 1000) % 60;
                         String f = String.valueOf(secondnd);
@@ -467,6 +479,10 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
                                 + String.valueOf(million);
 
                         mTvTimeStill.setText("- " + f + "min . " + m + " -");
+
+                        float durationProgress = (float) currentMillis / totalDuration;
+                        mAlbumArt.setValue(durationProgress * 100);
+//                        Log.i("millis", ": "+ durationProgress);
                 }
             }
         }

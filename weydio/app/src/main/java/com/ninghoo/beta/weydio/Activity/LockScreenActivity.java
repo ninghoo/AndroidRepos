@@ -39,6 +39,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import info.abdolahi.CircularMusicProgressBar;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
@@ -74,7 +75,8 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
     private ArrayList<Audio> mData;
     Audio audio;
 
-    CircleImageView mAlbumArt;
+//    CircleImageView mAlbumArt;
+    CircularMusicProgressBar mAlbumArt;
 
     boolean isPause = true;
 
@@ -243,10 +245,10 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
 
 //        Log.i("URL" , ":"+url);
 
-        mAlbumArt = (CircleImageView) findViewById(R.id.ib_albumArt);
+        mAlbumArt = (CircularMusicProgressBar) findViewById(R.id.ib_albumArt);
 
         // 这里的ImageLoader，并没有用MediaUtils去获取专辑图片，而是直接获取歌曲专辑的地址。
-        ImageLoader.getInstance().displayImage(url, mAlbumArt, WeydioApplication.mOptions);
+        ImageLoader.getInstance().displayImage(url, mAlbumArt, WeydioApplication.mOptionsBig);
         setAnimation(mAlbumArt);
     }
 
@@ -517,13 +519,25 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
                         + String.valueOf(million);
 
                 mTvTimeStill.setText("- " + f + "min . " + m + " -");
+//                mTvTimeStill.setText("- " + f + "min . " + m + " -");
+
             }
             else
             {
                 switch (msg.what)
                 {
                     case 1:
-                        int millis = MusicPlayService.mediaPlayer.getDuration() - MusicPlayService.mediaPlayer.getCurrentPosition();
+//                        int millis = MusicPlayService.mediaPlayer.getDuration() - MusicPlayService.mediaPlayer.getCurrentPosition();
+//                        int secondnd = (millis / 1000) / 60;
+//                        int million = (millis / 1000) % 60;
+//                        String f = String.valueOf(secondnd);
+//                        String m = million >= 10 ? String.valueOf(million) : "0"
+//                                + String.valueOf(million);
+//
+//                        mTvTimeStill.setText("- " + f + "min . " + m + " -");
+                        int totalDuration = MusicPlayService.mediaPlayer.getDuration();
+                        int currentMillis = MusicPlayService.mediaPlayer.getCurrentPosition();
+                        int millis = totalDuration - currentMillis;
                         int secondnd = (millis / 1000) / 60;
                         int million = (millis / 1000) % 60;
                         String f = String.valueOf(secondnd);
@@ -531,6 +545,9 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
                                 + String.valueOf(million);
 
                         mTvTimeStill.setText("- " + f + "min . " + m + " -");
+
+                        float durationProgress = (float) currentMillis / totalDuration;
+                        mAlbumArt.setValue(durationProgress * 100);
                 }
             }
         }

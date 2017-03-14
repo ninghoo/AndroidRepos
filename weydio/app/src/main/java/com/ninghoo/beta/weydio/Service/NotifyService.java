@@ -44,7 +44,7 @@ public class NotifyService extends Service
     /** 关闭 按钮点击 ID */
     public final static int BUTTON_CLOSE_ID = 4;
 
-    public static boolean noticAgain = true;
+    public static boolean noticAgain = false;
 
     @Nullable
     @Override
@@ -193,9 +193,9 @@ public class NotifyService extends Service
             notify.contentView = remoteViews; // 设置下拉图标
             notify.bigContentView = remoteViews; // 防止显示不完全,需要添加apisupport
             notify.flags = Notification.FLAG_ONGOING_EVENT;
-            notify.icon = R.drawable.oafront;
+            notify.icon = R.mipmap.ic_launcher_blk192;
 
-            builder.setSmallIcon(R.drawable.oafront);
+            builder.setSmallIcon(R.mipmap.ic_launcher_blk192);
 
             mNotifyManager.notify(1, notify);
         }
