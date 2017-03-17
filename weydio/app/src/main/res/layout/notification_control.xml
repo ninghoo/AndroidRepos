@@ -44,8 +44,9 @@
 
     <ImageView
         android:id="@+id/bt_notic_close"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@drawable/ic_fiber_manual_record_white_18dp"
         android:background="@drawable/four_corner_lhtgray"
         android:layout_marginTop="1dp"
         android:layout_marginLeft="1dp"

@@ -44,7 +44,7 @@ public class NotifyService extends Service
     /** 关闭 按钮点击 ID */
     public final static int BUTTON_CLOSE_ID = 4;
 
-    public static boolean noticAgain = false;
+    public static boolean noticAgain = true;
 
     @Nullable
     @Override

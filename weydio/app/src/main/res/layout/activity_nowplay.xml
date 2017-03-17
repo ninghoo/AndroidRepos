@@ -47,7 +47,7 @@
             wave:bsb_second_track_size="17dp"
             wave:bsb_thumb_color="#ff975a"
             wave:bsb_thumb_text_color="#ffffff"
-            wave:bsb_track_color="#32000000"
+            wave:bsb_track_color="#3c000000"
             wave:bsb_second_track_color="#c4000000"
             wave:bsb_bubble_text_color="#ff975a"
             wave:bsb_bubble_color="#ffffff"
@@ -150,8 +150,8 @@
 
         <info.abdolahi.CircularMusicProgressBar
             android:id="@+id/ib_albumArt"
-            android:layout_width="185dp"
-            android:layout_height="185dp"
+            android:layout_width="190dp"
+            android:layout_height="195dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="15dp"
             android:layout_above="@+id/tv_nowArtistName"

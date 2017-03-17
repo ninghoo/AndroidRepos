@@ -162,8 +162,8 @@
 
         <info.abdolahi.CircularMusicProgressBar
             android:id="@+id/ib_albumArt"
-            android:layout_width="185dp"
-            android:layout_height="185dp"
+            android:layout_width="190dp"
+            android:layout_height="195dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="15dp"
             android:layout_above="@+id/tv_nowArtistName"

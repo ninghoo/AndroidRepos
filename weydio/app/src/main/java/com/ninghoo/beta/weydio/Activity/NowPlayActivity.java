@@ -16,13 +16,18 @@ import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
+import android.transition.ArcMotion;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +39,7 @@ import com.ninghoo.beta.weydio.Model.Audio;
 import com.ninghoo.beta.weydio.R;
 import com.ninghoo.beta.weydio.Service.MusicPlayService;
 import com.ninghoo.beta.weydio.Service.NotifyService;
+import com.ninghoo.beta.weydio.Utils.CustomChangeBounds;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xw.repo.BubbleSeekBar;
 
@@ -84,6 +90,7 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
     BroadcastReceiver receiver;
 
     boolean isPause = true;
+    boolean albumAnim = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -143,6 +150,8 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
 
         unregisterReceiver(mWeydioReceiver);
         unregisterReceiver(receiver);
+
+        albumAnim = false;
     }
 
     private void initNamenArtist()
@@ -181,7 +190,30 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
 
         // 这里的ImageLoader，并没有用MediaUtils去获取专辑图片，而是直接获取歌曲专辑的地址。
         ImageLoader.getInstance().displayImage(url, mAlbumArt, WeydioApplication.mOptionsBig);
-        setAnimation(mAlbumArt);
+
+        if(albumAnim)
+        {
+            setAnimation(mAlbumArt);
+        }
+        else
+        {
+            albumAnim = true;
+        }
+
+        mAlbumArt.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent();
+
+                intent.putExtra("MSG", AppConstant.PlayerMsg.MUSICSTACK_MSG);
+                intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+                // 在这里设置Intent去跳转制定的Sevice。
+
+                startService(intent);
+            }
+        });
     }
 
     private void initMusicCtrl()
@@ -193,6 +225,27 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
         mBtnMusicStack = (ImageView) findViewById(R.id.ib_mustack);
         mTvTimeStill = (TextView) findViewById(R.id.tv_timestill);
 
+        //------------------------------------------------------------------------------------------------------------------------------------------------
+        //定义ArcMotion
+        ArcMotion arcMotion = new ArcMotion();
+        arcMotion.setMinimumHorizontalAngle(50f);
+        arcMotion.setMinimumVerticalAngle(50f);
+
+        //插值器，控制速度
+        // getContext关键作用
+        Interpolator interpolator = AnimationUtils.loadInterpolator(WeydioApplication.getContext(), android.R.interpolator.fast_out_slow_in);
+
+        //实例化自定义的ChangeBounds
+        CustomChangeBounds changeBounds = new CustomChangeBounds();
+
+        changeBounds.setPathMotion(arcMotion);
+        changeBounds.setInterpolator(interpolator);
+        changeBounds.addTarget(mBtnPlayPause);
+
+        //将切换动画应用到当前的Activity的进入和返回
+        getWindow().setSharedElementEnterTransition(changeBounds);
+        getWindow().setSharedElementReturnTransition(changeBounds);
+        //------------------------------------------------------------------------------------------------------------------------------------------------
 
         mBtnPlayPause.setOnTouchListener(this);
         mBtnPrevious.setOnTouchListener(this);

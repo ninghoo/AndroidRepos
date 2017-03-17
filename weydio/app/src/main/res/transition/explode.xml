@@ -2,6 +2,6 @@
 <transitionManager xmlns:android="http://schemas.android.com/apk/res/android">
 
     <explode xmlns:android="http://schemas.android.com/apk/res/android"
-             android:duration="500" />
+             android:duration="600" />
 
 </transitionManager>

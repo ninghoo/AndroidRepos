@@ -18,8 +18,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -175,6 +178,7 @@ public class MusicRecyclerActivity extends CommonActivity implements View.OnClic
             @Override
             public boolean onLongClick(View v)
             {
+                turnToNow();
                 return false;
             }
         });
@@ -321,16 +325,16 @@ public class MusicRecyclerActivity extends CommonActivity implements View.OnClic
     {
         Intent intent = new Intent();
 
-        intent.setClass(WeydioApplication.getContext(), NowPlayActivity.class);
+        intent.setClass(MusicRecyclerActivity.this, NowPlayActivity.class);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MusicRecyclerActivity.this, mFloatBtn, "shareNames").toBundle());
-//            startActivity(intent);
-        }
-        else
-        {
-            startActivity(intent);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MusicRecyclerActivity.this, mFloatBtn, "shareNames").toBundle());
+////            startActivity(intent);
+//        }
+//        else
+//        {
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this, mFloatBtn, "shareNames").toBundle());
+//        }
     }
 
     private void initBroadCast()

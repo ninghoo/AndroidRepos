@@ -46,6 +46,7 @@ public class MusicPlayService extends NotifyService
     int msg;
 
     public static int currentIndex = 0;
+    private int randomLastIndex = 0;
 
     private int mMaxPosition;
 
@@ -215,6 +216,8 @@ public class MusicPlayService extends NotifyService
 
     private void randomPlay()
     {
+        randomLastIndex = currentIndex;
+
         Random rand =new Random();
         currentIndex =rand.nextInt(mMaxPosition);
         path = la.get(currentIndex).getmPath();
@@ -230,7 +233,7 @@ public class MusicPlayService extends NotifyService
             currentIndex = 0;
         }
 
-        la = WeydioApplication.getMla();
+//        la = WeydioApplication.getMla();
 
         audio = la.get(currentIndex);
 
@@ -241,14 +244,21 @@ public class MusicPlayService extends NotifyService
 
     private void previousSong()
     {
-        currentIndex--;
-
-        if(currentIndex < 0)
+        if(replay == AppConstant.PlayerMsg.RANDOM_MSG)
         {
-            currentIndex = mMaxPosition -1;
+            currentIndex = randomLastIndex;
+        }
+        else
+        {
+            currentIndex--;
+
+            if(currentIndex < 0)
+            {
+                currentIndex = mMaxPosition -1;
+            }
         }
 
-        la = WeydioApplication.getMla();
+//        la = WeydioApplication.getMla();
 
         audio = la.get(currentIndex);
 
