@@ -34,15 +34,6 @@
         android:layout_centerHorizontal="true"/>
 
     <ImageView
-        android:id="@+id/bt_notic_play"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/bt_notic_next"
-        android:layout_toEndOf="@+id/bt_notic_close"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="5dp"/>
-
-    <ImageView
         android:id="@+id/bt_notic_close"
         android:layout_width="18dp"
         android:layout_height="18dp"
@@ -52,5 +43,13 @@
         android:layout_marginLeft="1dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"/>
+
+    <ImageView
+        android:id="@+id/bt_notic_play"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/bt_notic_close"/>
 
 </RelativeLayout>

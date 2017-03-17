@@ -233,7 +233,7 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
 
         //插值器，控制速度
         // getContext关键作用
-        Interpolator interpolator = AnimationUtils.loadInterpolator(WeydioApplication.getContext(), android.R.interpolator.fast_out_slow_in);
+        Interpolator interpolator = AnimationUtils.loadInterpolator(WeydioApplication.getContext(), R.anim.fast_out_slow_in_custom);
 
         //实例化自定义的ChangeBounds
         CustomChangeBounds changeBounds = new CustomChangeBounds();

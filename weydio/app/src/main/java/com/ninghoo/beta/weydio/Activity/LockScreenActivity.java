@@ -250,6 +250,21 @@ public class LockScreenActivity extends SwipeBackActivity implements View.OnTouc
         // 这里的ImageLoader，并没有用MediaUtils去获取专辑图片，而是直接获取歌曲专辑的地址。
         ImageLoader.getInstance().displayImage(url, mAlbumArt, WeydioApplication.mOptionsBig);
         setAnimation(mAlbumArt);
+
+        mAlbumArt.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent();
+
+                intent.putExtra("MSG", AppConstant.PlayerMsg.MUSICSTACK_MSG);
+                intent.setClass(WeydioApplication.getContext(), MusicPlayService.class);
+                // 在这里设置Intent去跳转制定的Sevice。
+
+                startService(intent);
+            }
+        });
     }
 
     private void initMusicCtrl()

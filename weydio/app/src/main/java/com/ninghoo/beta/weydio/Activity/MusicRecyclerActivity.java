@@ -178,8 +178,10 @@ public class MusicRecyclerActivity extends CommonActivity implements View.OnClic
             @Override
             public boolean onLongClick(View v)
             {
-                turnToNow();
-                return false;
+                activityNextSong();
+
+                // 返回false会再一次调用onclick方法。
+                return true;
             }
         });
     }
