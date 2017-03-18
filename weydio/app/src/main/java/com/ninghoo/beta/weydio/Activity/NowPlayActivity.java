@@ -99,18 +99,18 @@ public class NowPlayActivity extends SwipeBackActivity implements View.OnTouchLi
 
         mData = WeydioApplication.getMla();
 
-        //判断横屏竖屏来填充不同的布局。
-        if(getResources().getConfiguration().orientation == 1)
-        {
+//        //判断横屏竖屏来填充不同的布局。
+//        if(getResources().getConfiguration().orientation == 1)
+//        {
             setContentView(R.layout.activity_nowplay);
 
             // 因为在横屏情况下，没有timestill的textView存在。
             initTextDuration();
-        }
-        else
-        {
-            setContentView(R.layout.activity_nowplay_horizonal);
-        }
+//        }
+//        else
+//        {
+//            setContentView(R.layout.activity_nowplay_horizonal);
+//        }
 
         initSwipeEdge();
 

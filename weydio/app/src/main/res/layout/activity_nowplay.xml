@@ -82,8 +82,8 @@
 
 
             <android.support.design.widget.FloatingActionButton
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
                 android:layout_gravity="center"
                 android:id="@+id/im_playPause"
                 android:layout_alignParentTop="true"
@@ -150,8 +150,8 @@
 
         <info.abdolahi.CircularMusicProgressBar
             android:id="@+id/ib_albumArt"
-            android:layout_width="190dp"
-            android:layout_height="195dp"
+            android:layout_width="185dp"
+            android:layout_height="185dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="15dp"
             android:layout_above="@+id/tv_nowArtistName"
