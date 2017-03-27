@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--这里只要定义了格式化类型，下面就可以不用重复编写？-->
+    <attr name="mediaNumb" format="string" />
+
+    <attr name="backgroudColor" format="color" />
+
+    <attr name="mediaNumbSize" format="dimension" />
+
+    <attr name="visiblity" format="boolean" />
+
+    <declare-styleable name="DrawSquare">
+        <attr name="mediaNumb" />
+        <attr name="backgroudColor" />
+        <attr name="mediaNumbSize" />
+    </declare-styleable>
+
+    <declare-styleable name="ScrollTextView">
+        <attr name="mediaNumb" />
+        <attr name="backgroudColor" />
+        <attr name="mediaNumbSize" />
+    </declare-styleable>
+
+    <declare-styleable name="FastScrollRecyclerView">
+        <attr name="fastScrollThumbColor" format="reference|color"/>
+        <attr name="fastScrollTrackColor" format="reference|color"/>
+        <attr name="fastScrollPopupBgColor" format="reference|color"/>
+        <attr name="fastScrollPopupTextColor" format="reference|color"/>
+        <attr name="fastScrollPopupTextSize" format="reference|dimension"/>
+        <attr name="fastScrollPopupBackgroundSize" format="reference|dimension"/>
+        <attr name="fastScrollAutoHide" format="reference|boolean"/>
+        <attr name="fastScrollAutoHideDelay" format="reference|integer"/>
+    </declare-styleable>
+</resources>

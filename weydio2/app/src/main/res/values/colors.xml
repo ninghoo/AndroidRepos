@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#fff</color>
+    <color name="colorPrimaryDark">#141d26</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="itemImageBg">#1c000000</color>
+    <color name="emerald">#2ecc71</color>
+    <color name="wisteria">#8e44ad</color>
+    <color name="clouds">#ecf0f1</color>
+    <color name="midnight_blue">#141d26</color>
+    <color name="midnight_gray">#202020</color>
+    <color name="line">#230a0a0a</color>
+    <color name="musicname">#ad000000</color>
+    <color name="originOrange">#ff975a</color>
+</resources>

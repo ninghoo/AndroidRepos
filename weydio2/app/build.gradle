@@ -4,17 +4,16 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.ninghoo.test.weydio"
+        applicationId "com.ninghoo.beta.weydio2"
         minSdkVersion 21
-        targetSdkVersion 21
+        targetSdkVersion 25
         versionCode 1
-        versionName "1.1.13"
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
-            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -25,14 +24,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:appcompat-v7:25.3.0'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:25.1.1'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile 'com.github.john990:WaveView:v0.9'
-    compile 'com.github.woxingxiao:BubbleSeekBar:v1.9'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.android.support:design:25.2.0'
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
-    compile 'com.github.aliab:circular-music-progressbar:v1.2.0'
 }

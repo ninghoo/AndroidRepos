@@ -82,8 +82,8 @@
 
 
             <android.support.design.widget.FloatingActionButton
-                android:layout_width="49dp"
-                android:layout_height="49dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:id="@+id/im_playPause"
                 android:layout_alignParentTop="true"
@@ -91,7 +91,6 @@
                 android:layout_margin="5dp"
                 app:backgroundTint="#ff975a"
                 app:rippleColor="#33333333"
-                android:elevation="30dp"
                 android:transitionName="shareNames"/>
 
             <ImageView

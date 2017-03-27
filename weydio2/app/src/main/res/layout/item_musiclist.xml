@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="35dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="10dp"
+    android:background="#fff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp" >
+
+            <TextView
+                android:id="@+id/item_tv_musicName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14.2dp"
+                android:textStyle="bold"
+                android:textColor="@color/musicname"
+                android:maxEms="14"
+                android:singleLine="true"
+                android:text="Parades"/>
+
+            <TextView
+                android:id="@+id/item_tv_musicArtist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxEms="22"
+                android:singleLine="true"
+                android:paddingTop="5dp"
+                android:textSize="10dp"
+                android:text="Kevin Morty"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/item_iv_musicCover"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/oafront"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"/>
+
+</LinearLayout>

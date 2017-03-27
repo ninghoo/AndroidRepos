@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.ninghoo.beta.weydio2.FastScrollView.FastScrollRecyclerView
+        android:id="@+id/recycl_musiclist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        app:fastScrollAutoHide="true"
+        app:fastScrollAutoHideDelay="1000"
+        app:fastScrollPopupBgColor="@color/midnight_blue"
+        app:fastScrollPopupTextColor="@android:color/primary_text_dark"
+        app:fastScrollPopupTextSize="49sp"
+        app:fastScrollPopupBackgroundSize="88dp"
+        app:fastScrollThumbColor="#ff975a"
+        app:fastScrollTrackColor="#00000000"
+        />
+
+</LinearLayout>
