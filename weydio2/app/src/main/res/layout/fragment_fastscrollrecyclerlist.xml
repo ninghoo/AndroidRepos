@@ -5,7 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <com.ninghoo.beta.weydio2.FastScrollView.FastScrollRecyclerView
+    <com.ninghoo.beta17ma27.weydio2.FastScrollView.FastScrollRecyclerView
         android:id="@+id/recycl_musiclist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,5 +21,10 @@
         app:fastScrollThumbColor="#ff975a"
         app:fastScrollTrackColor="#00000000"
         />
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/recycl_musiclist"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
 
 </LinearLayout>

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.ninghoo.beta.weydio2"
+        applicationId "com.ninghoo.beta17ma27.weydio2"
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
